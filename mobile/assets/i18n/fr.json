@@ -1,0 +1,48 @@
+{
+  "app": {
+    "name": "Nasoma",
+    "slogan": "Mimi, Nasoma. — Moi, j'étudie."
+  },
+  "onboarding": {
+    "step1_title": "Scanne ta copie",
+    "step1_body": "Prends en photo ta dernière dictée ou ton exercice de maths.",
+    "step2_title": "L'IA repère tes erreurs",
+    "step2_body": "Mimi analyse ta copie et te montre exactement où tu te trompes.",
+    "step3_title": "Comble ta lacune",
+    "step3_body": "Fais 3 mini-exercices ciblés. Demain, tu es prêt.",
+    "cta_next": "Suivant",
+    "cta_start": "Commencer"
+  },
+  "auth": {
+    "phone_title": "Quel est ton numéro ?",
+    "phone_hint": "+269 XX XX XX XX",
+    "otp_title": "Code reçu par SMS",
+    "otp_hint": "6 chiffres",
+    "send_otp": "Envoyer le code",
+    "verify": "Vérifier"
+  },
+  "scan": {
+    "title": "Scanner une copie",
+    "instruction": "Pose ta copie à plat, bien éclairée.",
+    "capture": "Capturer",
+    "retake": "Reprendre",
+    "validate": "Valider"
+  },
+  "paywall": {
+    "title": "Plus de scans gratuits",
+    "subtitle": "Tu as utilisé tes 3 scans découverte. Choisis un ticket pour continuer.",
+    "ticket_daily": "Ticket Journalier",
+    "ticket_three_day": "Ticket 3 Jours",
+    "ticket_three_day_hint": "15 scans · 3 jours · préparation examen",
+    "ticket_weekly": "Hebdo",
+    "ticket_monthly": "Mensuel · par enfant",
+    "ticket_monthly_hint": "1 500 KMF par enfant · 120 scans/mois · rapport hebdo in-app"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error_generic": "Une erreur est survenue. Réessaye.",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "ok": "OK"
+  }
+}

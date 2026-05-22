@@ -1,0 +1,48 @@
+{
+  "app": {
+    "name": "Nasoma",
+    "slogan": "Mimi, Nasoma. — I study."
+  },
+  "onboarding": {
+    "step1_title": "Scan your homework",
+    "step1_body": "Take a photo of your latest dictation or math exercise.",
+    "step2_title": "AI spots your mistakes",
+    "step2_body": "Mimi reviews your work and shows you exactly where you went wrong.",
+    "step3_title": "Fill the gap",
+    "step3_body": "Do 3 short targeted exercises. Tomorrow, you're ready.",
+    "cta_next": "Next",
+    "cta_start": "Start"
+  },
+  "auth": {
+    "phone_title": "What's your number?",
+    "phone_hint": "+269 XX XX XX XX",
+    "otp_title": "Code received by SMS",
+    "otp_hint": "6 digits",
+    "send_otp": "Send code",
+    "verify": "Verify"
+  },
+  "scan": {
+    "title": "Scan a copy",
+    "instruction": "Place your sheet flat, well lit.",
+    "capture": "Capture",
+    "retake": "Retake",
+    "validate": "Validate"
+  },
+  "paywall": {
+    "title": "No more free scans",
+    "subtitle": "You've used your 3 discovery scans. Pick a ticket to keep going.",
+    "ticket_daily": "Daily Ticket",
+    "ticket_three_day": "3-Day Ticket",
+    "ticket_three_day_hint": "15 scans · 3 days · exam prep",
+    "ticket_weekly": "Weekly",
+    "ticket_monthly": "Monthly · per child",
+    "ticket_monthly_hint": "1,500 KMF per child · 120 scans/month · weekly in-app report"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error_generic": "Something went wrong. Try again.",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "ok": "OK"
+  }
+}

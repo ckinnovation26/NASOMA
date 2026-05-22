@@ -1,0 +1,93 @@
+{
+  "app": {
+    "name": "Nasoma",
+    "slogan": "ميمي، أدرس."
+  },
+  "onboarding": {
+    "step1_title": "صوّر دفتر تمارينك",
+    "step1_body": "التقط صورة لإملائك أو لتمرين الرياضيات.",
+    "step2_title": "الذكاء الاصطناعي يكتشف أخطاءك",
+    "step2_body": "ميمي يحلّل عملك ويُريك أين أخطأت بالضبط.",
+    "step3_title": "سدّ الثغرة",
+    "step3_body": "قم بحلّ 3 تمارين قصيرة موجّهة. غدًا، أنت جاهز.",
+    "cta_next": "التالي",
+    "cta_start": "ابدأ"
+  },
+  "auth": {
+    "phone_title": "ما هو رقمك؟",
+    "phone_hint": "+269 XX XX XX XX",
+    "otp_title": "الرمز المُستلَم عبر الرسائل",
+    "otp_hint": "6 أرقام",
+    "send_otp": "إرسال الرمز",
+    "verify": "تحقق"
+  },
+  "scan": {
+    "title": "تصوير ورقة",
+    "instruction": "ضع ورقتك مسطّحة، بإضاءة جيّدة.",
+    "capture": "التقط",
+    "retake": "التقط من جديد",
+    "validate": "تأكيد"
+  },
+  "paywall": {
+    "title": "لا توجد عمليات تصوير مجّانية بعد",
+    "subtitle": "استخدمت عملياتك المجّانية الثلاث. اختر تذكرة للمتابعة.",
+    "ticket_daily": "تذكرة يوميّة",
+    "ticket_weekly": "أسبوعيّة",
+    "ticket_monthly": "شهريّة · لكل طفل",
+    "ticket_monthly_hint": "1500 فرنك قمري لكل طفل · 120 صورة شهريًّا"
+  },
+  "session": {
+    "title": "درسك",
+    "exercise": "التمرين {num}",
+    "of": "من",
+    "submit_answer": "أرسل",
+    "next": "التالي",
+    "completed": "اكتملت!",
+    "score": "العلامة:",
+    "continue": "المتابعة"
+  },
+  "diagnostic": {
+    "title": "النتائج",
+    "identifying": "يبحث عن الثغرة…",
+    "found": "وُجدت ثغرة:",
+    "exercises_count": "{count} تمارين موجّهة لسدّ هذه الثغرة.",
+    "start_session": "ابدأ الدرس"
+  },
+  "home": {
+    "title": "الرئيسية",
+    "welcome": "أهلًا، {name}",
+    "quick_actions": "الإجراءات السريعة",
+    "recent_scans": "التصويرات الأخيرة",
+    "no_scans": "لا توجد تصويرات بعد",
+    "profile": "الملف الشخصي"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "name": "الاسم",
+    "school": "المدرسة",
+    "grade": "المستوى",
+    "logout": "تسجيل الخروج",
+    "settings": "الإعدادات"
+  },
+  "error": {
+    "upload_failed": "فشل الرفع",
+    "network_error": "خطأ في الشبكة",
+    "invalid_otp": "الرمز غير صحيح",
+    "phone_required": "الرقم مطلوب",
+    "otp_required": "الرمز مطلوب",
+    "session_failed": "فشل بدء الدرس"
+  },
+  "success": {
+    "otp_sent": "تم إرسال الرمز",
+    "session_completed": "اكتمل الدرس!",
+    "answer_submitted": "تم قبول الإجابة"
+  },
+  "common": {
+    "loading": "جارٍ التحميل…",
+    "error_generic": "حدث خطأ. أعد المحاولة.",
+    "retry": "أعد المحاولة",
+    "cancel": "إلغاء",
+    "ok": "موافق",
+    "back": "رجوع"
+  }
+}

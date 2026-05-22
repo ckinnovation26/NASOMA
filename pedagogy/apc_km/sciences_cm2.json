@@ -1,0 +1,225 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "SCI",
+    "grade_level": "CM2",
+    "target_concepts": 60,
+    "validated_by": null,
+    "version": "0.2.0-seed"
+  },
+  "concepts": [
+    {
+      "code": "SCI_CM2_CORPS_HUMAIN_ORGANES",
+      "name": "Le corps humain — organes principaux",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.1.1"},
+      "description": "Identifier les principaux organes du corps humain (cœur, poumons, estomac, cerveau).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_RESPIRATION",
+      "name": "La respiration",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["SCI_CM2_CORPS_HUMAIN_ORGANES"],
+      "curriculum_refs": {"APC_KM": "S.5.1.2"},
+      "description": "Comprendre le mécanisme de la respiration (inspiration/expiration, rôle des poumons).",
+      "common_errors": [{"code": "swap_inspire_expire", "description": "Inversion inspiration/expiration"}]
+    },
+    {
+      "code": "SCI_CM2_CIRCULATION_SANG",
+      "name": "La circulation du sang",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["SCI_CM2_CORPS_HUMAIN_ORGANES"],
+      "curriculum_refs": {"APC_KM": "S.5.1.3"},
+      "description": "Comprendre le rôle du cœur, des artères et des veines.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_DIGESTION",
+      "name": "La digestion",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["SCI_CM2_CORPS_HUMAIN_ORGANES"],
+      "curriculum_refs": {"APC_KM": "S.5.1.4"},
+      "description": "Comprendre le trajet des aliments (bouche → estomac → intestins).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_DENTS_HYGIENE",
+      "name": "Les dents et l'hygiène buccale",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["SCI_CM2_DIGESTION"],
+      "curriculum_refs": {"APC_KM": "S.5.1.5"},
+      "description": "Connaître les types de dents et les règles d'hygiène.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_ALIMENTATION_EQUILIBREE",
+      "name": "Alimentation équilibrée et groupes d'aliments",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["SCI_CM2_DIGESTION"],
+      "curriculum_refs": {"APC_KM": "S.5.1.6"},
+      "description": "Classer les aliments (protéines, glucides, lipides, fruits/légumes).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_CINQ_SENS",
+      "name": "Les cinq sens",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.1.7"},
+      "description": "Identifier les 5 sens et les organes associés.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_VIVANT_CYCLE_EAU",
+      "name": "Le cycle de l'eau",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.2.1"},
+      "description": "Comprendre évaporation, condensation, précipitation, ruissellement.",
+      "common_errors": [{"code": "swap_evap_cond", "description": "Confusion évaporation / condensation"}]
+    },
+    {
+      "code": "SCI_CM2_ETATS_EAU",
+      "name": "Les trois états de l'eau",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.2.2"},
+      "description": "Identifier les états solide, liquide, gazeux et les changements d'état.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_VEGETAUX_PARTIES",
+      "name": "Les plantes — racine, tige, feuille, fleur",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.3.1"},
+      "description": "Identifier les parties d'une plante et leur fonction.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_GERMINATION",
+      "name": "La germination d'une graine",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["SCI_CM2_VEGETAUX_PARTIES"],
+      "curriculum_refs": {"APC_KM": "S.5.3.2"},
+      "description": "Connaître les conditions de germination (eau, chaleur, air).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_PHOTOSYNTHESE_INTRO",
+      "name": "Introduction à la photosynthèse",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["SCI_CM2_VEGETAUX_PARTIES"],
+      "curriculum_refs": {"APC_KM": "S.5.3.3"},
+      "description": "Comprendre que les plantes fabriquent leur nourriture avec la lumière.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_ANIMAUX_CLASSES",
+      "name": "Classification des animaux (mammifères, oiseaux, poissons, insectes)",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.4.1"},
+      "description": "Classer les animaux dans les 4 grands groupes.",
+      "common_errors": [{"code": "whale_fish", "description": "Confusion baleine = poisson (c'est un mammifère)"}]
+    },
+    {
+      "code": "SCI_CM2_CHAINE_ALIMENTAIRE",
+      "name": "La chaîne alimentaire",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["SCI_CM2_ANIMAUX_CLASSES", "SCI_CM2_VEGETAUX_PARTIES"],
+      "curriculum_refs": {"APC_KM": "S.5.4.2"},
+      "description": "Comprendre les relations producteurs/consommateurs/décomposeurs.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_AIMANT",
+      "name": "Les aimants",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.5.1"},
+      "description": "Reconnaître les matériaux attirés par un aimant (fer, nickel).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_ELECTRICITE_CIRCUIT",
+      "name": "Circuit électrique simple",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.5.2"},
+      "description": "Construire un circuit simple (pile, fil, ampoule, interrupteur).",
+      "common_errors": [{"code": "open_circuit", "description": "Circuit ouvert : oubli de connexion"}]
+    },
+    {
+      "code": "SCI_CM2_LEVIER",
+      "name": "Le levier (notion)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.5.3"},
+      "description": "Comprendre la notion de levier (pivot, force).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_VOLCANS_INTRO",
+      "name": "Les volcans (notion)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.6.1"},
+      "description": "Connaître la structure d'un volcan (cratère, magma, lave) — pertinent Karthala.",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_TEMPS_METEO",
+      "name": "Le temps et la météo",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.6.2"},
+      "description": "Reconnaître les phénomènes météorologiques (saisons sèche / pluies aux Comores).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_HYGIENE_PROPRETE",
+      "name": "Règles d'hygiène et de propreté",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "S.5.7.1"},
+      "description": "Comprendre l'importance de la propreté pour la santé (lavage des mains, eau potable).",
+      "common_errors": []
+    },
+    {
+      "code": "SCI_CM2_MALADIES_TROPICALES",
+      "name": "Maladies tropicales courantes (paludisme, dengue)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["SCI_CM2_HYGIENE_PROPRETE"],
+      "curriculum_refs": {"APC_KM": "S.5.7.2"},
+      "description": "Connaître les modes de transmission et la prévention du paludisme.",
+      "common_errors": []
+    }
+  ]
+}

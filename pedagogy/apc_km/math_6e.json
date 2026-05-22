@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "MATH",
+    "grade_level": "6E",
+    "target_concepts": 100,
+    "validated_by": null,
+    "version": "0.1.0-draft"
+  },
+  "concepts": [
+    {
+      "code": "MATH_6E_FRAC_INTRO",
+      "name": "Fractions — notion et écriture",
+      "name_shikomori": "Asilamu ya nambari",
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["MATH_CM2_DIVISION"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-01" },
+      "description": "Comprendre qu'une fraction représente une partie d'un entier ou d'une collection. Lire et écrire a/b.",
+      "common_errors": [
+        { "code": "FRAC_DENOM_ZERO", "description": "Écrire un dénominateur égal à 0" },
+        { "code": "FRAC_ENTIER_CONFUSION", "description": "Confondre 3/1 et 3" }
+      ]
+    },
+    {
+      "code": "MATH_6E_FRAC_COMPARE",
+      "name": "Fractions — comparaison et ordre",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["MATH_6E_FRAC_INTRO"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-02" },
+      "description": "Comparer deux fractions avec le même dénominateur, puis avec des dénominateurs différents (réduction au même dénominateur).",
+      "common_errors": [
+        { "code": "FRAC_COMPARE_WRONG", "description": "Comparer uniquement les numérateurs sans réduire au même dénominateur" }
+      ]
+    },
+    {
+      "code": "MATH_6E_FRAC_ADD",
+      "name": "Fractions — addition et soustraction",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 30,
+      "prerequisites": ["MATH_6E_FRAC_COMPARE"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-03" },
+      "description": "Additionner et soustraire des fractions de même dénominateur, puis de dénominateurs différents.",
+      "common_errors": [
+        { "code": "FRAC_ADD_DENOM", "description": "Additionner les dénominateurs au lieu de les garder égaux" },
+        { "code": "FRAC_NO_SIMPLIFY", "description": "Oublier de simplifier le résultat" }
+      ]
+    },
+    {
+      "code": "MATH_6E_FRAC_MULT",
+      "name": "Fractions — multiplication",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["MATH_6E_FRAC_ADD"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-04" },
+      "description": "Multiplier deux fractions : (a/b) × (c/d) = (a×c)/(b×d). Simplification avant ou après.",
+      "common_errors": [
+        { "code": "FRAC_MULT_ADD_ERROR", "description": "Additionner au lieu de multiplier les numérateurs et dénominateurs" }
+      ]
+    },
+    {
+      "code": "MATH_6E_DECIMAL_ECRITURE",
+      "name": "Nombres décimaux — écriture et valeur positionnelle",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["MATH_CM2_DIVISION"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-05" },
+      "description": "Lire, écrire et situer des nombres décimaux sur la droite graduée. Valeur des chiffres après la virgule.",
+      "common_errors": [
+        { "code": "DECIMAL_POSITION", "description": "Confondre dixièmes et centièmes" },
+        { "code": "DECIMAL_ZERO", "description": "Croire que 1,50 ≠ 1,5" }
+      ]
+    },
+    {
+      "code": "MATH_6E_DECIMAL_OPER",
+      "name": "Nombres décimaux — opérations",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 30,
+      "prerequisites": ["MATH_6E_DECIMAL_ECRITURE"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-06" },
+      "description": "Additionner, soustraire et multiplier des nombres décimaux. Aligner les virgules en addition.",
+      "common_errors": [
+        { "code": "DECIMAL_ALIGN", "description": "Ne pas aligner les virgules lors de l'addition" },
+        { "code": "DECIMAL_MULT_VIRGULE", "description": "Mal placer la virgule dans le produit" }
+      ]
+    },
+    {
+      "code": "MATH_6E_PROPOR_INTRO",
+      "name": "Proportionnalité — tableaux de proportionnalité",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 30,
+      "prerequisites": ["MATH_6E_DECIMAL_OPER", "MATH_6E_FRAC_MULT"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-07" },
+      "description": "Reconnaître une situation de proportionnalité. Compléter un tableau par la règle de trois (produit en croix).",
+      "common_errors": [
+        { "code": "PROPOR_INVERSION", "description": "Inverser les termes dans le produit en croix" }
+      ]
+    },
+    {
+      "code": "MATH_6E_GEO_TRIANGLE",
+      "name": "Géométrie — triangles (types et construction)",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-08" },
+      "description": "Identifier et construire les triangles (équilatéral, isocèle, rectangle, quelconque). Règle, compas.",
+      "common_errors": [
+        { "code": "GEO_ISOCELE_CONF", "description": "Confondre triangle isocèle et équilatéral" }
+      ]
+    },
+    {
+      "code": "MATH_6E_GEO_CERCLE",
+      "name": "Géométrie — cercle, rayon, diamètre, périmètre",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "prerequisites": ["MATH_6E_GEO_TRIANGLE"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-09" },
+      "description": "Vocabulaire (centre, rayon, diamètre, corde). Calcul du périmètre (C = 2πr) et de l'aire (A = πr²).",
+      "common_errors": [
+        { "code": "CERCLE_RAY_DIAM", "description": "Confondre rayon et diamètre dans les formules" }
+      ]
+    },
+    {
+      "code": "MATH_6E_GEO_PERIM_AIRE",
+      "name": "Géométrie — périmètre et aire des figures usuelles",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 30,
+      "prerequisites": ["MATH_6E_GEO_CERCLE"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-10" },
+      "description": "Calculer périmètre et aire du rectangle, carré, triangle et parallélogramme.",
+      "common_errors": [
+        { "code": "AIRE_PERIM_CONF", "description": "Confondre formules de périmètre et d'aire" },
+        { "code": "AIRE_UNITES", "description": "Oublier de mettre les unités au carré pour les aires" }
+      ]
+    },
+    {
+      "code": "MATH_6E_STATS_INTRO",
+      "name": "Statistiques — moyenne, tableau de données",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["MATH_6E_DECIMAL_OPER"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-11" },
+      "description": "Calculer la moyenne arithmétique d'une série de données. Lire et construire un tableau de fréquences.",
+      "common_errors": [
+        { "code": "MOYENNE_DENOM", "description": "Diviser par autre chose que le nombre de données" }
+      ]
+    },
+    {
+      "code": "MATH_6E_ENTIERS_RELATIFS",
+      "name": "Nombres entiers relatifs — introduction",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["MATH_6E_DECIMAL_ECRITURE"],
+      "curriculum_refs": { "apc_km_2010": "C2-M-6E-12" },
+      "description": "Comprendre les entiers relatifs (positifs et négatifs) sur la droite graduée. Comparaison et addition.",
+      "common_errors": [
+        { "code": "RELATIFS_SIGNE", "description": "Confondre -3 < -1 et 3 > 1 (inversion de l'ordre des négatifs)" }
+      ]
+    }
+  ]
+}

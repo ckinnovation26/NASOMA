@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(py *)",
+      "PowerShell(New-Item *)",
+      "Bash(flutter pub *)"
+    ]
+  }
+}

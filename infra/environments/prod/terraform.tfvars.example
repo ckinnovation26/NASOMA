@@ -1,0 +1,12 @@
+project_id      = "nasoma-prod-CHANGEME"
+region          = "africa-south1"
+backend_image   = "africa-south1-docker.pkg.dev/nasoma-prod-CHANGEME/nasoma/backend:0.1.0"
+billing_account = "012345-678901-ABCDEF"
+alert_emails    = ["kader@ckinnovation.fr"]
+
+# Instructions :
+# 1. Copier ce fichier : cp terraform.tfvars.example terraform.tfvars
+# 2. Remplacer CHANGEME par le vrai project_id GCP
+# 3. Ne jamais committer terraform.tfvars (déjà dans .gitignore)
+# 4. Créer le bucket d'état avant le premier apply :
+#    gcloud storage buckets create gs://nasoma-tfstate-prod --location=africa-south1

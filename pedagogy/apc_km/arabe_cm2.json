@@ -1,0 +1,126 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "AR",
+    "grade_level": "CM2",
+    "target_concepts": 25,
+    "validated_by": null,
+    "version": "0.2.0-seed",
+    "notes": "Arabe coranique — différenciateur Comores. Focus lecture du Coran + tajwid de base."
+  },
+  "concepts": [
+    {
+      "code": "AR_CM2_ALPHABET",
+      "name": "Alphabet arabe complet (28 lettres)",
+      "difficulty": 1,
+      "estimated_minutes": 12,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "A.5.1.1"},
+      "description": "Lire et écrire les 28 lettres de l'alphabet arabe avec leurs 4 formes (isolée, initiale, médiane, finale).",
+      "common_errors": [{"code": "form_confusion", "description": "Confusion entre formes initiale et médiane"}]
+    },
+    {
+      "code": "AR_CM2_VOYELLES_COURTES",
+      "name": "Voyelles courtes (fatha, kasra, damma)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM2_ALPHABET"],
+      "curriculum_refs": {"APC_KM": "A.5.1.2"},
+      "description": "Reconnaître et appliquer les trois voyelles courtes.",
+      "common_errors": [{"code": "missed_harakat", "description": "Oubli des harakat à la lecture"}]
+    },
+    {
+      "code": "AR_CM2_VOYELLES_LONGUES",
+      "name": "Voyelles longues (alif, ya, waw)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM2_VOYELLES_COURTES"],
+      "curriculum_refs": {"APC_KM": "A.5.1.3"},
+      "description": "Reconnaître les voyelles longues et leur durée.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM2_SOUKOUN_CHADDA",
+      "name": "Soukoun et chadda",
+      "difficulty": 3,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM2_VOYELLES_LONGUES"],
+      "curriculum_refs": {"APC_KM": "A.5.1.4"},
+      "description": "Lire correctement les lettres avec soukoun (absence de voyelle) et chadda (gémination).",
+      "common_errors": [{"code": "miss_chadda", "description": "Oubli de la double prononciation"}]
+    },
+    {
+      "code": "AR_CM2_TANWIN",
+      "name": "Tanwin (nounation : an, in, oun)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM2_VOYELLES_COURTES"],
+      "curriculum_refs": {"APC_KM": "A.5.1.5"},
+      "description": "Reconnaître et prononcer les trois tanwins.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM2_LECTURE_FATIHA",
+      "name": "Lecture de la sourate Al-Fatiha",
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "prerequisites": ["AR_CM2_SOUKOUN_CHADDA", "AR_CM2_TANWIN"],
+      "curriculum_refs": {"APC_KM": "A.5.2.1"},
+      "description": "Lire et mémoriser la sourate Al-Fatiha (ouverture, 7 versets).",
+      "common_errors": [{"code": "wrong_madd", "description": "Mauvaise prolongation des voyelles longues"}]
+    },
+    {
+      "code": "AR_CM2_LECTURE_PETITES_SOURATES",
+      "name": "Lecture des petites sourates (Al-Ikhlas, Al-Falaq, An-Nas)",
+      "difficulty": 3,
+      "estimated_minutes": 20,
+      "prerequisites": ["AR_CM2_LECTURE_FATIHA"],
+      "curriculum_refs": {"APC_KM": "A.5.2.2"},
+      "description": "Lire correctement les 3 dernières sourates courtes du Coran.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM2_TAJWID_BASE",
+      "name": "Règles de tajwid de base (idhar, idgham)",
+      "difficulty": 4,
+      "estimated_minutes": 15,
+      "prerequisites": ["AR_CM2_LECTURE_PETITES_SOURATES"],
+      "curriculum_refs": {"APC_KM": "A.5.3.1"},
+      "description": "Appliquer les règles élémentaires de tajwid pour la récitation correcte.",
+      "common_errors": [{"code": "no_tajwid", "description": "Lecture mécanique sans tajwid"}]
+    },
+    {
+      "code": "AR_CM2_VOCAB_FAMILLE",
+      "name": "Vocabulaire de la famille",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM2_VOYELLES_COURTES"],
+      "curriculum_refs": {"APC_KM": "A.5.4.1"},
+      "description": "Connaître le vocabulaire arabe usuel de la famille (père, mère, frère, sœur).",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM2_VOCAB_CHIFFRES",
+      "name": "Chiffres arabes 1 à 20",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM2_VOYELLES_COURTES"],
+      "curriculum_refs": {"APC_KM": "A.5.4.2"},
+      "description": "Lire et écrire les chiffres arabes de 1 à 20.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM2_ECRITURE_PROPRE",
+      "name": "Écriture soignée des mots arabes",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["AR_CM2_ALPHABET"],
+      "curriculum_refs": {"APC_KM": "A.5.1.6"},
+      "description": "Écrire les mots arabes avec liaisons correctes entre les lettres.",
+      "common_errors": [{"code": "wrong_ligature", "description": "Liaisons incorrectes ou lettres séparées qui devraient être attachées"}]
+    }
+  ]
+}

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nasoma Vendor — Tableau de bord</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0A0A0A;
+      --bg: #050505;
+      --charcoal: #1A1A1A;
+      --card: #161616;
+      --lime: #D4FF80;
+      --lime-dark: #B8E55A;
+      --text-primary: #F5F5F5;
+      --text-secondary: #B0B0B0;
+      --text-tertiary: #6B6B6B;
+      --border: #2A2A2A;
+      --error: #FF6B6B;
+      --warning: #FFB84A;
+      --success: #D4FF80;
+      --info: #5EA8FF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--black);
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 8px; padding: 0 8px;
+    }
+    .brand-icon {
+      width: 36px; height: 36px; background: var(--lime);
+      border-radius: 9px; display: grid; place-items: center;
+      font-weight: 800; color: black; font-size: 20px;
+    }
+    .brand-text { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+    .brand-sub { font-size: 11px; color: var(--lime); margin-top: 2px; font-weight: 600; }
+
+    .vendor-card {
+      margin: 16px 8px 24px;
+      padding: 12px;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .vendor-card .role {
+      display: inline-block;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 6px; border-radius: 4px;
+      background: rgba(212, 255, 128, 0.15);
+      color: var(--lime);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .vendor-card .name { font-size: 13px; font-weight: 600; }
+    .vendor-card .code { font-size: 11px; color: var(--text-tertiary); font-family: monospace; margin-top: 2px; }
+    .vendor-card .island { font-size: 11px; color: var(--text-secondary); margin-top: 6px; }
+
+    .nav-section { margin-bottom: 20px; }
+    .nav-title {
+      font-size: 11px; font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 0 12px; margin-bottom: 6px;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13.5px; color: var(--text-secondary);
+      cursor: pointer; border: none; background: transparent;
+      width: 100%; text-align: left; font-family: inherit;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-item:hover { background: var(--card); color: var(--text-primary); }
+    .nav-item.active { background: var(--lime); color: black; font-weight: 600; }
+    .nav-item .emoji { font-size: 15px; }
+    .nav-item .badge {
+      margin-left: auto;
+      background: var(--error); color: white;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 6px; border-radius: 10px;
+    }
+
+    /* Main */
+    .main { padding: 32px 40px; max-width: 1200px; }
+    .page { display: none; animation: fadein 0.2s ease-out; }
+    .page.show { display: block; }
+    @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    .page-header { margin-bottom: 28px; }
+    .breadcrumb { font-size: 12px; color: var(--text-tertiary); margin-bottom: 6px; }
+    .page-title { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+    .page-subtitle { color: var(--text-secondary); margin-top: 4px; font-size: 14px; }
+
+    /* Stats cards */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px;
+    }
+    .stat-label { font-size: 11px; font-weight: 700; color: var(--text-tertiary);
+                  text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-value { font-size: 28px; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+    .stat-delta { font-size: 12px; margin-top: 4px; }
+    .stat-delta.up { color: var(--lime); }
+    .stat-delta.down { color: var(--error); }
+
+    /* Card */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    /* Forms */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 12px; font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .form-input, .form-select {
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--lime); }
+    .form-input::placeholder { color: var(--text-tertiary); }
+    .chip-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      padding: 8px 14px;
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px; cursor: pointer;
+    }
+    .chip.selected { background: var(--lime); color: black; border-color: var(--lime); font-weight: 600; }
+    .checkbox-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px;
+      background: var(--charcoal);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .checkbox-row input[type="checkbox"] { margin-top: 2px; accent-color: var(--lime); }
+    .checkbox-row .label-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .checkbox-row .required { color: var(--error); font-weight: 600; }
+
+    /* Buttons */
+    .btn {
+      padding: 12px 24px; border: none; border-radius: 10px;
+      font-family: inherit; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-primary { background: var(--lime); color: black; }
+    .btn-primary:hover { background: var(--lime-dark); }
+    .btn-secondary { background: var(--charcoal); color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #222; }
+    .btn-danger { background: var(--error); color: white; }
+    .btn-full { width: 100%; }
+    .btn-row { display: flex; gap: 12px; justify-content: flex-end; margin-top: 12px; }
+
+    /* Search bar */
+    .search-bar {
+      display: flex; gap: 10px;
+      background: var(--card); border: 2px solid var(--border);
+      border-radius: 14px; padding: 6px;
+      align-items: center;
+    }
+    .search-bar.focus { border-color: var(--lime); }
+    .search-bar .country {
+      padding: 12px 14px; font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .search-bar input {
+      flex: 1; background: transparent; border: none; outline: none;
+      color: var(--text-primary); font-family: inherit; font-size: 16px;
+      padding: 12px 0;
+    }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .badge.active { background: rgba(212, 255, 128, 0.15); color: var(--lime); }
+    .badge.grace { background: rgba(255, 184, 74, 0.15); color: var(--warning); }
+    .badge.frozen { background: rgba(255, 107, 107, 0.15); color: var(--error); }
+    .badge.discovery { background: rgba(94, 168, 255, 0.15); color: var(--info); }
+    .badge.kyc-verified { background: rgba(212, 255, 128, 0.15); color: var(--lime); }
+    .badge.kyc-pending { background: rgba(255, 184, 74, 0.15); color: var(--warning); }
+    .badge.kyc-not-verified { background: rgba(255, 107, 107, 0.15); color: var(--error); }
+
+    /* Outstanding bill row */
+    .bill-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 14px;
+      background: var(--charcoal);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--warning);
+    }
+    .bill-row .desc { font-size: 13px; }
+    .bill-row .meta { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+    .bill-row .amount { font-size: 16px; font-weight: 700; color: var(--warning); }
+    .bill-row.selected { border-left-color: var(--lime); background: rgba(212, 255, 128, 0.05); }
+
+    /* Plan cards */
+    .plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .plan-card-vendor {
+      background: var(--charcoal);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .plan-card-vendor:hover { border-color: #444; }
+    .plan-card-vendor.selected { border-color: var(--lime); background: rgba(212, 255, 128, 0.05); }
+    .plan-card-vendor .plan-name { font-weight: 600; font-size: 14px; }
+    .plan-card-vendor .plan-price { font-size: 22px; font-weight: 800; color: var(--lime); margin-top: 4px; }
+    .plan-card-vendor .plan-info { font-size: 11.5px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* Ticket printable */
+    .ticket {
+      max-width: 380px;
+      margin: 0 auto;
+      background: white;
+      color: black;
+      padding: 24px;
+      font-family: 'Courier New', monospace;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .ticket h2 { font-size: 18px; text-align: center; margin-bottom: 12px; letter-spacing: 2px; }
+    .ticket .divider { border-top: 1px dashed #999; margin: 12px 0; }
+    .ticket .row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+    .ticket .otp-box {
+      background: black; color: var(--lime);
+      padding: 16px; text-align: center;
+      font-size: 28px; font-weight: 800;
+      letter-spacing: 8px;
+      margin: 12px 0;
+    }
+    .ticket .warning {
+      background: #FFF3CD; color: #856404;
+      padding: 10px; font-size: 11px;
+      border-left: 3px solid #856404;
+      margin-top: 12px; line-height: 1.4;
+    }
+
+    /* Transaction list */
+    .table-row {
+      display: grid;
+      grid-template-columns: 100px 1.5fr 1fr 100px 80px 80px;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      font-size: 13px;
+    }
+    .table-row.header {
+      font-size: 10px; font-weight: 700;
+      color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border-bottom: 2px solid var(--border);
+    }
+    .table-row:not(.header):hover { background: var(--charcoal); }
+
+    /* Assistance requests */
+    .assistance-card {
+      display: flex; gap: 14px; align-items: center;
+      background: var(--charcoal);
+      border-left: 3px solid var(--info);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .assistance-card.urgent { border-left-color: var(--error); }
+    .assistance-card .icon { font-size: 28px; }
+
+    /* ID upload zone */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .upload-zone:hover { border-color: var(--lime); }
+    .upload-zone .big-icon { font-size: 48px; margin-bottom: 8px; }
+    .upload-zone .label { font-size: 14px; font-weight: 600; }
+    .upload-zone .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+    .upload-preview {
+      display: flex; gap: 12px; align-items: center;
+      padding: 14px;
+      background: var(--charcoal);
+      border-radius: 10px;
+      border-left: 3px solid var(--lime);
+    }
+    .upload-preview .thumb {
+      width: 60px; height: 60px;
+      background: #333; border-radius: 6px;
+      display: grid; place-items: center;
+      font-size: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { position: relative; height: auto; }
+      .main { padding: 20px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ──────────── SIDEBAR ──────────── -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">N</div>
+      <div>
+        <div class="brand-text">Nasoma</div>
+        <div class="brand-sub">PORTAIL VENDEUR</div>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="role">VENDEUR AGRÉÉ</div>
+      <div class="name">Saïd Hamidou</div>
+      <div class="code">VND-MAVI-001</div>
+      <div class="island">📍 Mavingouni · Ngazidja</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Gestion clients</div>
+      <button class="nav-item active" data-page="dashboard"><span class="emoji">🏠</span> Tableau de bord</button>
+      <button class="nav-item" data-page="search"><span class="emoji">🔍</span> Recherche client</button>
+      <button class="nav-item" data-page="new-client"><span class="emoji">➕</span> Nouveau client</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Transactions</div>
+      <button class="nav-item" data-page="customer"><span class="emoji">👤</span> Page client (exemple)</button>
+      <button class="nav-item" data-page="transaction"><span class="emoji">💳</span> Recharge en cours</button>
+      <button class="nav-item" data-page="ticket"><span class="emoji">🎟️</span> Ticket imprimé</button>
+      <button class="nav-item" data-page="history"><span class="emoji">📋</span> Mes transactions</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Support</div>
+      <button class="nav-item" data-page="assistance">
+        <span class="emoji">🆘</span> Demandes assistance
+        <span class="badge">3</span>
+      </button>
+      <button class="nav-item" data-page="training"><span class="emoji">📚</span> Ma formation</button>
+    </div>
+
+    <div class="nav-section" style="margin-top:auto">
+      <button class="nav-item"><span class="emoji">⚙️</span> Mon compte</button>
+      <button class="nav-item"><span class="emoji">🚪</span> Déconnexion</button>
+    </div>
+  </aside>
+
+  <!-- ──────────── MAIN ──────────── -->
+  <main class="main">
+
+    <!-- ━━━━━━━━━━━━━━━━ DASHBOARD ━━━━━━━━━━━━━━━━ -->
+    <section class="page show" id="dashboard">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur Nasoma · Mai 2026</div>
+        <h1 class="page-title">Bonjour Saïd 👋</h1>
+        <p class="page-subtitle">Voici ton activité d'aujourd'hui.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Tickets vendus</div>
+          <div class="stat-value">12</div>
+          <div class="stat-delta up">+3 vs hier</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Nouveaux clients</div>
+          <div class="stat-value">4</div>
+          <div class="stat-delta up">+1 vs hier</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Commission (KMF)</div>
+          <div class="stat-value">1 850</div>
+          <div class="stat-delta up">15 % · plan Mensuel</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Assistance résolue</div>
+          <div class="stat-value">2</div>
+          <div class="stat-delta">+ 100 KMF bonus</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔍 Recherche rapide client</div>
+        <div class="search-bar focus">
+          <div class="country">🇰🇲 +269</div>
+          <input placeholder="Numéro du client (7 chiffres)" />
+          <button class="btn btn-primary">Rechercher</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 Mes 5 dernières transactions</div>
+        <div class="table-row header">
+          <div>Heure</div>
+          <div>Client</div>
+          <div>Plan</div>
+          <div>Montant</div>
+          <div>Commission</div>
+          <div>Statut</div>
+        </div>
+        <div class="table-row">
+          <div>09:42</div>
+          <div>Ali Said · +269 34 12 567</div>
+          <div>Mensuel</div>
+          <div>1 500 KMF</div>
+          <div>225 KMF</div>
+          <div><span class="badge active">OK</span></div>
+        </div>
+        <div class="table-row">
+          <div>09:15</div>
+          <div>Fatima H. · +269 34 56 789</div>
+          <div>3 jours</div>
+          <div>250 KMF</div>
+          <div>37 KMF</div>
+          <div><span class="badge active">OK</span></div>
+        </div>
+        <div class="table-row">
+          <div>08:53</div>
+          <div>Mariama K. · +269 34 99 88 77</div>
+          <div>Hebdo</div>
+          <div>500 KMF</div>
+          <div>75 KMF</div>
+          <div><span class="badge active">OK</span></div>
+        </div>
+        <div class="table-row">
+          <div>08:30</div>
+          <div>Said M. (nouveau) · +269 34 11 22 33</div>
+          <div>Découverte</div>
+          <div>0 KMF</div>
+          <div>0 KMF</div>
+          <div><span class="badge discovery">FREE</span></div>
+        </div>
+        <div class="table-row">
+          <div>08:12</div>
+          <div>Hadidja A. · +269 34 22 33 44</div>
+          <div>Journalier</div>
+          <div>100 KMF</div>
+          <div>15 KMF</div>
+          <div><span class="badge active">OK</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ RECHERCHE ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="search">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Recherche</div>
+        <h1 class="page-title">Trouve un client</h1>
+        <p class="page-subtitle">Saisis le numéro de téléphone du client.</p>
+      </div>
+
+      <div class="card">
+        <div class="search-bar focus">
+          <div class="country">🇰🇲 +269</div>
+          <input placeholder="34 12 567" value="34 12 567" />
+          <button class="btn btn-primary">Rechercher</button>
+        </div>
+        <p style="font-size:12px;color:var(--text-tertiary);margin-top:10px">
+          Si le numéro n'existe pas, tu seras orienté vers « Nouveau client ».
+        </p>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ NOUVEAU CLIENT (signup) ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="new-client">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Inscription</div>
+        <h1 class="page-title">Nouveau client</h1>
+        <p class="page-subtitle">3 scans découverte offerts (valables 7 jours).</p>
+      </div>
+
+      <!-- Pré-check WhatsApp -->
+      <div class="card" style="border-color: var(--info)">
+        <div class="card-title" style="color: var(--info)">⚠️ PRÉ-CHECK OBLIGATOIRE</div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="cb-wa" checked />
+          <label for="cb-wa" class="label-text">
+            <span class="required">OBLIGATOIRE :</span>
+            J'ai vérifié que l'enfant a <strong>WhatsApp installé</strong> sur son téléphone.
+            Sans WhatsApp, il ne pourra pas recevoir le code OTP.
+          </label>
+        </div>
+      </div>
+
+      <!-- Infos enfant -->
+      <div class="card">
+        <div class="card-title">👶 Informations de l'enfant</div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Numéro WhatsApp de l'enfant *</label>
+            <div class="search-bar">
+              <div class="country">🇰🇲 +269</div>
+              <input class="form-input" style="border:none;background:transparent" placeholder="34 12 567" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Prénom de l'enfant *</label>
+            <input class="form-input" placeholder="Ali" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Niveau scolaire</label>
+            <div class="chip-group">
+              <div class="chip">CM1</div>
+              <div class="chip selected">CM2</div>
+              <div class="chip">6ᵉ</div>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Île de résidence</label>
+            <select class="form-select">
+              <option>Ngazidja (Grande Comore)</option>
+              <option>Anjouan</option>
+              <option>Mohéli</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent/tuteur -->
+      <div class="card">
+        <div class="card-title">👨‍👩‍👧 Parent / Tuteur (responsable légal du compte)</div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Prénom et nom du parent/tuteur *</label>
+            <input class="form-input" placeholder="Fatima Said" />
+          </div>
+          <div class="form-field">
+            <label class="form-label">Relation avec l'enfant *</label>
+            <div class="chip-group">
+              <div class="chip selected">Parent</div>
+              <div class="chip">Tuteur</div>
+              <div class="chip">Famille proche</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Type de pièce d'identité *</label>
+            <div class="chip-group">
+              <div class="chip selected">CNI</div>
+              <div class="chip">Passeport</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-field">
+            <label class="form-label">Scan de la pièce d'identité *</label>
+            <div class="upload-preview">
+              <div class="thumb">🪪</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:600">cni_fatima.jpg</div>
+                <div style="font-size:11px;color:var(--text-tertiary)">487 KB · OCR : « FATIMA SAID, née 1988-04-12 »</div>
+              </div>
+              <button class="btn btn-secondary" style="padding:6px 12px;font-size:12px">Changer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consentement -->
+      <div class="card">
+        <div class="card-title">📜 Consentement RGPD</div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="cb-consent" checked />
+          <label for="cb-consent" class="label-text">
+            <span class="required">OBLIGATOIRE :</span>
+            Le parent/tuteur a consenti au traitement des données personnelles
+            de l'enfant et de sa propre pièce d'identité.
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Annuler</button>
+        <button class="btn btn-primary">Créer le compte + envoyer OTP WhatsApp</button>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ PAGE CLIENT ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="customer">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Page client</div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="width:56px;height:56px;background:var(--lime);border-radius:14px;color:black;display:grid;place-items:center;font-size:24px;font-weight:800">A</div>
+          <div style="flex:1">
+            <h1 class="page-title">Ali Said</h1>
+            <p class="page-subtitle">+269 34 12 567 · CM2 · Mavingouni</p>
+          </div>
+          <div style="text-align:right">
+            <span class="badge active" style="margin-right:6px">ACTIF</span>
+            <span class="badge kyc-verified">KYC ✓</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Plan en cours</div>
+          <div class="stat-value" style="font-size:18px">Mensuel</div>
+          <div class="stat-delta">Expire le 18 juin</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Scans restants</div>
+          <div class="stat-value">47</div>
+          <div class="stat-delta">/120</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Streak</div>
+          <div class="stat-value">7 jours 🔥</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total payé</div>
+          <div class="stat-value">3 600</div>
+          <div class="stat-delta">KMF cumulés</div>
+        </div>
+      </div>
+
+      <!-- Outstanding bills -->
+      <div class="card" style="border-color: var(--warning)">
+        <div class="card-title" style="color: var(--warning)">⚠️ FACTURES EN ATTENTE (à régler avant recharge)</div>
+        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;line-height:1.5">
+          Le client doit choisir : <strong>régler ces factures</strong>, <strong>recharger un nouveau service</strong>,
+          ou <strong>les deux</strong>.
+        </p>
+
+        <div class="bill-row selected">
+          <div>
+            <div class="desc">Assistance vidéo 20 min</div>
+            <div class="meta">Session du 2026-05-18 · Agent Aminata · 200 KMF × 2</div>
+          </div>
+          <div class="amount">400 KMF</div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div style="font-size:13px;color:var(--text-secondary)">Total à régler</div>
+          <div style="font-size:22px;font-weight:800;color:var(--warning)">400 KMF</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">📞 Appeler le client</button>
+        <button class="btn btn-secondary">Régler factures seulement</button>
+        <button class="btn btn-primary">Régler + Recharger →</button>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ TRANSACTION ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="transaction">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Recharge · Ali Said</div>
+        <h1 class="page-title">Recharge en cours</h1>
+        <p class="page-subtitle">Le client paie 400 KMF de factures + un nouveau plan.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💳 Choisir le plan</div>
+        <div class="plan-grid">
+          <div class="plan-card-vendor">
+            <div class="plan-name">Ticket Journalier</div>
+            <div class="plan-price">100 KMF</div>
+            <div class="plan-info">5 scans · 24h</div>
+          </div>
+          <div class="plan-card-vendor">
+            <div class="plan-name">Ticket 3 Jours</div>
+            <div class="plan-price">250 KMF</div>
+            <div class="plan-info">15 scans · 3 jours · idéal examen</div>
+          </div>
+          <div class="plan-card-vendor">
+            <div class="plan-name">Hebdo</div>
+            <div class="plan-price">500 KMF</div>
+            <div class="plan-info">30 scans · 7 jours</div>
+          </div>
+          <div class="plan-card-vendor selected">
+            <div class="plan-name">Mensuel · par enfant</div>
+            <div class="plan-price">1 500 KMF</div>
+            <div class="plan-info">120 scans · 30 jours · rapport hebdo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💰 Récapitulatif</div>
+        <div style="font-size:14px">
+          <div style="display:flex;justify-content:space-between;padding:8px 0">
+            <span>Factures à régler</span><span>400 KMF</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+            <span>Plan Mensuel (×1 enfant)</span><span>1 500 KMF</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:14px 0;font-weight:700;font-size:18px">
+            <span>Total à encaisser</span><span style="color:var(--lime)">1 900 KMF</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-tertiary)">
+            Ta commission : 285 KMF (15 %)
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Montant reçu (KMF) *</label>
+          <input class="form-input" placeholder="1 900" value="1 900" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Mode</label>
+          <div class="chip-group">
+            <div class="chip selected">💵 Espèces</div>
+            <div class="chip">📱 Hollo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Annuler</button>
+        <button class="btn btn-primary">Valider et imprimer le ticket →</button>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ TICKET IMPRIMÉ ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="ticket">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Ticket</div>
+        <h1 class="page-title">Ticket à remettre au client</h1>
+        <p class="page-subtitle">Imprime et donne au client. Le code est aussi envoyé via WhatsApp.</p>
+      </div>
+
+      <div class="ticket">
+        <h2>🎟️ NASOMA</h2>
+        <div style="text-align:center;font-size:11px;letter-spacing:2px;margin-bottom:12px">PLAN MENSUEL</div>
+        <div class="divider"></div>
+
+        <div class="row"><span>Client :</span><span>Ali Said</span></div>
+        <div class="row"><span>Numéro :</span><span>+269 34 12 567</span></div>
+        <div class="row"><span>Plan :</span><span>Mensuel × 1 enfant</span></div>
+        <div class="row"><span>Crédits :</span><span>120 scans</span></div>
+        <div class="row"><span>Valable :</span><span>30 jours</span></div>
+
+        <div class="divider"></div>
+
+        <div style="text-align:center;font-size:11px;font-weight:700">CODE OTP D'ACTIVATION</div>
+        <div class="otp-box">482 719</div>
+
+        <div class="row"><span>Code recharge :</span><span style="font-size:11px">NSMA-A3F2-9B1C-7D4E</span></div>
+
+        <div class="warning">
+          ⚠️ <strong>GARDEZ CE TICKET</strong> précieusement.
+          Le code OTP est votre clé d'accès à la plateforme.
+          Sans le dernier code valable, vous perdez l'accès à votre compte
+          au bout de 30 jours.
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="font-size:10px;text-align:center;color:#666">
+          Acheté chez VND-MAVI-001 · Saïd Hamidou<br>
+          2026-05-21 à 09:42:18 · Hash : HMAC-A3F29B1C<br>
+          Support : dpo@nasoma.app
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:24px">
+        <button class="btn btn-secondary">📧 Renvoyer WhatsApp</button>
+        <button class="btn btn-primary">🖨️ Imprimer le ticket</button>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ DEMANDES D'ASSISTANCE ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="assistance">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Support de proximité</div>
+        <h1 class="page-title">Demandes d'assistance reçues</h1>
+        <p class="page-subtitle">Clients ayant ≥ 3 scans illisibles en 7 jours — propose ton aide pour résoudre (+ 50 KMF par cas résolu).</p>
+      </div>
+
+      <div class="assistance-card urgent">
+        <div class="icon">📷</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:600">Fatima H. · +269 34 56 789</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">
+            <strong>5 scans illisibles en 7 jours.</strong> A coché « C'est mon téléphone / caméra ».
+            Dernier scan : 2026-05-20 à 14:22.
+          </div>
+          <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px">
+            🎟️ Cliente de chez toi · plan Mensuel actif · re-scan courtoisie autorisé
+          </div>
+        </div>
+        <button class="btn btn-primary" style="padding:8px 14px;font-size:13px">Prendre en charge</button>
+      </div>
+
+      <div class="assistance-card">
+        <div class="icon">📸</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:600">Mohamed K. · +269 34 99 88 77</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">
+            <strong>4 scans illisibles en 7 jours.</strong> A coché « Je ne sais pas bien prendre la photo ».
+            Demande tutoriel.
+          </div>
+          <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px">
+            🎟️ Client de chez toi · plan Hebdo actif
+          </div>
+        </div>
+        <button class="btn btn-primary" style="padding:8px 14px;font-size:13px">Prendre en charge</button>
+      </div>
+
+      <div class="assistance-card">
+        <div class="icon">🤔</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:600">Hadidja A. · +269 34 11 22 33</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">
+            <strong>3 scans illisibles.</strong> Demande générale d'aide.
+          </div>
+          <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px">
+            🎟️ Client de chez toi · plan Découverte
+          </div>
+        </div>
+        <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px">Plus tard</button>
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <div class="card-title">📚 Rappel de la formation 1er niveau</div>
+        <div style="font-size:13px;line-height:1.6;color:var(--text-secondary)">
+          1. Vérifie la <strong>propreté de l'objectif caméra</strong> (chiffon doux).<br>
+          2. Positionne la copie à plat, bonne lumière, distance ~20 cm.<br>
+          3. Active la fonction <strong>« ajuster les bords »</strong> du téléphone.<br>
+          4. Si le téléphone est trop ancien (< Android 8), recommande un changement progressif.<br>
+          5. <strong>+50 KMF de bonus</strong> par cas résolu (vérifié à la prochaine réussite scan du client).
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ HISTORIQUE ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="history">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Historique</div>
+        <h1 class="page-title">Mes transactions</h1>
+        <p class="page-subtitle">Mai 2026 — 87 transactions, 13 050 KMF commission cumulée.</p>
+      </div>
+
+      <div class="card">
+        <div class="table-row header">
+          <div>Date</div>
+          <div>Client</div>
+          <div>Plan</div>
+          <div>Montant</div>
+          <div>Commission</div>
+          <div>Type</div>
+        </div>
+        <div class="table-row">
+          <div>21/05 09:42</div>
+          <div>Ali Said · +269 34 12 567</div>
+          <div>Mensuel</div>
+          <div>1 500 KMF</div>
+          <div>225 KMF</div>
+          <div><span class="badge active">VENTE</span></div>
+        </div>
+        <div class="table-row">
+          <div>21/05 09:15</div>
+          <div>Fatima H. · +269 34 56 789</div>
+          <div>3 jours</div>
+          <div>250 KMF</div>
+          <div>37 KMF</div>
+          <div><span class="badge active">VENTE</span></div>
+        </div>
+        <div class="table-row">
+          <div>20/05 17:30</div>
+          <div>Mariama K. · +269 34 99 88 77</div>
+          <div>Hebdo</div>
+          <div>500 KMF</div>
+          <div>75 KMF</div>
+          <div><span class="badge active">VENTE</span></div>
+        </div>
+        <div class="table-row">
+          <div>20/05 16:15</div>
+          <div>Said M. · +269 34 11 22 33</div>
+          <div>—</div>
+          <div>0 KMF</div>
+          <div>50 KMF</div>
+          <div><span class="badge kyc-verified">ASSIST.</span></div>
+        </div>
+        <div class="table-row">
+          <div>20/05 11:20</div>
+          <div>Hadidja A. · +269 34 22 33 44</div>
+          <div>Journalier</div>
+          <div>100 KMF</div>
+          <div>15 KMF</div>
+          <div><span class="badge active">VENTE</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━ FORMATION ━━━━━━━━━━━━━━━━ -->
+    <section class="page" id="training">
+      <div class="page-header">
+        <div class="breadcrumb">Vendeur · Formation</div>
+        <h1 class="page-title">Ma formation Nasoma</h1>
+        <p class="page-subtitle">Reste à jour pour aider tes clients.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📚 Module 1er niveau (obligatoire)</div>
+        <div style="display:flex;gap:16px;align-items:center;margin-top:12px">
+          <div style="width:120px;height:80px;background:linear-gradient(135deg,var(--lime),#B8E55A);border-radius:10px;color:black;display:grid;place-items:center;font-size:36px">▶️</div>
+          <div style="flex:1">
+            <div style="font-weight:600">Vidéo formation 10 min — Comment aider tes clients</div>
+            <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Validée le 2026-05-15 ✓</div>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6">
+            ✅ Nettoyer l'objectif caméra<br>
+            ✅ Positionner la copie + éclairage<br>
+            ✅ Fonction « ajuster les bords »<br>
+            ✅ Reconnaître un téléphone trop ancien<br>
+            ✅ Pré-check WhatsApp obligatoire
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📄 Documents à garder sous la main</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+          <button class="btn btn-secondary" style="text-align:left">📄 Guide vendeur PDF (24 pages)</button>
+          <button class="btn btn-secondary" style="text-align:left">📋 Aide-mémoire : plans + commissions</button>
+          <button class="btn btn-secondary" style="text-align:left">🎟️ Modèle ticket à imprimer</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const navItems = document.querySelectorAll('.nav-item[data-page]');
+  const pages = document.querySelectorAll('.page');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.page;
+      navItems.forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+      pages.forEach(p => p.classList.remove('show'));
+      const next = document.getElementById(target);
+      if (next) next.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Plan card selection
+  document.querySelectorAll('.plan-card-vendor').forEach(card => {
+    card.addEventListener('click', () => {
+      card.parentElement.querySelectorAll('.plan-card-vendor').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+
+  // Chip selection (radio group)
+  document.querySelectorAll('.chip-group').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "FR",
+    "grade_level": "6E",
+    "target_concepts": 80,
+    "validated_by": null,
+    "version": "0.1.0-draft"
+  },
+  "concepts": [
+    {
+      "code": "FR_6E_GRAM_NATURE",
+      "name": "Grammaire — nature des mots (classes grammaticales)",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-01" },
+      "description": "Identifier la nature des mots : nom, verbe, adjectif, déterminant, pronom, adverbe, préposition, conjonction.",
+      "common_errors": [
+        { "code": "NATURE_NOM_ADJ", "description": "Confondre adjectif qualificatif et nom commun" },
+        { "code": "NATURE_ADV_ADJ", "description": "Confondre adverbe et adjectif" }
+      ]
+    },
+    {
+      "code": "FR_6E_GRAM_FONCTIONS",
+      "name": "Grammaire — fonctions dans la phrase (sujet, verbe, COD, COI)",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["FR_6E_GRAM_NATURE"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-02" },
+      "description": "Identifier sujet, prédicat, COD, COI, attribut du sujet dans une phrase simple.",
+      "common_errors": [
+        { "code": "FONC_SUJET", "description": "Confondre le sujet avec le COD dans les phrases inversées" },
+        { "code": "FONC_COD_COI", "description": "Confondre COD (sans préposition) et COI (avec préposition)" }
+      ]
+    },
+    {
+      "code": "FR_6E_GRAM_TYPES_PHRASES",
+      "name": "Grammaire — types et formes de phrases",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "prerequisites": ["FR_6E_GRAM_FONCTIONS"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-03" },
+      "description": "Distinguer phrases déclarative, interrogative, exclamative, impérative. Forme affirmative et négative.",
+      "common_errors": [
+        { "code": "PHRASE_PONCT", "description": "Mauvaise ponctuation (point au lieu de point d'interrogation)" }
+      ]
+    },
+    {
+      "code": "FR_6E_CONJ_PRES",
+      "name": "Conjugaison — présent de l'indicatif (tous groupes)",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "prerequisites": ["FR_6E_GRAM_NATURE"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-04" },
+      "description": "Conjuguer les verbes du 1er, 2e et 3e groupe au présent de l'indicatif. Verbes irréguliers : être, avoir, aller, faire.",
+      "common_errors": [
+        { "code": "CONJ_3G_PRES", "description": "Confondre terminaisons du 3e groupe (ex: il prend / il vient)" },
+        { "code": "CONJ_IRREG", "description": "Mal conjuguer être et avoir" }
+      ]
+    },
+    {
+      "code": "FR_6E_CONJ_PASSE_COMP",
+      "name": "Conjugaison — passé composé (avec avoir et être)",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 30,
+      "prerequisites": ["FR_6E_CONJ_PRES"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-05" },
+      "description": "Former le passé composé avec auxiliaire avoir et être. Accord du participe passé avec être.",
+      "common_errors": [
+        { "code": "PC_AVOIR_ETRE", "description": "Utiliser avoir à la place d'être pour les verbes pronominaux et de mouvement" },
+        { "code": "PC_ACCORD_PP", "description": "Oublier d'accorder le participe passé avec être" }
+      ]
+    },
+    {
+      "code": "FR_6E_CONJ_IMPARFAIT",
+      "name": "Conjugaison — imparfait de l'indicatif",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["FR_6E_CONJ_PRES"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-06" },
+      "description": "Conjuguer à l'imparfait. Terminaisons : -ais, -ais, -ait, -ions, -iez, -aient. Verbes irréguliers.",
+      "common_errors": [
+        { "code": "IMP_TERMINAISON", "description": "Écrire -é au lieu de -ait ou confondre avec le passé composé" }
+      ]
+    },
+    {
+      "code": "FR_6E_ORTHO_ACCORD_GN",
+      "name": "Orthographe — accord dans le groupe nominal",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["FR_6E_GRAM_NATURE"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-07" },
+      "description": "Accorder déterminant + nom + adjectif en genre et en nombre. Pluriels particuliers en -aux, -eux.",
+      "common_errors": [
+        { "code": "ACCORD_GN_PLUR", "description": "Oublier le pluriel de l'adjectif éloigné du nom" },
+        { "code": "ACCORD_ADJ_PLUR_EUX", "description": "Écrire -eux au féminin ou oublier la transformation en -euse" }
+      ]
+    },
+    {
+      "code": "FR_6E_ORTHO_ACCORD_SV",
+      "name": "Orthographe — accord sujet-verbe",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["FR_6E_GRAM_FONCTIONS", "FR_6E_CONJ_PRES"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-08" },
+      "description": "Accorder le verbe avec son sujet (sujet simple, sujet éloigné, plusieurs sujets, pronom).",
+      "common_errors": [
+        { "code": "ACCORD_SV_ELOIGNE", "description": "Accorder le verbe avec le nom le plus proche plutôt qu'avec le vrai sujet" }
+      ]
+    },
+    {
+      "code": "FR_6E_LECTURE_COMPR",
+      "name": "Lecture — compréhension de texte narratif",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-09" },
+      "description": "Identifier personnages, lieu, temps, actions principales dans un récit. Répondre à des questions explicites et implicites.",
+      "common_errors": [
+        { "code": "COMPR_IMPLICITE", "description": "Répondre hors texte sans justification par une citation" }
+      ]
+    },
+    {
+      "code": "FR_6E_VOCAB_CHAMP_LEX",
+      "name": "Vocabulaire — champ lexical et synonymes",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["FR_6E_LECTURE_COMPR"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-10" },
+      "description": "Regrouper des mots autour d'un thème (champ lexical). Trouver synonymes et antonymes.",
+      "common_errors": [
+        { "code": "VOCAB_CHAMP_CONF", "description": "Confondre champ lexical et famille de mots" }
+      ]
+    },
+    {
+      "code": "FR_6E_EXPRESSION_ECRITE",
+      "name": "Expression écrite — rédiger un récit court structuré",
+      "name_shikomori": null,
+      "difficulty": 4,
+      "estimated_minutes": 40,
+      "prerequisites": ["FR_6E_GRAM_TYPES_PHRASES", "FR_6E_CONJ_PASSE_COMP", "FR_6E_VOCAB_CHAMP_LEX"],
+      "curriculum_refs": { "apc_km_2010": "C1-F-6E-11" },
+      "description": "Rédiger un texte narratif avec introduction, développement et conclusion. Respecter la cohérence temporelle.",
+      "common_errors": [
+        { "code": "ECRIT_STRUCTURE", "description": "Absence de plan : pas d'introduction ou de conclusion" },
+        { "code": "ECRIT_TEMPS", "description": "Mélanger les temps (passé composé et présent dans le même récit)" }
+      ]
+    }
+  ]
+}

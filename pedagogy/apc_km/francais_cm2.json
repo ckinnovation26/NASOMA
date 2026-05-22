@@ -1,0 +1,353 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "FR",
+    "grade_level": "CM2",
+    "target_concepts": 100,
+    "validated_by": null,
+    "version": "0.2.0-seed"
+  },
+  "concepts": [
+    {
+      "code": "FR_CM2_GRAM_NATURE",
+      "name": "Nature des mots (nom, verbe, adjectif, déterminant, pronom, adverbe)",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.1.1"},
+      "description": "Identifier la nature grammaticale de chaque mot dans une phrase.",
+      "common_errors": [
+        {"code": "noun_vs_verb", "description": "Confusion nom et verbe (le 'travail' vs il 'travaille')"}
+      ]
+    },
+    {
+      "code": "FR_CM2_GRAM_FONCTION",
+      "name": "Fonction des mots (sujet, COD, COI, complément circonstanciel)",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["FR_CM2_GRAM_NATURE"],
+      "curriculum_refs": {"APC_KM": "F.5.1.2"},
+      "description": "Identifier la fonction d'un mot ou groupe de mots dans la phrase.",
+      "common_errors": [
+        {"code": "cod_vs_coi", "description": "Confusion COD ↔ COI"},
+        {"code": "wrong_question", "description": "Mauvaise question pour identifier la fonction"}
+      ]
+    },
+    {
+      "code": "FR_CM2_GRAM_GN",
+      "name": "Le groupe nominal (GN)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_GRAM_NATURE"],
+      "curriculum_refs": {"APC_KM": "F.5.1.3"},
+      "description": "Identifier le nom-noyau et ses expansions dans un groupe nominal.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_GRAM_PHRASE_TYPES",
+      "name": "Types et formes de phrases",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.1.4"},
+      "description": "Distinguer phrase déclarative, interrogative, exclamative, impérative ; affirmative/négative.",
+      "common_errors": [
+        {"code": "miss_negation", "description": "Oubli d'un terme de la négation (ne...pas)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_CONJ_PRESENT_1G",
+      "name": "Conjugaison du présent — verbes du 1er groupe (-ER)",
+      "name_shikomori": "Wakati uliopita — vitenzi vya mfumo wa kwanza",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["FR_CM2_GRAM_NATURE"],
+      "curriculum_refs": {"APC_KM": "F.5.2.1"},
+      "description": "Conjuguer les verbes du 1er groupe au présent de l'indicatif.",
+      "common_errors": [
+        {"code": "wrong_ending", "description": "Mauvaise terminaison (-e/-es/-ons/-ez/-ent)"}
+      ],
+      "example_exercise": "Conjugue le verbe « chanter » au présent à toutes les personnes."
+    },
+    {
+      "code": "FR_CM2_CONJ_PRESENT_2G",
+      "name": "Conjugaison du présent — verbes du 2e groupe (-IR finir)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_CONJ_PRESENT_1G"],
+      "curriculum_refs": {"APC_KM": "F.5.2.2"},
+      "description": "Conjuguer les verbes du 2e groupe au présent (avec -iss aux pluriels).",
+      "common_errors": [
+        {"code": "miss_iss", "description": "Oubli du -iss aux 3 personnes du pluriel (nous finissons)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_CONJ_PRESENT_3G",
+      "name": "Présent — verbes du 3e groupe (irréguliers fréquents)",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["FR_CM2_CONJ_PRESENT_2G"],
+      "curriculum_refs": {"APC_KM": "F.5.2.3"},
+      "description": "Conjuguer au présent les verbes fréquents du 3e groupe (être, avoir, aller, venir, faire, dire, prendre, voir).",
+      "common_errors": [
+        {"code": "wrong_radical", "description": "Mauvais radical (nous prend-ons / non : nous prenons)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_CONJ_IMPARFAIT",
+      "name": "L'imparfait de l'indicatif",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["FR_CM2_CONJ_PRESENT_1G", "FR_CM2_CONJ_PRESENT_3G"],
+      "curriculum_refs": {"APC_KM": "F.5.2.4"},
+      "description": "Conjuguer à l'imparfait : terminaisons -ais/-ais/-ait/-ions/-iez/-aient.",
+      "common_errors": [
+        {"code": "miss_i_nous_vous", "description": "Oubli du i avant -ons/-ez (nous chantions, vous chantiez)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_CONJ_PASSE_COMPOSE",
+      "name": "Le passé composé (avoir/être + participe passé)",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["FR_CM2_CONJ_PRESENT_3G"],
+      "curriculum_refs": {"APC_KM": "F.5.2.5"},
+      "description": "Conjuguer au passé composé en utilisant l'auxiliaire adapté.",
+      "common_errors": [
+        {"code": "wrong_auxiliary", "description": "Mauvais auxiliaire (j'ai allé / non : je suis allé)"},
+        {"code": "miss_accord_etre", "description": "Oubli de l'accord du participe avec être (elle est arrivée)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_CONJ_FUTUR",
+      "name": "Le futur simple de l'indicatif",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_CONJ_PRESENT_1G"],
+      "curriculum_refs": {"APC_KM": "F.5.2.6"},
+      "description": "Conjuguer au futur simple : infinitif + terminaisons -ai/-as/-a/-ons/-ez/-ont.",
+      "common_errors": [
+        {"code": "miss_r", "description": "Oubli du -r- du radical futur (je chanterai)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_ORTH_ACCORD_SV",
+      "name": "Accord sujet/verbe",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_GRAM_FONCTION", "FR_CM2_CONJ_PRESENT_1G"],
+      "curriculum_refs": {"APC_KM": "F.5.3.1"},
+      "description": "Accorder le verbe en personne et nombre avec son sujet.",
+      "common_errors": [
+        {"code": "miss_accord_3pp", "description": "Oubli du -nt à la 3e pers du pluriel (ils chantent)"},
+        {"code": "wrong_subject_identification", "description": "Mauvaise identification du sujet réel"}
+      ],
+      "example_exercise": "Complète : Les enfants ____ (jouer) dans la cour."
+    },
+    {
+      "code": "FR_CM2_ORTH_ACCORD_GN",
+      "name": "Accord en genre et nombre dans le GN",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_GRAM_GN"],
+      "curriculum_refs": {"APC_KM": "F.5.3.2"},
+      "description": "Accorder déterminant et adjectif avec le nom-noyau du GN.",
+      "common_errors": [
+        {"code": "miss_plural_s", "description": "Oubli du -s au pluriel"},
+        {"code": "miss_feminine_e", "description": "Oubli du -e au féminin"}
+      ]
+    },
+    {
+      "code": "FR_CM2_ORTH_ACCORD_PP_AVOIR",
+      "name": "Accord du participe passé avec avoir",
+      "difficulty": 4,
+      "estimated_minutes": 15,
+      "prerequisites": ["FR_CM2_CONJ_PASSE_COMPOSE", "FR_CM2_GRAM_FONCTION"],
+      "curriculum_refs": {"APC_KM": "F.5.3.3"},
+      "description": "Accorder le participe passé conjugué avec avoir si le COD est placé avant.",
+      "common_errors": [
+        {"code": "always_accord", "description": "Accorde même sans COD avant (les pommes que j'ai mangées vs j'ai mangé des pommes)"}
+      ]
+    },
+    {
+      "code": "FR_CM2_ORTH_HOMOPHONES_A",
+      "name": "Homophones a / à",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.3.4"},
+      "description": "Distinguer a (verbe avoir) de à (préposition).",
+      "common_errors": [
+        {"code": "wrong_a", "description": "Confusion a/à"}
+      ]
+    },
+    {
+      "code": "FR_CM2_ORTH_HOMOPHONES_ET",
+      "name": "Homophones et / est",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.3.5"},
+      "description": "Distinguer et (conjonction) de est (verbe être).",
+      "common_errors": [
+        {"code": "wrong_et", "description": "Confusion et/est"}
+      ]
+    },
+    {
+      "code": "FR_CM2_ORTH_HOMOPHONES_SON",
+      "name": "Homophones son / sont",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.3.6"},
+      "description": "Distinguer son (déterminant possessif) de sont (verbe être).",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_ORTH_HOMOPHONES_OU",
+      "name": "Homophones ou / où",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.3.7"},
+      "description": "Distinguer ou (conjonction) de où (lieu/temps).",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_ORTH_PLURIEL_NOMS",
+      "name": "Pluriel des noms (cas particuliers : -au, -eu, -ou, -ail)",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["FR_CM2_ORTH_ACCORD_GN"],
+      "curriculum_refs": {"APC_KM": "F.5.3.8"},
+      "description": "Maîtriser les pluriels en -aux (cheval/chevaux), -eux (jeu/jeux), exceptions (bijou-bijoux).",
+      "common_errors": [
+        {"code": "regular_plural_special", "description": "Applique -s au lieu de -x ou -aux"}
+      ]
+    },
+    {
+      "code": "FR_CM2_ORTH_FEMININ_ADJ",
+      "name": "Féminin des adjectifs (cas particuliers)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_ORTH_ACCORD_GN"],
+      "curriculum_refs": {"APC_KM": "F.5.3.9"},
+      "description": "Former le féminin des adjectifs (-eux/-euse, -if/-ive, -er/-ère, etc).",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_VOC_SENS",
+      "name": "Sens propre et sens figuré",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.4.1"},
+      "description": "Distinguer sens propre et sens figuré d'un mot.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_VOC_FAMILLE_MOTS",
+      "name": "Familles de mots et radical",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.4.2"},
+      "description": "Identifier la famille d'un mot à partir de son radical.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_VOC_SYNONYMES",
+      "name": "Synonymes et antonymes",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.4.3"},
+      "description": "Trouver synonymes et antonymes d'un mot.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_VOC_PREFIXE_SUFFIXE",
+      "name": "Préfixes et suffixes",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_VOC_FAMILLE_MOTS"],
+      "curriculum_refs": {"APC_KM": "F.5.4.4"},
+      "description": "Identifier préfixes et suffixes ; déduire le sens d'un mot formé.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_VOC_DICTIONNAIRE",
+      "name": "Utilisation du dictionnaire",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.4.5"},
+      "description": "Chercher un mot dans le dictionnaire, lire un article (nature, sens, exemple).",
+      "common_errors": [
+        {"code": "wrong_alphabetic", "description": "Ordre alphabétique non maîtrisé sur 2e/3e lettre"}
+      ]
+    },
+    {
+      "code": "FR_CM2_LECT_COMPREHENSION",
+      "name": "Compréhension de texte (questions explicites/implicites)",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.5.5.1"},
+      "description": "Répondre à des questions de compréhension explicites et implicites sur un texte court.",
+      "common_errors": [
+        {"code": "literal_only", "description": "Ne répond qu'aux questions explicites"}
+      ]
+    },
+    {
+      "code": "FR_CM2_LECT_TYPES_TEXTES",
+      "name": "Types de textes (narratif, descriptif, dialogue, informatif)",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["FR_CM2_LECT_COMPREHENSION"],
+      "curriculum_refs": {"APC_KM": "F.5.5.2"},
+      "description": "Reconnaître les principaux types de textes et leurs caractéristiques.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM2_PROD_DICTEE",
+      "name": "Dictée préparée (texte court)",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["FR_CM2_ORTH_ACCORD_SV", "FR_CM2_ORTH_ACCORD_GN", "FR_CM2_ORTH_HOMOPHONES_A", "FR_CM2_ORTH_HOMOPHONES_ET"],
+      "curriculum_refs": {"APC_KM": "F.5.6.1"},
+      "description": "Écrire sous dictée un texte court en respectant les règles d'orthographe et de grammaire.",
+      "common_errors": [
+        {"code": "multiple_orth_errors", "description": "Cumul d'erreurs accord + homophones"}
+      ]
+    },
+    {
+      "code": "FR_CM2_PROD_PHRASE",
+      "name": "Construction de phrases correctes",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM2_GRAM_PHRASE_TYPES"],
+      "curriculum_refs": {"APC_KM": "F.5.6.2"},
+      "description": "Écrire des phrases simples grammaticalement correctes avec ponctuation.",
+      "common_errors": [
+        {"code": "missing_punctuation", "description": "Oubli des majuscules ou point final"}
+      ]
+    },
+    {
+      "code": "FR_CM2_PROD_REDACTION",
+      "name": "Rédaction d'un texte court (5-10 lignes)",
+      "difficulty": 4,
+      "estimated_minutes": 20,
+      "prerequisites": ["FR_CM2_PROD_PHRASE", "FR_CM2_LECT_TYPES_TEXTES"],
+      "curriculum_refs": {"APC_KM": "F.5.6.3"},
+      "description": "Rédiger un texte cohérent de 5 à 10 lignes (narratif ou descriptif).",
+      "common_errors": [
+        {"code": "no_logical_order", "description": "Absence d'ordre logique"},
+        {"code": "tense_inconsistency", "description": "Incohérence des temps"}
+      ]
+    }
+  ]
+}

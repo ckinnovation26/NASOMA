@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "AR",
+    "grade_level": "CM1",
+    "target_concepts": 25,
+    "validated_by": null,
+    "version": "0.2.0-seed",
+    "notes": "Arabe coranique CM1 — prérequis pour CM2. Reconnaissance lettres, lecture syllabique simple."
+  },
+  "concepts": [
+    {
+      "code": "AR_CM1_LETTRES_BASE",
+      "name": "Reconnaissance des 28 lettres (forme isolée)",
+      "difficulty": 1,
+      "estimated_minutes": 12,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "A.4.1.1"},
+      "description": "Identifier et nommer les 28 lettres dans leur forme isolée.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM1_FORMES_LETTRES",
+      "name": "Formes des lettres (isolée, initiale, médiane, finale)",
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "prerequisites": ["AR_CM1_LETTRES_BASE"],
+      "curriculum_refs": {"APC_KM": "A.4.1.2"},
+      "description": "Reconnaître les 4 formes des lettres selon leur position.",
+      "common_errors": [{"code": "form_confusion", "description": "Confusion entre formes médiane et finale"}]
+    },
+    {
+      "code": "AR_CM1_VOYELLES_INTRO",
+      "name": "Introduction aux voyelles courtes (fatha, kasra, damma)",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM1_LETTRES_BASE"],
+      "curriculum_refs": {"APC_KM": "A.4.1.3"},
+      "description": "Découvrir les signes des trois voyelles courtes.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM1_SYLLABES_SIMPLES",
+      "name": "Syllabes simples (consonne + voyelle)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM1_VOYELLES_INTRO"],
+      "curriculum_refs": {"APC_KM": "A.4.1.4"},
+      "description": "Lire des syllabes simples consonne-voyelle.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM1_MOTS_COURTS",
+      "name": "Lecture de mots courts (2-3 lettres)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM1_SYLLABES_SIMPLES", "AR_CM1_FORMES_LETTRES"],
+      "curriculum_refs": {"APC_KM": "A.4.1.5"},
+      "description": "Lire des mots arabes courts du vocabulaire usuel.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM1_VOCAB_BASE",
+      "name": "Vocabulaire de base (salutations, école)",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": ["AR_CM1_MOTS_COURTS"],
+      "curriculum_refs": {"APC_KM": "A.4.2.1"},
+      "description": "Connaître le vocabulaire arabe pour les salutations et l'école.",
+      "common_errors": []
+    },
+    {
+      "code": "AR_CM1_ECRITURE_LETTRES",
+      "name": "Écriture des lettres (sens du tracé)",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["AR_CM1_LETTRES_BASE"],
+      "curriculum_refs": {"APC_KM": "A.4.1.6"},
+      "description": "Tracer les lettres dans le bon sens (de droite à gauche).",
+      "common_errors": [{"code": "wrong_direction", "description": "Tracé dans le mauvais sens"}]
+    }
+  ]
+}

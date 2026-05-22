@@ -1,0 +1,93 @@
+{
+  "app": {
+    "name": "Nasoma",
+    "slogan": "Mimi, Nasoma."
+  },
+  "onboarding": {
+    "step1_title": "Piga picha kazi yako",
+    "step1_body": "Piga picha ya imla yako au zoezi lako la hesabu.",
+    "step2_title": "AI inagundua makosa yako",
+    "step2_body": "Mimi anaangalia kazi yako na anakuonyesha mahali ulipokosea.",
+    "step3_title": "Funika pengo",
+    "step3_body": "Fanya mazoezi 3 mafupi yaliyolengwa. Kesho, uko tayari.",
+    "cta_next": "Endelea",
+    "cta_start": "Anza"
+  },
+  "auth": {
+    "phone_title": "Namba yako ni ipi?",
+    "phone_hint": "+269 XX XX XX XX",
+    "otp_title": "Msimbo umepokelewa kwa SMS",
+    "otp_hint": "Nambari 6",
+    "send_otp": "Tuma msimbo",
+    "verify": "Thibitisha"
+  },
+  "scan": {
+    "title": "Piga picha kazi",
+    "instruction": "Weka karatasi yako sawa, kwenye mwanga mzuri.",
+    "capture": "Piga",
+    "retake": "Piga tena",
+    "validate": "Thibitisha"
+  },
+  "paywall": {
+    "title": "Hakuna picha za bure zaidi",
+    "subtitle": "Umetumia picha 3 za bure. Chagua tiketi kuendelea.",
+    "ticket_daily": "Tiketi ya Siku",
+    "ticket_weekly": "Wiki",
+    "ticket_monthly": "Mwezi · kwa kila mtoto",
+    "ticket_monthly_hint": "1,500 KMF kwa mtoto · picha 120 kwa mwezi"
+  },
+  "session": {
+    "title": "Somo lako",
+    "exercise": "Zoezi {num}",
+    "of": "ya",
+    "submit_answer": "Tuma",
+    "next": "Ifuatayo",
+    "completed": "Umekamilisha!",
+    "score": "Alama:",
+    "continue": "Endelea"
+  },
+  "diagnostic": {
+    "title": "Matokeo",
+    "identifying": "Inatafuta pengo…",
+    "found": "Pengo lililopatikana:",
+    "exercises_count": "Mazoezi {count} yatakusudia pengo hili.",
+    "start_session": "Anza somo"
+  },
+  "home": {
+    "title": "Nyumba",
+    "welcome": "Karibu tena, {name}",
+    "quick_actions": "Hatua za haraka",
+    "recent_scans": "Picha za karibuni",
+    "no_scans": "Hakuna picha hadi sasa",
+    "profile": "Wasifu"
+  },
+  "profile": {
+    "title": "Wasifu",
+    "name": "Jina",
+    "school": "Shule",
+    "grade": "Darasa",
+    "logout": "Toka",
+    "settings": "Mipangilio"
+  },
+  "error": {
+    "upload_failed": "Upakaji umeshindwa",
+    "network_error": "Hitilafu ya mtandao",
+    "invalid_otp": "Msimbo haupo sawa",
+    "phone_required": "Namba inahitajika",
+    "otp_required": "Msimbo unahitajika",
+    "session_failed": "Somo halilanzishwa"
+  },
+  "success": {
+    "otp_sent": "Msimbo umechukuliwa",
+    "session_completed": "Somo limekamilishwa!",
+    "answer_submitted": "Jibu limekubalika"
+  },
+  "common": {
+    "loading": "Inapakia…",
+    "error_generic": "Kuna tatizo. Jaribu tena.",
+    "retry": "Jaribu tena",
+    "cancel": "Ghairi",
+    "ok": "Sawa",
+    "back": "Rudi"
+  }
+}

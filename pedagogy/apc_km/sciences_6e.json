@@ -1,0 +1,121 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "SCI",
+    "grade_level": "6E",
+    "target_concepts": 60,
+    "validated_by": null,
+    "version": "0.1.0-draft"
+  },
+  "concepts": [
+    {
+      "code": "SCI_6E_SVT_CELL",
+      "name": "Biologie — la cellule, unité du vivant",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-01" },
+      "description": "Comprendre que tout être vivant est composé de cellules. Identifier les constituants de base (membrane, cytoplasme, noyau).",
+      "common_errors": [
+        { "code": "CELL_NOYAU", "description": "Confondre noyau cellulaire et noyau atomique" },
+        { "code": "CELL_VEGETAL", "description": "Oublier la paroi et les chloroplastes dans les cellules végétales" }
+      ]
+    },
+    {
+      "code": "SCI_6E_SVT_CLASSIFICATION",
+      "name": "Biologie — classification des êtres vivants",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["SCI_6E_SVT_CELL"],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-02" },
+      "description": "Classer les êtres vivants selon des critères observables (vertébrés / invertébrés, herbivores / carnivores).",
+      "common_errors": [
+        { "code": "CLASS_BALEINE", "description": "Classer la baleine dans les poissons (mammifère marin)" }
+      ]
+    },
+    {
+      "code": "SCI_6E_SVT_NUTRITION",
+      "name": "Biologie — nutrition et digestion",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["SCI_6E_SVT_CLASSIFICATION"],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-03" },
+      "description": "Décrire le trajet des aliments dans le système digestif. Nommer les organes digestifs principaux.",
+      "common_errors": [
+        { "code": "DIGES_ORDRE", "description": "Inverser l'ordre œsophage / estomac / intestin grêle / gros intestin" }
+      ]
+    },
+    {
+      "code": "SCI_6E_SVT_RESPIR",
+      "name": "Biologie — respiration (poumons, échanges gazeux)",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 20,
+      "prerequisites": ["SCI_6E_SVT_CELL"],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-04" },
+      "description": "Comprendre les échanges O2/CO2 entre les poumons et le sang. Rôle des alvéoles pulmonaires.",
+      "common_errors": [
+        { "code": "RESPIR_O2_CO2", "description": "Inverser O2 absorbé et CO2 rejeté" }
+      ]
+    },
+    {
+      "code": "SCI_6E_PHYS_ETAT_MATIERE",
+      "name": "Physique — les trois états de la matière",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-05" },
+      "description": "Identifier les états solide, liquide et gazeux. Décrire les changements d'état (fusion, vaporisation, solidification).",
+      "common_errors": [
+        { "code": "ETAT_VAPEUR_AIR", "description": "Croire que la vapeur d'eau est de l'air" },
+        { "code": "ETAT_FUSION_EVAPO", "description": "Confondre fusion (solide→liquide) et vaporisation (liquide→gaz)" }
+      ]
+    },
+    {
+      "code": "SCI_6E_PHYS_MELANGES",
+      "name": "Physique — mélanges et solutions",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["SCI_6E_PHYS_ETAT_MATIERE"],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-06" },
+      "description": "Distinguer mélanges homogènes (solution) et hétérogènes. Séparation par filtration, décantation, évaporation.",
+      "common_errors": [
+        { "code": "MEL_HOMO", "description": "Croire que l'eau sucrée est hétérogène car le sucre a disparu" }
+      ]
+    },
+    {
+      "code": "SCI_6E_GEO_ROCHES",
+      "name": "Géologie — roches et minéraux des Comores",
+      "name_shikomori": null,
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-07" },
+      "description": "Identifier les roches volcaniques des Comores (basalte, lave). Comprendre leur origine (volcanisme du Karthala).",
+      "common_errors": [
+        { "code": "ROCHE_CRISTAL", "description": "Confondre roche volcanique et roche cristalline (granite)" }
+      ]
+    },
+    {
+      "code": "SCI_6E_ENV_EAU",
+      "name": "Environnement — le cycle de l'eau aux Comores",
+      "name_shikomori": "Mzunguko wa madji",
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["SCI_6E_PHYS_ETAT_MATIERE"],
+      "curriculum_refs": { "apc_km_2010": "C3-S-6E-08" },
+      "description": "Décrire le cycle de l'eau : évaporation, condensation, précipitations, infiltration. Lien avec la saison des pluies comorienne.",
+      "common_errors": [
+        { "code": "CYCLE_CONDENSATION", "description": "Confondre condensation et précipitation" }
+      ]
+    }
+  ]
+}

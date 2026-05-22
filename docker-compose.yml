@@ -1,0 +1,85 @@
+# ════════════════════════════════════════════════════════════
+#  Nasoma — Stack de développement local
+#  Lance: docker-compose up -d
+# ════════════════════════════════════════════════════════════
+
+services:
+
+  # ─── PostgreSQL 16 (mirror de Cloud SQL en prod) ──────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: nasoma-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nasoma}
+      POSTGRES_USER: ${POSTGRES_USER:-nasoma}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_local_only}
+    ports:
+      - "5432:5432"
+    volumes:
+      - nasoma_postgres_data:/var/lib/postgresql/data
+      - ./backend/scripts/init_db.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nasoma}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Firestore Emulator ───────────────────────────────────
+  firestore:
+    image: google/cloud-sdk:emulators
+    container_name: nasoma-firestore
+    restart: unless-stopped
+    command: >
+      gcloud emulators firestore start
+      --host-port=0.0.0.0:8080
+      --project=${FIRESTORE_PROJECT_ID:-nasoma-dev}
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Pub/Sub Emulator (pour Cloud Tasks local) ────────────
+  pubsub:
+    image: google/cloud-sdk:emulators
+    container_name: nasoma-pubsub
+    restart: unless-stopped
+    command: >
+      gcloud emulators pubsub start
+      --host-port=0.0.0.0:8085
+      --project=${FIRESTORE_PROJECT_ID:-nasoma-dev}
+    ports:
+      - "8085:8085"
+
+  # ─── Backend FastAPI (optionnel — pour tests intégrés) ────
+  # Commenter en dev local quand on lance uvicorn directement
+  backend:
+    profiles: ["full"]                # docker-compose --profile full up
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nasoma-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgres
+      FIRESTORE_EMULATOR_HOST: firestore:8080
+      PUBSUB_EMULATOR_HOST: pubsub:8085
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      firestore:
+        condition: service_started
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  nasoma_postgres_data:
+    name: nasoma_postgres_data

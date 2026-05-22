@@ -1,0 +1,5 @@
+project_id      = "nasoma-dev-CHANGEME"
+region          = "africa-south1"
+backend_image   = "africa-south1-docker.pkg.dev/nasoma-dev-CHANGEME/nasoma/backend:latest"
+billing_account = "012345-678901-ABCDEF"
+alert_emails    = ["kader@ckinnovation.fr"]

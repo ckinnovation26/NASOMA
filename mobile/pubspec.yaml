@@ -1,0 +1,62 @@
+name: nasoma
+description: "Mimi, Nasoma. — App EdTech qui aide les élèves africains à corriger leurs lacunes scolaires."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.0
+  flutter: ">=3.22.0"
+
+# ⚠️ Sprint Mobile 1 — version Flutter Web compatible
+# Packages mobile-only (camera, ml_kit, sms_autofill, firebase_*, drift, flutter_tts)
+# seront réactivés en Sprint Mobile 2 (cible Android avec émulateur).
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # ─── State management & navigation ───
+  flutter_riverpod: ^2.5.1
+  go_router: ^14.2.7
+
+  # ─── HTTP backend ───
+  dio: ^5.7.0
+  dio_smart_retry: ^7.0.1
+
+  # ─── Stockage local (web-friendly via shared_preferences) ───
+  shared_preferences: ^2.3.2
+
+  # ─── Image picker (compatible web) ───
+  image_picker: ^1.1.2
+
+  # ─── i18n ───
+  intl: ^0.20.2
+
+  # ─── UI ───
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.0
+
+  # ─── Utils ───
+  collection: ^1.18.0
+  cupertino_icons: ^1.0.8
+
+  # ─── Serialization ───
+  json_annotation: ^4.12.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+  # ─── Code generation ───
+  build_runner: ^2.4.9
+  json_serializable: ^6.8.0
+
+flutter:
+  uses-material-design: true
+  generate: false
+
+  assets:
+    - assets/i18n/

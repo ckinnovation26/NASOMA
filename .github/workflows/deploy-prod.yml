@@ -1,0 +1,79 @@
+name: Deploy Prod (Cloud Run)
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to deploy"
+        required: true
+        default: "main"
+
+env:
+  GCP_REGION: africa-south1
+  ARTIFACT_REPO: nasoma
+  IMAGE_NAME: backend
+  CLOUD_RUN_SERVICE: nasoma-backend-prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Auth GCP via Workload Identity
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIP }}
+          service_account: ${{ secrets.GCP_SA_DEPLOY }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build & push backend image
+        run: |
+          IMAGE_URI="${{ env.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_PROD }}/${{ env.ARTIFACT_REPO }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          docker build -t "$IMAGE_URI" backend/
+          docker push "$IMAGE_URI"
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+      - name: Run migrations (Cloud Run Job)
+        run: |
+          gcloud run jobs update migrate-prod \
+            --image="$IMAGE_URI" \
+            --region=${{ env.GCP_REGION }} \
+            --command="alembic" --args="upgrade,head" \
+            --quiet || gcloud run jobs create migrate-prod \
+              --image="$IMAGE_URI" \
+              --region=${{ env.GCP_REGION }} \
+              --command="alembic" --args="upgrade,head"
+          gcloud run jobs execute migrate-prod --region=${{ env.GCP_REGION }} --wait
+
+      - name: Deploy Cloud Run
+        run: |
+          gcloud run deploy ${{ env.CLOUD_RUN_SERVICE }} \
+            --image="$IMAGE_URI" \
+            --region=${{ env.GCP_REGION }} \
+            --platform=managed \
+            --revision-suffix="${GITHUB_SHA:0:7}" \
+            --quiet
+
+      - name: Smoke test
+        run: |
+          URL=$(gcloud run services describe ${{ env.CLOUD_RUN_SERVICE }} \
+            --region=${{ env.GCP_REGION }} --format='value(status.url)')
+          curl -fsS "$URL/health"

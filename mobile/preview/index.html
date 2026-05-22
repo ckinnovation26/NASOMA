@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nasoma — Aperçu interface MVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --kaptu-black: #000000;
+      --charcoal: #1A1A1A;
+      --lime: #D4FF80;
+      --lime-dark: #B8E55A;
+      --white: #FFFFFF;
+      --text-primary: #F5F5F5;
+      --text-secondary: #B0B0B0;
+      --text-tertiary: #6B6B6B;
+      --border: #2A2A2A;
+      --error: #FF6B6B;
+      --warning: #FFB84A;
+      --success: #D4FF80;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0A0A0A;
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar navigation */
+    .sidebar {
+      background: #111;
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .brand-icon {
+      width: 36px; height: 36px;
+      background: var(--lime);
+      border-radius: 9px;
+      display: grid; place-items: center;
+      font-weight: 800;
+      color: black;
+      font-size: 20px;
+    }
+
+    .brand-text { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .brand-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+
+    .nav-section { margin-bottom: 24px; }
+    .nav-title {
+      font-size: 11px; font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+    .nav-item:hover { background: var(--charcoal); color: var(--text-primary); }
+    .nav-item.active { background: var(--lime); color: black; font-weight: 600; }
+    .nav-item .emoji { font-size: 15px; }
+
+    /* Main area */
+    .main {
+      padding: 48px 32px;
+      display: flex; align-items: center; justify-content: center; gap: 48px;
+      min-height: 100vh;
+      flex-wrap: wrap;
+    }
+
+    /* Phone frame */
+    .phone {
+      width: 390px;
+      height: 844px;
+      background: #000;
+      border-radius: 48px;
+      box-shadow:
+        0 0 0 12px #1a1a1a,
+        0 0 0 14px #2a2a2a,
+        0 40px 80px rgba(0,0,0,0.6),
+        0 20px 40px rgba(212, 255, 128, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notch {
+      position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 28px; background: #000; border-radius: 16px;
+      z-index: 100;
+    }
+
+    .status-bar {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 44px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 28px 0;
+      font-size: 13px; font-weight: 600;
+      z-index: 50;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      padding: 44px 24px 28px;
+      display: none;
+      flex-direction: column;
+      background: #000;
+    }
+    .screen.show { display: flex; }
+
+    /* Side panel for context */
+    .info {
+      max-width: 380px;
+      align-self: flex-start;
+      margin-top: 80px;
+    }
+    .info-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--lime);
+      color: black;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .info-title { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .info-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+    .info-meta {
+      background: var(--charcoal);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .info-meta-row {
+      display: flex; justify-content: space-between;
+      padding: 6px 0;
+      font-size: 13px;
+    }
+    .info-meta-row + .info-meta-row { border-top: 1px dashed #333; }
+    .info-meta-label { color: var(--text-tertiary); }
+    .info-meta-value { color: var(--text-primary); font-weight: 500; }
+    .info-meta-value.lime { color: var(--lime); font-weight: 600; }
+
+    /* ───── SCREEN COMPONENTS ───── */
+
+    /* Common */
+    .h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 8px; }
+    .h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .h3 { font-size: 16px; font-weight: 600; }
+    .body { font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
+    .small { font-size: 12px; color: var(--text-tertiary); }
+
+    .btn {
+      width: 100%;
+      height: 56px;
+      background: var(--lime);
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px;
+      transition: transform 0.1s, background 0.15s;
+    }
+    .btn:hover { background: var(--lime-dark); }
+    .btn:active { transform: scale(0.98); }
+    .btn-ghost {
+      background: var(--charcoal);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: #222; }
+
+    .input {
+      width: 100%;
+      height: 56px;
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0 16px;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-family: inherit;
+    }
+    .input:focus { outline: none; border-color: var(--lime); }
+    .input::placeholder { color: var(--text-tertiary); }
+
+    /* Splash */
+    #splash { align-items: center; justify-content: center; }
+    .splash-logo {
+      width: 120px; height: 120px;
+      background: var(--lime);
+      border-radius: 28px;
+      display: grid; place-items: center;
+      font-weight: 800;
+      color: black;
+      font-size: 72px;
+      margin-bottom: 32px;
+      box-shadow: 0 20px 60px rgba(212, 255, 128, 0.15);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(212, 255, 128, 0.15); }
+      50% { transform: scale(1.04); box-shadow: 0 25px 80px rgba(212, 255, 128, 0.3); }
+    }
+    .splash-name { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; }
+    .splash-slogan { color: var(--text-secondary); font-style: italic; margin-top: 4px; font-size: 16px; }
+    .splash-loader {
+      margin-top: 48px;
+      width: 28px; height: 28px;
+      border: 2.5px solid #333;
+      border-top-color: var(--lime);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Onboarding */
+    .ob-illustration {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0e0e0e 100%);
+      border-radius: 28px;
+      display: grid; place-items: center;
+      font-size: 96px;
+      margin: 32px 0;
+      border: 1px solid var(--border);
+    }
+    .dots { display: flex; gap: 8px; justify-content: center; margin: 16px 0 24px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #333; }
+    .dot.active { background: var(--lime); width: 24px; border-radius: 4px; }
+
+    /* Auth OTP */
+    .otp-boxes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 24px 0; }
+    .otp-box {
+      aspect-ratio: 1;
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 24px; font-weight: 600;
+    }
+    .otp-box.filled { border-color: var(--lime); }
+    .otp-box.cursor { border-color: var(--lime); animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { border-color: transparent; } }
+
+    /* Home */
+    .home-greeting { margin-bottom: 24px; }
+    .home-greeting-hello { color: var(--text-secondary); font-size: 14px; }
+    .home-greeting-name { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-top: 2px; }
+
+    .quota-card {
+      background: linear-gradient(135deg, var(--lime) 0%, var(--lime-dark) 100%);
+      color: black;
+      padding: 18px 20px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .quota-card .label { font-size: 12px; font-weight: 600; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
+    .quota-card .value { font-size: 32px; font-weight: 800; line-height: 1; margin-top: 4px; }
+    .quota-card .sub { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+    .quota-card .plan {
+      background: rgba(0,0,0,0.15);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cta-scan {
+      background: var(--charcoal);
+      border: 2px dashed #444;
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.1s;
+      margin-bottom: 20px;
+    }
+    .cta-scan:hover { border-color: var(--lime); }
+    .cta-scan .icon { font-size: 48px; margin-bottom: 8px; }
+    .cta-scan .title { font-size: 17px; font-weight: 600; }
+    .cta-scan .sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+    .recent-section { margin-top: 8px; }
+    .section-title {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .recent-card {
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      border-radius: 14px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .recent-card .icon-subj {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: #2a2a2a;
+      display: grid; place-items: center;
+      font-size: 18px;
+    }
+    .recent-info { flex: 1; margin: 0 12px; }
+    .recent-info .title { font-size: 14px; font-weight: 500; }
+    .recent-info .sub { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+    .status-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .status-badge.ok { background: rgba(212, 255, 128, 0.15); color: var(--lime); }
+    .status-badge.wip { background: rgba(255, 184, 74, 0.15); color: var(--warning); }
+    .status-badge.bad { background: rgba(255, 107, 107, 0.15); color: var(--error); }
+
+    /* Scan screen */
+    .scan-area {
+      flex: 1;
+      background: #0a0a0a;
+      border-radius: 16px;
+      position: relative;
+      display: grid; place-items: center;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+    .scan-frame {
+      width: 75%; aspect-ratio: 0.75;
+      border: 3px solid var(--lime);
+      border-radius: 12px;
+      position: relative;
+    }
+    .scan-corner {
+      position: absolute; width: 28px; height: 28px;
+      border: 3px solid white;
+    }
+    .scan-corner.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; border-radius: 6px 0 0 0; }
+    .scan-corner.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; border-radius: 0 6px 0 0; }
+    .scan-corner.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; border-radius: 0 0 0 6px; }
+    .scan-corner.br { bottom: -3px; right: -3px; border-left: none; border-top: none; border-radius: 0 0 6px 0; }
+    .scan-hint { position: absolute; bottom: 16%; left: 0; right: 0; text-align: center; color: white; font-size: 13px; }
+    .shutter-area { display: flex; justify-content: center; align-items: center; gap: 32px; padding: 12px 0; }
+    .shutter {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid var(--charcoal);
+      box-shadow: 0 0 0 3px white;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .shutter:hover { transform: scale(1.05); }
+    .shutter:active { transform: scale(0.95); }
+    .side-btn { width: 44px; height: 44px; border-radius: 12px; background: var(--charcoal); display: grid; place-items: center; font-size: 18px; cursor: pointer; }
+
+    /* Diagnostic */
+    .diag-title { font-size: 22px; font-weight: 700; margin-top: 8px; }
+    .diag-subj { color: var(--text-secondary); font-size: 13px; margin-top: 2px; }
+    .diag-image {
+      background: #f5f5dc;
+      border-radius: 14px;
+      padding: 16px;
+      color: #222;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      margin: 16px 0;
+      position: relative;
+    }
+    .diag-image .ex { margin-bottom: 10px; }
+    .diag-image .student { color: #d44; text-decoration: line-through; }
+    .diag-image .correct { color: #060; font-weight: bold; }
+    .diag-image .teacher-mark { color: red; font-weight: bold; }
+    .error-card {
+      background: var(--charcoal);
+      border-left: 3px solid var(--error);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .error-card .what { font-size: 14px; font-weight: 500; }
+    .error-card .concept { font-size: 11px; color: var(--lime); margin-top: 4px; font-family: monospace; }
+
+    /* Exercise / Session */
+    .progress-bar {
+      height: 6px; background: #222; border-radius: 4px;
+      margin-bottom: 24px; overflow: hidden;
+    }
+    .progress-fill { height: 100%; background: var(--lime); width: 50%; border-radius: 4px; }
+    .progress-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 6px; }
+
+    .exercise-prompt {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+    .answer-option {
+      background: var(--charcoal);
+      border: 2px solid var(--border);
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-family: inherit;
+      width: 100%;
+      text-align: left;
+      color: var(--text-primary);
+    }
+    .answer-option:hover { border-color: #555; }
+    .answer-option.selected { border-color: var(--lime); background: rgba(212, 255, 128, 0.05); }
+    .answer-option.correct { border-color: var(--success); background: rgba(212, 255, 128, 0.1); }
+
+    /* Paywall */
+    .paywall-icon {
+      width: 80px; height: 80px;
+      background: var(--charcoal);
+      border-radius: 20px;
+      display: grid; place-items: center;
+      font-size: 40px;
+      margin: 16px auto 24px;
+    }
+    .plan-card {
+      background: var(--charcoal);
+      border: 2px solid var(--border);
+      padding: 18px;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .plan-card:hover { border-color: #444; }
+    .plan-card.featured { border-color: var(--lime); position: relative; }
+    .plan-card.featured::before {
+      content: 'POPULAIRE';
+      position: absolute; top: -10px; right: 16px;
+      background: var(--lime); color: black;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+    }
+    .plan-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .plan-name { font-size: 17px; font-weight: 700; }
+    .plan-price { font-size: 22px; font-weight: 800; color: var(--lime); }
+    .plan-price-sub { font-size: 11px; color: var(--text-tertiary); }
+    .plan-features { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Profile */
+    .profile-header { padding: 16px 0; }
+    .avatar {
+      width: 64px; height: 64px;
+      background: var(--lime);
+      color: black;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 28px; font-weight: 800;
+    }
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 16px 0 20px; }
+    .stat {
+      background: var(--charcoal);
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+    }
+    .stat-value { font-size: 22px; font-weight: 800; color: var(--lime); }
+    .stat-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+    .concept-row {
+      background: var(--charcoal);
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .concept-row .name { font-size: 13px; font-weight: 500; }
+    .concept-row .meta { font-size: 11px; color: var(--text-tertiary); font-family: monospace; margin-top: 2px; }
+    .mastery-bar {
+      width: 70px; height: 6px; background: #222; border-radius: 3px; overflow: hidden;
+      position: relative;
+    }
+    .mastery-fill { height: 100%; border-radius: 3px; }
+    .mastery-fill.ok { background: var(--lime); }
+    .mastery-fill.wip { background: var(--warning); }
+    .mastery-fill.bad { background: var(--error); }
+
+    /* === Reviews espacées (Moat #6) === */
+    .review-card {
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .interval-badge {
+      min-width: 48px; height: 48px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      font-weight: 800; font-size: 12px;
+      color: black;
+      text-align: center; line-height: 1;
+    }
+    .interval-badge.j1 { background: #FFB84A; }
+    .interval-badge.j7 { background: #FFD980; }
+    .interval-badge.j30 { background: var(--lime); }
+    .interval-badge.j90 { background: #B8E55A; }
+    .streak-banner {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FFB84A 100%);
+      color: black;
+      padding: 14px 18px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* === Indicateurs CT/MT/LT === */
+    .horizon-tabs {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px; margin-bottom: 16px;
+    }
+    .horizon-tab {
+      padding: 10px 4px;
+      background: var(--charcoal);
+      border-radius: 10px;
+      text-align: center;
+      font-size: 11.5px; font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .horizon-tab.active { background: var(--lime); color: black; }
+    .metric-row {
+      display: flex; justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed #2a2a2a;
+    }
+    .metric-row:last-child { border-bottom: none; }
+    .metric-label { color: var(--text-secondary); font-size: 13px; }
+    .metric-value { color: var(--text-primary); font-weight: 600; font-size: 14px; }
+    .metric-value.up { color: var(--lime); }
+    .metric-value.down { color: var(--error); }
+    .reco-card {
+      background: var(--charcoal);
+      border-left: 3px solid var(--lime);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .reco-card .what { font-size: 13.5px; font-weight: 600; }
+    .reco-card .why { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+    .reco-card.high { border-color: var(--error); }
+    .trend-chart {
+      background: var(--charcoal);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 8px 0 12px;
+    }
+    .trend-svg { width: 100%; height: 90px; }
+
+    /* === Marketing feed === */
+    .marketing-card {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #1A1F1A 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .marketing-card .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(212, 255, 128, 0.15);
+      color: var(--lime);
+      font-size: 10px; font-weight: 700;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .marketing-card h3 { font-size: 15px; margin-bottom: 4px; }
+    .marketing-card .body { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+    .marketing-card .cta {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 7px 12px;
+      background: var(--lime);
+      color: black;
+      border-radius: 8px;
+      font-size: 12px; font-weight: 600;
+    }
+
+    /* === Support chat === */
+    .chat-area { display: flex; flex-direction: column; flex: 1; gap: 8px; padding: 4px 2px; overflow-y: auto; }
+    .bubble {
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .bubble.ai {
+      align-self: flex-start;
+      background: var(--charcoal);
+      color: var(--text-primary);
+      border-bottom-left-radius: 4px;
+    }
+    .bubble.user {
+      align-self: flex-end;
+      background: var(--lime);
+      color: black;
+      border-bottom-right-radius: 4px;
+    }
+    .bubble.agent {
+      align-self: flex-start;
+      background: #2563EB;
+      color: white;
+      border-bottom-left-radius: 4px;
+    }
+    .bubble-meta { font-size: 10px; opacity: 0.6; margin-top: 4px; }
+    .chat-input {
+      display: flex; gap: 6px;
+      padding: 6px 6px 6px 12px;
+      background: var(--charcoal);
+      border-radius: 14px;
+      margin-top: 8px;
+    }
+    .chat-input input {
+      flex: 1; background: transparent;
+      border: none; outline: none;
+      color: var(--text-primary);
+      font-family: inherit; font-size: 13px;
+    }
+    .chat-input button {
+      background: var(--lime); color: black;
+      border: none; border-radius: 10px;
+      padding: 6px 12px;
+      font-weight: 600; cursor: pointer;
+    }
+    .escalate-btn {
+      background: var(--charcoal);
+      border: 1px dashed #444;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Footer */
+    .footer {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 24px;
+      color: var(--text-tertiary);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      background: #0a0a0a;
+    }
+    .footer code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; color: var(--lime); font-size: 11px; }
+
+    @media (max-width: 1100px) {
+      .info { display: none; }
+      .main { padding: 24px; }
+    }
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { position: relative; height: auto; }
+      .phone { transform: scale(0.85); transform-origin: top center; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ───────── SIDEBAR ───────── -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">N</div>
+      <div>
+        <div class="brand-text">Nasoma</div>
+        <div class="brand-sub">Aperçu MVP — v0.1</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">📱 Onboarding</div>
+      <button class="nav-item active" data-screen="splash"><span class="emoji">🚀</span> Splash</button>
+      <button class="nav-item" data-screen="onboarding1"><span class="emoji">📷</span> Onboarding 1/3</button>
+      <button class="nav-item" data-screen="onboarding2"><span class="emoji">🔍</span> Onboarding 2/3</button>
+      <button class="nav-item" data-screen="onboarding3"><span class="emoji">🎯</span> Onboarding 3/3</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">🔐 Auth</div>
+      <button class="nav-item" data-screen="auth-phone"><span class="emoji">📞</span> Téléphone</button>
+      <button class="nav-item" data-screen="auth-otp"><span class="emoji">🔢</span> Code OTP</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">⚙️ Core</div>
+      <button class="nav-item" data-screen="home"><span class="emoji">🏠</span> Home Dashboard</button>
+      <button class="nav-item" data-screen="scan"><span class="emoji">📸</span> Scan Caméra</button>
+      <button class="nav-item" data-screen="diagnostic"><span class="emoji">🩺</span> Diagnostic IA</button>
+      <button class="nav-item" data-screen="session"><span class="emoji">✏️</span> Session Exercice</button>
+      <button class="nav-item" data-screen="profile"><span class="emoji">🌳</span> Profil Compétence</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">🚀 Cœur de valeur</div>
+      <button class="nav-item" data-screen="indicators"><span class="emoji">📈</span> Indicateurs CT/MT/LT</button>
+      <button class="nav-item" data-screen="reviews"><span class="emoji">🧠</span> Reviews espacées</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">💬 Communication</div>
+      <button class="nav-item" data-screen="marketing"><span class="emoji">📢</span> Marketing feed</button>
+      <button class="nav-item" data-screen="support"><span class="emoji">🤖</span> Support chat (SAV)</button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">💰 Monetization</div>
+      <button class="nav-item" data-screen="paywall"><span class="emoji">🎟️</span> Paywall</button>
+    </div>
+  </aside>
+
+  <!-- ───────── MAIN ───────── -->
+  <main class="main">
+    <div class="phone">
+      <div class="notch"></div>
+
+      <!-- ───── SPLASH ───── -->
+      <div class="screen show" id="splash">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div class="splash-logo">N</div>
+          <div class="splash-name">Nasoma</div>
+          <div class="splash-slogan">Mimi, Nasoma. — Moi, j'étudie.</div>
+          <div class="splash-loader"></div>
+        </div>
+      </div>
+
+      <!-- ───── ONBOARDING 1 ───── -->
+      <div class="screen" id="onboarding1">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:16px"><span style="color:var(--text-tertiary);font-size:13px">Passer</span></div>
+        <div class="ob-illustration">📷</div>
+        <h2 class="h2">Scanne ta copie</h2>
+        <p class="body">Prends en photo ta dernière dictée ou ton exercice de maths. Une seule photo, et c'est parti.</p>
+        <div style="flex:1"></div>
+        <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+        <button class="btn">Suivant →</button>
+      </div>
+
+      <!-- ───── ONBOARDING 2 ───── -->
+      <div class="screen" id="onboarding2">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:16px"><span style="color:var(--text-tertiary);font-size:13px">Passer</span></div>
+        <div class="ob-illustration">🔍</div>
+        <h2 class="h2">L'IA repère tes erreurs</h2>
+        <p class="body">Mimi analyse ta copie en quelques secondes et te montre exactement où tu te trompes.</p>
+        <div style="flex:1"></div>
+        <div class="dots"><div class="dot"></div><div class="dot active"></div><div class="dot"></div></div>
+        <button class="btn">Suivant →</button>
+      </div>
+
+      <!-- ───── ONBOARDING 3 ───── -->
+      <div class="screen" id="onboarding3">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:16px;height:21px"></div>
+        <div class="ob-illustration">🎯</div>
+        <h2 class="h2">Comble ta lacune</h2>
+        <p class="body">Fais 3 mini-exercices ciblés. Demain, tu es prêt. Le rattrapage avant qu'il soit trop tard.</p>
+        <div style="flex:1"></div>
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot active"></div></div>
+        <button class="btn">Commencer →</button>
+      </div>
+
+      <!-- ───── AUTH PHONE ───── -->
+      <div class="screen" id="auth-phone">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:24px;font-size:18px;color:var(--text-tertiary)">← Retour</div>
+        <div style="margin-top:32px">
+          <h2 class="h2">Quel est ton numéro ?</h2>
+          <p class="body" style="margin-bottom:32px">On t'envoie un code par SMS pour activer ton compte.</p>
+          <div style="display:flex;gap:8px;margin-bottom:16px">
+            <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:12px;padding:0 14px;height:56px;display:flex;align-items:center;gap:8px;font-size:15px"><span>🇰🇲</span><span>+269</span></div>
+            <input class="input" placeholder="3X XX XXX" style="flex:1" value="34 12 567" />
+          </div>
+          <p class="small" style="margin-bottom:32px;line-height:1.5">En continuant, tu acceptes nos <span style="color:var(--lime)">CGU</span> et notre <span style="color:var(--lime)">politique de confidentialité</span>.</p>
+        </div>
+        <div style="flex:1"></div>
+        <button class="btn">Envoyer le code</button>
+      </div>
+
+      <!-- ───── AUTH OTP ───── -->
+      <div class="screen" id="auth-otp">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:24px;font-size:18px;color:var(--text-tertiary)">← Retour</div>
+        <div style="margin-top:32px">
+          <h2 class="h2">Entre ton code</h2>
+          <p class="body" style="margin-bottom:8px">Le code est sur ton ticket Nasoma, ou reçu par SMS si c'est ta 1ère fois.</p>
+          <p class="small">📱 1ère fois → SMS · 🎟️ Renouvellement → ticket vendeur</p>
+          <div class="otp-boxes">
+            <div class="otp-box filled">4</div>
+            <div class="otp-box filled">8</div>
+            <div class="otp-box filled">2</div>
+            <div class="otp-box cursor"></div>
+            <div class="otp-box"></div>
+            <div class="otp-box"></div>
+          </div>
+          <p class="small" style="text-align:center;margin-top:8px">Pas de ticket ? <span style="color:var(--lime)">Trouver un vendeur</span></p>
+        </div>
+        <div style="flex:1"></div>
+        <button class="btn">Vérifier et activer</button>
+      </div>
+
+      <!-- ───── HOME ───── -->
+      <div class="screen" id="home">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="home-greeting" style="margin-top:24px">
+          <div class="home-greeting-hello">Bonjour ☀️</div>
+          <div class="home-greeting-name">Ali, CM2</div>
+        </div>
+        <div class="quota-card">
+          <div>
+            <div class="label">Scans restants</div>
+            <div class="value">2</div>
+            <div class="sub">sur 3 (plan découverte)</div>
+          </div>
+          <div class="plan">Free</div>
+        </div>
+        <div class="cta-scan">
+          <div class="icon">📷</div>
+          <div class="title">Scanner ma copie</div>
+          <div class="sub">Pose ta feuille bien à plat</div>
+        </div>
+        <div class="recent-section">
+          <div class="section-title">Dernières lacunes</div>
+          <div class="recent-card">
+            <div class="icon-subj">📐</div>
+            <div class="recent-info">
+              <div class="title">Addition avec retenue</div>
+              <div class="sub">Maths · CM2 · il y a 2j</div>
+            </div>
+            <span class="status-badge wip">67%</span>
+          </div>
+          <div class="recent-card">
+            <div class="icon-subj">📝</div>
+            <div class="recent-info">
+              <div class="title">Accord du participe passé</div>
+              <div class="sub">Français · CM2 · il y a 4j</div>
+            </div>
+            <span class="status-badge bad">32%</span>
+          </div>
+          <div class="recent-card">
+            <div class="icon-subj">✖️</div>
+            <div class="recent-info">
+              <div class="title">Tables de multiplication</div>
+              <div class="sub">Maths · CM2 · il y a 6j</div>
+            </div>
+            <span class="status-badge ok">91%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── SCAN ───── -->
+      <div class="screen" id="scan" style="background:#0a0a0a">
+        <div class="status-bar" style="color:white"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px">
+          <div style="font-size:18px">×</div>
+          <div style="font-size:14px;font-weight:600">Scanner une copie</div>
+          <div style="font-size:18px">⚡</div>
+        </div>
+        <div class="scan-area">
+          <div class="scan-frame">
+            <div class="scan-corner tl"></div>
+            <div class="scan-corner tr"></div>
+            <div class="scan-corner bl"></div>
+            <div class="scan-corner br"></div>
+          </div>
+          <div class="scan-hint">Aligne la copie dans le cadre</div>
+        </div>
+        <div class="shutter-area">
+          <div class="side-btn">🖼️</div>
+          <div class="shutter"></div>
+          <div class="side-btn">🔄</div>
+        </div>
+        <p class="small" style="text-align:center">ML Kit activé · OCR local d'abord</p>
+      </div>
+
+      <!-- ───── DIAGNOSTIC ───── -->
+      <div class="screen" id="diagnostic">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:16px;font-size:18px;color:var(--text-tertiary)">← Retour</div>
+        <div style="margin-top:8px">
+          <div class="diag-title">2 erreurs détectées</div>
+          <div class="diag-subj">Maths · CM2 · Addition</div>
+        </div>
+        <div class="diag-image">
+          <div class="ex">1) 234 + 156 = <span class="correct">390</span> <span class="teacher-mark">✓</span></div>
+          <div class="ex">2) 356 + 478 = <span class="student">724</span> <span class="teacher-mark">✗</span> <span class="correct">834</span></div>
+          <div class="ex">3) 489 + 267 = <span class="student">646</span> <span class="teacher-mark">✗</span> <span class="correct">756</span></div>
+        </div>
+        <div class="error-card">
+          <div class="what">Oubli de la retenue</div>
+          <div class="concept">MATH_CM2_ADD_RETENUE · confiance 92%</div>
+        </div>
+        <div class="error-card">
+          <div class="what">Retenue placée dans la mauvaise colonne</div>
+          <div class="concept">MATH_CM2_ADD_RETENUE · confiance 88%</div>
+        </div>
+        <div style="flex:1"></div>
+        <button class="btn">Faire 3 exercices ciblés →</button>
+      </div>
+
+      <!-- ───── SESSION ───── -->
+      <div class="screen" id="session">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;padding-top:16px;font-size:14px">
+          <span style="color:var(--text-tertiary)">× Quitter</span>
+          <span style="font-weight:600">Exercice 2/4</span>
+          <span>🔊</span>
+        </div>
+        <div style="margin-top:20px">
+          <div class="progress-label">Addition avec retenue</div>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+        <div style="margin-top:32px">
+          <div class="exercise-prompt">Combien font <strong style="color:var(--lime)">234 + 187</strong> ?</div>
+          <button class="answer-option">411</button>
+          <button class="answer-option correct">421 ✓</button>
+          <button class="answer-option">521</button>
+          <button class="answer-option">311</button>
+        </div>
+        <div style="flex:1"></div>
+        <p class="small" style="text-align:center;margin-bottom:8px">💡 Pense à reporter la retenue !</p>
+        <button class="btn">Valider</button>
+      </div>
+
+      <!-- ───── PROFILE ───── -->
+      <div class="screen" id="profile">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px">
+          <div style="font-size:18px">←</div>
+          <div style="font-weight:600">Mon profil</div>
+          <div style="font-size:18px">⚙️</div>
+        </div>
+        <div class="profile-header" style="display:flex;align-items:center;gap:16px;margin-top:16px">
+          <div class="avatar">A</div>
+          <div>
+            <div style="font-size:20px;font-weight:700">Ali Said</div>
+            <div style="color:var(--text-tertiary);font-size:13px">CM2 · École Mavingouni · 11 ans</div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><div class="stat-value">12</div><div class="stat-label">Scans</div></div>
+          <div class="stat"><div class="stat-value">8</div><div class="stat-label">Maîtrisés</div></div>
+          <div class="stat"><div class="stat-value">3🔥</div><div class="stat-label">Jours</div></div>
+        </div>
+        <div class="section-title">Mathématiques · CM2</div>
+        <div class="concept-row">
+          <div><div class="name">Tables de multiplication</div><div class="meta">MATH_CM2_TABLES</div></div>
+          <div class="mastery-bar"><div class="mastery-fill ok" style="width:91%"></div></div>
+        </div>
+        <div class="concept-row">
+          <div><div class="name">Addition avec retenue</div><div class="meta">MATH_CM2_ADD_RETENUE</div></div>
+          <div class="mastery-bar"><div class="mastery-fill wip" style="width:67%"></div></div>
+        </div>
+        <div class="concept-row">
+          <div><div class="name">Fractions équivalentes</div><div class="meta">MATH_CM2_FRAC_EQUIV</div></div>
+          <div class="mastery-bar"><div class="mastery-fill bad" style="width:32%"></div></div>
+        </div>
+        <div class="concept-row">
+          <div><div class="name">Multiplication 2 chiffres</div><div class="meta">MATH_CM2_MULT_2D</div></div>
+          <div class="mastery-bar"><div class="mastery-fill wip" style="width:54%"></div></div>
+        </div>
+      </div>
+
+      <!-- ───── INDICATEURS CT/MT/LT (cœur de valeur) ───── -->
+      <div class="screen" id="indicators">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px">
+          <div style="font-size:18px">←</div>
+          <div style="font-weight:600">Ma progression</div>
+          <div style="font-size:18px">📊</div>
+        </div>
+
+        <div class="horizon-tabs" style="margin-top:16px">
+          <div class="horizon-tab active">Aujourd'hui</div>
+          <div class="horizon-tab">Ce mois</div>
+          <div class="horizon-tab">Cette année</div>
+        </div>
+
+        <div style="font-size:12px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:8px">Métriques du jour</div>
+        <div style="background:var(--charcoal);border-radius:14px;padding:14px;margin-bottom:12px">
+          <div class="metric-row">
+            <span class="metric-label">Concepts pratiqués</span>
+            <span class="metric-value">4</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Maîtrise moyenne</span>
+            <span class="metric-value">62 %</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Évolution vs hier</span>
+            <span class="metric-value up">+3 %</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Concept le plus faible</span>
+            <span class="metric-value" style="font-family:monospace;font-size:11px">MATH_CM2_ADD_RETENUE</span>
+          </div>
+        </div>
+
+        <div style="font-size:12px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:8px">🤖 Mimi te recommande</div>
+        <div class="reco-card">
+          <div class="what">📚 10 min sur les retenues demain matin</div>
+          <div class="why">Concept le plus faible (32 % de maîtrise) — à travailler en priorité</div>
+        </div>
+        <div class="reco-card high" style="margin-top:8px">
+          <div class="what">⚠️ Risque blocage lecture d'énoncé</div>
+          <div class="why">Échecs persistants depuis CM1 — envisager soutien renforcé</div>
+        </div>
+      </div>
+
+      <!-- ───── REVIEWS ESPACÉES (Moat #6) ───── -->
+      <div class="screen" id="reviews">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px">
+          <div style="font-size:18px">←</div>
+          <div style="font-weight:600">À réviser aujourd'hui</div>
+          <div style="font-size:18px">🧠</div>
+        </div>
+
+        <div class="streak-banner" style="margin-top:16px">
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase">Streak</div>
+            <div style="font-size:24px;font-weight:800">7 jours 🔥</div>
+          </div>
+          <div style="text-align:right;font-size:11px">
+            Champion<br>de la semaine
+          </div>
+        </div>
+
+        <p class="small" style="margin-bottom:14px;line-height:1.5">
+          Les concepts maîtrisés sont retestés régulièrement
+          pour éviter de les oublier. Comme une langue qu'on
+          n'oublie plus parce qu'on la parle.
+        </p>
+
+        <div class="review-card">
+          <div class="interval-badge j1">J+1</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600">Tables de multiplication</div>
+            <div style="font-size:11.5px;color:var(--text-tertiary)">Maths · CM2 · maîtrisé hier</div>
+          </div>
+          <div style="font-size:18px">→</div>
+        </div>
+
+        <div class="review-card">
+          <div class="interval-badge j7">J+7</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600">Conjugaison présent 1G</div>
+            <div style="font-size:11.5px;color:var(--text-tertiary)">Français · CM2 · maîtrisé il y a 7 jours</div>
+          </div>
+          <div style="font-size:18px">→</div>
+        </div>
+
+        <div class="review-card">
+          <div class="interval-badge j30">J+30</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600">Lecture nombres jusqu'au milliard</div>
+            <div style="font-size:11.5px;color:var(--text-tertiary)">Maths · CM2 · maîtrisé il y a 1 mois</div>
+          </div>
+          <div style="font-size:18px">→</div>
+        </div>
+
+        <div class="review-card">
+          <div class="interval-badge j90">J+90</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600">Alphabet et ordre alpha</div>
+            <div style="font-size:11.5px;color:var(--text-tertiary)">Français · maîtrisé il y a 3 mois</div>
+          </div>
+          <div style="font-size:18px">→</div>
+        </div>
+
+        <div style="flex:1"></div>
+        <button class="btn">Démarrer les 4 révisions (~12 min)</button>
+      </div>
+
+      <!-- ───── MARKETING FEED (tous états) ───── -->
+      <div class="screen" id="marketing">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px">
+          <div style="font-size:18px">←</div>
+          <div style="font-weight:600">Nouveautés Nasoma</div>
+          <div style="font-size:18px">📢</div>
+        </div>
+
+        <p class="small" style="margin:16px 0 14px;line-height:1.5">
+          Visible peu importe l'état de ton abonnement —
+          notre canal de communication permanent.
+        </p>
+
+        <div class="marketing-card">
+          <span class="pill">🆕 NOUVEAU</span>
+          <h3>Examens blancs CEPE disponibles</h3>
+          <div class="body">Teste-toi en condition réelle 3 fois par an. Inclus dans le plan Mensuel.</div>
+          <span class="cta">Découvrir →</span>
+        </div>
+
+        <div class="marketing-card">
+          <span class="pill">🎁 PROMO</span>
+          <h3>1 mois offert pour les revenants</h3>
+          <div class="body">Tu reviens après une pause ? Réactive ton compte chez ton vendeur, on t'offre 1 mois.</div>
+          <span class="cta">Code REVIENS →</span>
+        </div>
+
+        <div class="marketing-card">
+          <span class="pill">📚 CONSEIL</span>
+          <h3>5 astuces pour préparer la rentrée</h3>
+          <div class="body">Article rédigé par nos inspecteurs CIPR partenaires. Lecture 5 min.</div>
+          <span class="cta">Lire →</span>
+        </div>
+
+        <div class="marketing-card">
+          <span class="pill">👫 PARRAINAGE</span>
+          <h3>Invite un copain, recevez 1 mois chacun</h3>
+          <div class="body">Ton code unique : MIMI-A3F2. Partage-le et gagne du temps gratuit.</div>
+          <span class="cta">Partager WhatsApp →</span>
+        </div>
+      </div>
+
+      <!-- ───── SUPPORT CHAT (SAV 2 tiers) ───── -->
+      <div class="screen" id="support">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px">
+          <div style="font-size:18px">←</div>
+          <div>
+            <div style="font-weight:600">Mimi · Assistant</div>
+            <div style="font-size:11px;color:var(--text-tertiary)">🟢 en ligne</div>
+          </div>
+          <div style="font-size:18px">⋮</div>
+        </div>
+
+        <div class="chat-area" style="margin-top:12px">
+          <div class="bubble ai">
+            Bonjour ! Je suis Mimi, l'assistant Nasoma. Comment puis-je t'aider ?
+            Tu peux me poser des questions sur : le scan, la recharge, l'activation,
+            les exercices, ton compte.
+            <div class="bubble-meta">Mimi · 09:40</div>
+          </div>
+
+          <div class="bubble user">
+            Comment je recharge mon compte ?
+            <div class="bubble-meta" style="color:rgba(0,0,0,0.55)">Toi · 09:41</div>
+          </div>
+
+          <div class="bubble ai">
+            Pour recharger ton compte Nasoma, va voir un vendeur Nasoma près de chez toi.
+            Le vendeur te donnera un ticket avec un code OTP à entrer dans l'app.
+            Tu peux aussi demander à un proche en France ou aux Émirats de payer pour toi
+            via notre site web (diaspora).
+            <div class="bubble-meta">Mimi · 09:41</div>
+          </div>
+
+          <div class="bubble user">
+            Et si je veux parler à un humain ?
+            <div class="bubble-meta" style="color:rgba(0,0,0,0.55)">Toi · 09:42</div>
+          </div>
+
+          <div class="bubble ai">
+            Bien sûr ! L'assistance humaine est disponible si tu es abonné actif.
+            Clique sur le bouton ci-dessous pour demander un agent.
+            <div class="bubble-meta">Mimi · 09:42</div>
+          </div>
+        </div>
+
+        <div class="escalate-btn">👤 Parler à un agent humain (abonnés actifs)</div>
+        <div class="chat-input">
+          <input placeholder="Écris ton message..." />
+          <button>Envoyer</button>
+        </div>
+      </div>
+
+      <!-- ───── PAYWALL ───── -->
+      <div class="screen" id="paywall">
+        <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+        <div style="padding-top:16px;display:flex;justify-content:flex-end;font-size:18px;color:var(--text-tertiary)">×</div>
+        <div style="text-align:center;margin-top:8px">
+          <div class="paywall-icon">🎟️</div>
+          <h2 class="h2">Plus de scans gratuits</h2>
+          <p class="body" style="font-size:14px">Tu as utilisé tes 3 scans découverte.<br/>Choisis un ticket pour continuer.</p>
+        </div>
+        <div style="margin-top:20px">
+          <div class="plan-card">
+            <div class="plan-header">
+              <div>
+                <div class="plan-name">Ticket Journalier</div>
+                <div class="plan-features">5 scans · valable 24h</div>
+              </div>
+              <div style="text-align:right">
+                <div class="plan-price">100</div>
+                <div class="plan-price-sub">KMF</div>
+              </div>
+            </div>
+          </div>
+          <div class="plan-card featured">
+            <div class="plan-header">
+              <div>
+                <div class="plan-name">Mensuel · par enfant</div>
+                <div class="plan-features">120 scans/mois · rapport hebdo in-app · jusqu'à 4 enfants ajoutables</div>
+              </div>
+              <div style="text-align:right">
+                <div class="plan-price">1 500</div>
+                <div class="plan-price-sub">KMF/enfant/mois</div>
+              </div>
+            </div>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #444;font-size:11px;color:var(--text-tertiary);line-height:1.5">
+              1 enfant&nbsp;: 1 500 · 2&nbsp;: 3 000 · 3&nbsp;: 4 500 · 4&nbsp;: 6 000 KMF/mois
+            </div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-header">
+              <div>
+                <div class="plan-name">Hebdo</div>
+                <div class="plan-features">30 scans · valable 7 jours</div>
+              </div>
+              <div style="text-align:right">
+                <div class="plan-price">500</div>
+                <div class="plan-price-sub">KMF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1"></div>
+        <button class="btn">Payer avec Hollo Money</button>
+        <button class="btn btn-ghost" style="margin-top:8px">J'ai un ticket de recharge</button>
+      </div>
+    </div>
+
+    <!-- ───── INFO PANEL ───── -->
+    <aside class="info">
+      <span class="info-tag" id="info-tag">SPLASH</span>
+      <div class="info-title" id="info-title">Écran de démarrage</div>
+      <div class="info-desc" id="info-desc">L'utilisateur ouvre l'app — logo lime sur fond noir, slogan "Mimi, Nasoma" en italique, loader de 2s. Pendant ce temps, Firebase Auth vérifie la session et le router décide vers Onboarding ou Home.</div>
+      <div class="info-meta">
+        <div class="info-meta-row"><span class="info-meta-label">Fichier Flutter</span><span class="info-meta-value" id="info-file">lib/features/splash/...</span></div>
+        <div class="info-meta-row"><span class="info-meta-label">Couleur fond</span><span class="info-meta-value">#000000</span></div>
+        <div class="info-meta-row"><span class="info-meta-label">Couleur accent</span><span class="info-meta-value lime">#D4FF80</span></div>
+        <div class="info-meta-row"><span class="info-meta-label">Police</span><span class="info-meta-value">Inter (Google)</span></div>
+      </div>
+    </aside>
+
+  </main>
+
+  <div class="footer">
+    Aperçu HTML statique généré à partir du scaffolding Flutter — fichier réel : <code>mobile/lib/main.dart</code>. Les vrais écrans seront codés en Dart/Flutter au Sprint 1.
+  </div>
+</div>
+
+<script>
+  const screens = {
+    splash:       { tag: 'SPLASH',        title: 'Écran de démarrage',         desc: "L'utilisateur ouvre l'app — logo lime sur fond noir, slogan en italique, loader de 2s. Firebase Auth vérifie la session et le router décide vers Onboarding ou Home.", file: 'lib/features/splash/splash_screen.dart' },
+    onboarding1:  { tag: 'ONBOARDING 1',  title: 'Promesse 1 — Scanne ta copie', desc: "Premier des 3 écrans onboarding. Animation Lottie à venir (Sprint 1). L'élève comprend en 5 secondes qu'il suffit d'une photo.", file: 'lib/features/onboarding/...' },
+    onboarding2:  { tag: 'ONBOARDING 2',  title: 'Promesse 2 — L\'IA repère',  desc: "L'IA Vision (Cloud Vision + Gemini Flash) repère les erreurs en quelques secondes. Démo animée d'une copie avec ratures rouges qui s'allument.", file: 'lib/features/onboarding/...' },
+    onboarding3:  { tag: 'ONBOARDING 3',  title: 'Promesse 3 — Comble la lacune', desc: "3 micro-exercices générés par Gemini Flash-8B et alignés sur le concept exact défaillant. La séance se valide si > 75 % de réussite (R11).", file: 'lib/features/onboarding/...' },
+    'auth-phone': { tag: 'AUTH',          title: 'Saisie du numéro',           desc: "Login par téléphone uniquement (pas de mot de passe). Préfixe pays auto-détecté (+269 Comores). En MVP : un seul tenant 'KM'. Firebase Auth Phone gratuit < 10k/mois.", file: 'lib/features/auth/phone_screen.dart' },
+    'auth-otp':   { tag: 'AUTH OTP 3-EN-1', title: 'OTP = mot de passe + preuve paiement + crédit', desc: "Modèle unifié : phone = identifiant, OTP = mot de passe ET preuve de paiement ET token de session. 1ère inscription = SMS Firebase (vérification numéro, 3 scans à vie). Tous renouvellements suivants = OTP imprimé sur ticket vendeur, zéro SMS, indépendance opérateurs.", file: 'lib/features/auth/otp_screen.dart' },
+    home:         { tag: 'HOME',          title: 'Dashboard élève',            desc: "Quota scans (3 à vie en plan Découverte), CTA caméra en gros, dernières lacunes affichées avec ratio maîtrise BKT. Trois statuses : vert/orange/rouge (R02-R03-R04 BP).", file: 'lib/features/home/home_screen.dart' },
+    scan:         { tag: 'SCAN',          title: 'Capture caméra',             desc: "Edge detection auto + deskew via image_cropper. Compression JPEG 75 / 1024×1024 / < 100 KB avant upload. ML Kit local appelé en premier, gratuit. Pre-flight quota check effectué AVANT ouverture caméra.", file: 'lib/features/scan/scan_screen.dart' },
+    diagnostic:   { tag: 'DIAGNOSTIC IA', title: 'Restitution erreurs',         desc: "Diagnostic Gemini Flash visualisé sur la copie originale. Chaque erreur est mappée sur un concept_code du knowledge graph APC_KM (650 concepts). Confiance affichée pour transparence.", file: 'lib/features/diagnostic/diagnostic_screen.dart' },
+    session:      { tag: 'SESSION',       title: 'Exercice interactif',        desc: "Session de 3-4 micro-exercices générés par Gemini Flash-8B. Types: MCQ, fill-blank, short-text. Feedback immédiat. Drill-down si échec (F10 BP). BKT mis à jour à chaque réponse.", file: 'lib/features/session/exercise_screen.dart' },
+    profile:      { tag: 'PROFIL',        title: 'Knowledge graph personnel',  desc: "Vue arborescente des concepts maîtrisés (vert ≥0.85), en cours (orange ≥0.50), non maîtrisés (rouge <0.50). Filtrable par matière. Historique chronologique. Streak 3 jours visible.", file: 'lib/features/profile/profile_screen.dart' },
+    paywall:      { tag: 'PAYWALL',       title: 'Tickets de recharge',        desc: "Affiché quand quota = 0 (pre-flight check). 3 plans KMF + tickets physiques (16 chars HMAC). Hollo Money STK Push prioritaire pour Comores. AUCUN scan gratuit illimité, jamais.", file: 'lib/features/payment/paywall_screen.dart' },
+    indicators:   { tag: 'INDICATEURS CT/MT/LT', title: 'Trajectoire d\'apprentissage', desc: "Cœur de valeur Nasoma. CT (aujourd'hui) : 3 exos demain matin. MT (mois) : ajustement routine. LT (année) : décision pédagogique. Calculés quotidiennement par cron à 02h locale. Endpoint GET /students/{id}/indicators?horizon=ct|mt|lt.", file: 'lib/features/indicators/indicators_screen.dart' },
+    reviews:      { tag: 'SPACED REPETITION', title: 'Révision espacée (Moat #6)', desc: "Concepts maîtrisés re-testés à J+1/J+7/J+30/J+90. Différenciateur unique vs Gemini stateless. Sans ça, l'élève savait en CM1 et a oublié en CM2. Endpoint GET /me/reviews/due.", file: 'lib/features/reviews/reviews_screen.dart' },
+    marketing:    { tag: 'MARKETING IN-APP', title: 'Canal permanent (tous états)', desc: "Visible peu importe l'account_state (active/grace/frozen/archived). Promotions, mises à jour, conseils. Garde l'app installée = base de réactivation potentielle. Endpoint GET /marketing/feed.", file: 'lib/features/marketing/feed_screen.dart' },
+    support:      { tag: 'SUPPORT SAV', title: 'IA bot + escalade humaine ACTIVE only', desc: "Gemini Flash répond à tous. Bouton 'humain' renvoie 402 si compte non-ACTIVE avec message 'Réactivez votre abonnement'. Économie ~50% support humain Y2. Endpoint POST /support/conversations.", file: 'lib/features/support/chat_screen.dart' }
+  };
+
+  const navItems = document.querySelectorAll('.nav-item');
+  const screenEls = document.querySelectorAll('.screen');
+  const infoTag = document.getElementById('info-tag');
+  const infoTitle = document.getElementById('info-title');
+  const infoDesc = document.getElementById('info-desc');
+  const infoFile = document.getElementById('info-file');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.screen;
+      navItems.forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+      screenEls.forEach(s => s.classList.remove('show'));
+      document.getElementById(target).classList.add('show');
+      const meta = screens[target];
+      if (meta) {
+        infoTag.textContent = meta.tag;
+        infoTitle.textContent = meta.title;
+        infoDesc.textContent = meta.desc;
+        infoFile.textContent = meta.file;
+      }
+    });
+  });
+</script>
+</body>
+</html>

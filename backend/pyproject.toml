@@ -1,0 +1,99 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nasoma-backend"
+version = "0.1.0"
+description = "Nasoma EdTech — FastAPI backend (Cloud Run, africa-south1)"
+authors = [{ name = "CK Innovation", email = "kader@ckinnovation.fr" }]
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+
+dependencies = [
+    # Web framework
+    "fastapi[standard]>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+
+    # Database
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+
+    # Google Cloud
+    "google-cloud-firestore>=2.19.0",
+    "google-cloud-storage>=2.18.0",
+    "google-cloud-vision>=3.8.0",
+    "google-cloud-tasks>=2.18.0",
+    "google-cloud-logging>=3.11.0",
+    "google-cloud-secret-manager>=2.21.0",
+    "google-generativeai>=0.8.3",            # Gemini API
+    "firebase-admin>=6.6.0",
+
+    # Auth / sécurité
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.17",
+
+    # Utilities
+    "httpx>=0.28.0",
+    "structlog>=24.4.0",
+    "tenacity>=9.0.0",
+    "imagehash>=4.3.1",                       # pHash anti-rescan
+    "pillow>=11.0.0",
+    "python-dateutil>=2.9.0",
+
+    # SMS / paiement
+    "africastalking>=1.2.9",
+    "twilio>=9.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "pytest-mock>=3.14.0",
+    "httpx>=0.28.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "pre-commit>=4.0.0",
+    "ipython>=8.29.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["E501"]                              # line length géré par formatter
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: tests qui prennent > 1s",
+    "integration: tests qui nécessitent Postgres/Firestore",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["*/tests/*", "*/__init__.py"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true

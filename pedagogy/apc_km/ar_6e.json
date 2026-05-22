@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "AR",
+    "grade_level": "6E",
+    "target_concepts": 50,
+    "validated_by": null,
+    "version": "0.1.0-draft"
+  },
+  "concepts": [
+    {
+      "code": "AR_6E_LECTURE_BASE",
+      "name": "Lecture — lire un texte arabe court à voix haute",
+      "name_shikomori": "Kusomwa kwa Kiarabu",
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": [],
+      "curriculum_refs": { "apc_km_2010": "C1-A-6E-01" },
+      "description": "Lire un texte arabe court (10-15 lignes) avec une prononciation correcte des voyelles courtes et longues.",
+      "common_errors": [
+        { "code": "AR_VOYELLES_COURTES", "description": "Omettre les voyelles courtes (fatha, damma, kasra) à la lecture" },
+        { "code": "AR_SOLAIRE_LUNAIRE", "description": "Ne pas assimiler l'article ال devant les lettres solaires" }
+      ]
+    },
+    {
+      "code": "AR_6E_GRAM_NOM",
+      "name": "Grammaire arabe — le nom (al-ism) : genres et nombres",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["AR_6E_LECTURE_BASE"],
+      "curriculum_refs": { "apc_km_2010": "C1-A-6E-02" },
+      "description": "Identifier le genre (masculin/féminin) et le nombre (singulier, duel, pluriel) d'un nom arabe.",
+      "common_errors": [
+        { "code": "AR_PLURIEL_BRISE", "description": "Confondre pluriel sain et pluriel brisé (جُمُوع التَّكْسِير)" }
+      ]
+    },
+    {
+      "code": "AR_6E_GRAM_VERBE",
+      "name": "Grammaire arabe — le verbe (al-fi'l) : accompli et inaccompli",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["AR_6E_GRAM_NOM"],
+      "curriculum_refs": { "apc_km_2010": "C1-A-6E-03" },
+      "description": "Conjuguer les verbes réguliers trilitères à l'accompli (ماضٍ) et à l'inaccompli (مضارع).",
+      "common_errors": [
+        { "code": "AR_ACCOMPLI_INACCOMPLI", "description": "Confondre les préfixes et suffixes du maadi et du moudari'" }
+      ]
+    },
+    {
+      "code": "AR_6E_VOCAB_CORAN",
+      "name": "Vocabulaire — vocabulaire coranique de base",
+      "name_shikomori": "Maneno ya Kurani",
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "prerequisites": ["AR_6E_LECTURE_BASE"],
+      "curriculum_refs": { "apc_km_2010": "C1-A-6E-04" },
+      "description": "Comprendre et mémoriser 50 mots du vocabulaire coranique fréquent (Allah, rahma, salat, etc.).",
+      "common_errors": [
+        { "code": "AR_VOCAB_CONTEXTE", "description": "Mémoriser les mots hors contexte sans comprendre leur sens dans une phrase" }
+      ]
+    },
+    {
+      "code": "AR_6E_EXPRESSION_ECRITE",
+      "name": "Expression écrite — rédiger une phrase simple en arabe",
+      "name_shikomori": null,
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "prerequisites": ["AR_6E_GRAM_VERBE"],
+      "curriculum_refs": { "apc_km_2010": "C1-A-6E-05" },
+      "description": "Construire une phrase nominale (جملة اسمية) et verbale (جملة فعلية) simple et correcte.",
+      "common_errors": [
+        { "code": "AR_PHRASE_ACCORD", "description": "Ne pas accorder le verbe avec le sujet en genre et nombre" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+# ──────────────────────────────────────────────
+#  Secrets & environnement
+# ──────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+backend/secrets/
+service-account*.json
+firebase-adminsdk*.json
+gcloud-key*.json
+
+# ──────────────────────────────────────────────
+#  Python / Backend
+# ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+
+# ──────────────────────────────────────────────
+#  Flutter / Dart / Mobile
+# ──────────────────────────────────────────────
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/android/.gradle/
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+mobile/android/local.properties
+mobile/android/key.properties
+mobile/android/app/upload-keystore.jks
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/ios/Flutter/Flutter.framework
+mobile/ios/Flutter/Flutter.podspec
+mobile/coverage/
+mobile/**/*.g.dart
+mobile/**/*.freezed.dart
+mobile/**/*.gr.dart
+!mobile/**/generated/
+
+# ──────────────────────────────────────────────
+#  Terraform / Infra
+# ──────────────────────────────────────────────
+infra/**/.terraform/
+infra/**/*.tfstate
+infra/**/*.tfstate.*
+infra/**/*.tfvars
+!infra/**/*.tfvars.example
+infra/**/.terraform.lock.hcl
+infra/**/crash.log
+
+# ──────────────────────────────────────────────
+#  Docker / Compose
+# ──────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+
+# ──────────────────────────────────────────────
+#  IDE / Éditeurs
+# ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ──────────────────────────────────────────────
+#  Logs & temporaires
+# ──────────────────────────────────────────────
+*.log
+logs/
+tmp/
+temp/
+.cache/
+
+# ──────────────────────────────────────────────
+#  Sortie de build & artefacts
+# ──────────────────────────────────────────────
+*.apk
+*.aab
+*.ipa
+*.app
+*.dSYM.zip
+!mobile/test/fixtures/**/*.apk
+
+# ──────────────────────────────────────────────
+#  Données pédagogiques générées
+# ──────────────────────────────────────────────
+pedagogy/**/_generated_/
+pedagogy/**/*.draft.json

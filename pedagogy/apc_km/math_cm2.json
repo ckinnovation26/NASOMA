@@ -1,0 +1,384 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "MATH",
+    "grade_level": "CM2",
+    "target_concepts": 100,
+    "validated_by": null,
+    "version": "0.2.0-seed"
+  },
+  "concepts": [
+    {
+      "code": "MATH_CM2_NUM_LECTURE_GRANDS",
+      "name": "Lecture et écriture des grands nombres (jusqu'au milliard)",
+      "name_shikomori": "Usomeso na uandishi wa namba kuu",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM1_NUM_MILLE"],
+      "curriculum_refs": {"APC_KM": "M.5.1.1"},
+      "description": "Lire et écrire les nombres entiers jusqu'au milliard en chiffres et en lettres.",
+      "common_errors": [
+        {"code": "wrong_class_separator", "description": "Mauvais regroupement par classes (par 3 chiffres)"},
+        {"code": "zero_intercalaire", "description": "Oubli des zéros intercalaires"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_NUM_DECOMP",
+      "name": "Décomposition en milliers/centaines/dizaines/unités",
+      "difficulty": 2,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM2_NUM_LECTURE_GRANDS"],
+      "curriculum_refs": {"APC_KM": "M.5.1.2"},
+      "description": "Décomposer un nombre entier selon sa valeur de position.",
+      "common_errors": [
+        {"code": "position_confusion", "description": "Confusion entre chiffre et valeur de position"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_NUM_COMPARAISON",
+      "name": "Comparaison et rangement de grands nombres",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM2_NUM_DECOMP"],
+      "curriculum_refs": {"APC_KM": "M.5.1.3"},
+      "description": "Comparer et ranger des nombres entiers jusqu'au milliard.",
+      "common_errors": [
+        {"code": "wrong_sign_direction", "description": "Confusion sens des signes < et >"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_ADD_RETENUE",
+      "name": "Addition avec retenue (3 chiffres ou plus)",
+      "name_shikomori": "Mfanyihazo wa tahaifu",
+      "difficulty": 1,
+      "estimated_minutes": 5,
+      "prerequisites": ["MATH_CM1_ADD_SIMPLE", "MATH_CM2_NUM_DECOMP"],
+      "curriculum_refs": {"APC_KM": "M.5.2.1"},
+      "description": "Effectuer une addition avec retenue sur dizaines, centaines, milliers.",
+      "common_errors": [
+        {"code": "missing_carry", "description": "Oubli de la retenue en colonne suivante"},
+        {"code": "wrong_column", "description": "Retenue placée dans la mauvaise colonne"}
+      ],
+      "example_exercise": "356 + 478 = ?"
+    },
+    {
+      "code": "MATH_CM2_SUB_RETENUE",
+      "name": "Soustraction avec retenue",
+      "difficulty": 2,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM1_SUB_SIMPLE", "MATH_CM2_NUM_DECOMP"],
+      "curriculum_refs": {"APC_KM": "M.5.2.2"},
+      "description": "Effectuer une soustraction avec emprunt sur dizaines et centaines.",
+      "common_errors": [
+        {"code": "missing_borrow", "description": "Oubli de l'emprunt"},
+        {"code": "subtract_smaller_from_larger", "description": "Inversion : soustraire le grand du petit dans une colonne"}
+      ],
+      "example_exercise": "502 − 347 = ?"
+    },
+    {
+      "code": "MATH_CM2_MULT_2DIGITS",
+      "name": "Multiplication par un nombre à 2 chiffres",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM1_TABLES_MULT", "MATH_CM2_ADD_RETENUE"],
+      "curriculum_refs": {"APC_KM": "M.5.2.3"},
+      "description": "Multiplier un nombre par un nombre à 2 chiffres en posant l'opération.",
+      "common_errors": [
+        {"code": "missing_carry_mult", "description": "Oubli de la retenue dans la multiplication"},
+        {"code": "row_alignment", "description": "Décalage de la 2ème ligne incorrect (oubli du zéro)"}
+      ],
+      "example_exercise": "47 × 23 = ?"
+    },
+    {
+      "code": "MATH_CM2_MULT_3DIGITS",
+      "name": "Multiplication par un nombre à 3 chiffres",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["MATH_CM2_MULT_2DIGITS"],
+      "curriculum_refs": {"APC_KM": "M.5.2.4"},
+      "description": "Multiplier un nombre par un nombre à 3 chiffres.",
+      "common_errors": [
+        {"code": "row_alignment", "description": "Décalages des lignes intermédiaires"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_DIV_BASIC",
+      "name": "Division euclidienne par un chiffre",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM2_MULT_2DIGITS", "MATH_CM2_SUB_RETENUE"],
+      "curriculum_refs": {"APC_KM": "M.5.2.5"},
+      "description": "Poser et effectuer une division euclidienne par un nombre à 1 chiffre.",
+      "common_errors": [
+        {"code": "wrong_quotient_estimate", "description": "Mauvaise estimation du chiffre du quotient"},
+        {"code": "remainder_too_large", "description": "Reste supérieur ou égal au diviseur"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_DIV_2DIGITS",
+      "name": "Division euclidienne par 2 chiffres",
+      "difficulty": 4,
+      "estimated_minutes": 15,
+      "prerequisites": ["MATH_CM2_DIV_BASIC"],
+      "curriculum_refs": {"APC_KM": "M.5.2.6"},
+      "description": "Effectuer une division euclidienne par un nombre à 2 chiffres.",
+      "common_errors": [
+        {"code": "wrong_quotient_estimate", "description": "Estimation difficile du chiffre du quotient"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_FRAC_LECTURE",
+      "name": "Lecture et écriture de fractions",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": ["MATH_CM1_FRAC_NOTION"],
+      "curriculum_refs": {"APC_KM": "M.5.4.1"},
+      "description": "Lire, écrire et nommer des fractions simples (numérateur/dénominateur).",
+      "common_errors": [
+        {"code": "swap_terms", "description": "Inversion numérateur ↔ dénominateur"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_FRAC_EQUIV",
+      "name": "Fractions équivalentes",
+      "difficulty": 3,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM2_FRAC_LECTURE", "MATH_CM2_MULT_2DIGITS", "MATH_CM2_DIV_BASIC"],
+      "curriculum_refs": {"APC_KM": "M.5.4.2"},
+      "description": "Identifier et produire des fractions équivalentes en multipliant/divisant numérateur ET dénominateur.",
+      "common_errors": [
+        {"code": "only_numerator", "description": "Multiplie seulement le numérateur"},
+        {"code": "add_instead_of_mult", "description": "Additionne au lieu de multiplier"}
+      ],
+      "example_exercise": "Trouve une fraction équivalente à 2/3."
+    },
+    {
+      "code": "MATH_CM2_FRAC_COMPARAISON",
+      "name": "Comparer des fractions",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM2_FRAC_EQUIV"],
+      "curriculum_refs": {"APC_KM": "M.5.4.3"},
+      "description": "Comparer deux fractions par réduction au même dénominateur.",
+      "common_errors": [
+        {"code": "compare_numerators_only", "description": "Compare seulement les numérateurs sans aligner les dénominateurs"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_FRAC_ADD_SAME",
+      "name": "Addition de fractions de même dénominateur",
+      "difficulty": 2,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM2_FRAC_LECTURE"],
+      "curriculum_refs": {"APC_KM": "M.5.4.4"},
+      "description": "Additionner deux fractions ayant le même dénominateur.",
+      "common_errors": [
+        {"code": "add_denominators", "description": "Additionne aussi les dénominateurs"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_DEC_LECTURE",
+      "name": "Lecture et écriture des nombres décimaux",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM2_FRAC_LECTURE"],
+      "curriculum_refs": {"APC_KM": "M.5.3.1"},
+      "description": "Lire et écrire les nombres décimaux (dixièmes, centièmes, millièmes).",
+      "common_errors": [
+        {"code": "decimal_position", "description": "Confusion sur la position de la virgule"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_DEC_ADD_SUB",
+      "name": "Addition et soustraction de nombres décimaux",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM2_DEC_LECTURE", "MATH_CM2_ADD_RETENUE", "MATH_CM2_SUB_RETENUE"],
+      "curriculum_refs": {"APC_KM": "M.5.3.2"},
+      "description": "Poser et effectuer additions et soustractions de nombres décimaux en alignant les virgules.",
+      "common_errors": [
+        {"code": "comma_misalignment", "description": "Virgules non alignées dans la pose"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_DEC_MULT_10",
+      "name": "Multiplication d'un décimal par 10, 100, 1000",
+      "difficulty": 2,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM2_DEC_LECTURE"],
+      "curriculum_refs": {"APC_KM": "M.5.3.3"},
+      "description": "Multiplier un nombre décimal par 10, 100 ou 1000 en déplaçant la virgule.",
+      "common_errors": [
+        {"code": "wrong_direction_shift", "description": "Déplace la virgule dans le mauvais sens"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_GEO_DROITES",
+      "name": "Droites parallèles et perpendiculaires",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM1_GEO_DROITE_NOTION"],
+      "curriculum_refs": {"APC_KM": "M.5.5.1"},
+      "description": "Reconnaître, tracer et nommer des droites parallèles et perpendiculaires.",
+      "common_errors": [
+        {"code": "swap_parallel_perpendicular", "description": "Confusion parallèle ↔ perpendiculaire"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_GEO_QUADRI",
+      "name": "Quadrilatères : carré, rectangle, losange, parallélogramme",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM2_GEO_DROITES"],
+      "curriculum_refs": {"APC_KM": "M.5.5.2"},
+      "description": "Identifier et décrire les propriétés des quadrilatères usuels.",
+      "common_errors": [
+        {"code": "miss_property", "description": "Oubli d'une propriété (côtés égaux, angles droits)"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_GEO_TRIANGLE",
+      "name": "Triangles : isocèle, équilatéral, rectangle",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM1_GEO_TRIANGLE_NOTION"],
+      "curriculum_refs": {"APC_KM": "M.5.5.3"},
+      "description": "Identifier et tracer les différents types de triangles.",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM2_GEO_SYMETRIE",
+      "name": "Symétrie axiale",
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "prerequisites": ["MATH_CM2_GEO_DROITES"],
+      "curriculum_refs": {"APC_KM": "M.5.5.4"},
+      "description": "Reconnaître et tracer le symétrique d'une figure par rapport à une droite.",
+      "common_errors": [
+        {"code": "wrong_axis", "description": "Axe de symétrie mal placé"},
+        {"code": "wrong_distance", "description": "Distance à l'axe non respectée"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_MES_LONGUEUR",
+      "name": "Conversions de mesures de longueur",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM1_MES_LONGUEUR_BASE"],
+      "curriculum_refs": {"APC_KM": "M.5.6.1"},
+      "description": "Convertir entre mm, cm, dm, m, dam, hm, km.",
+      "common_errors": [
+        {"code": "wrong_factor", "description": "Mauvais facteur de conversion (×10 vs ×100)"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_MES_MASSE",
+      "name": "Conversions de mesures de masse",
+      "difficulty": 2,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM2_MES_LONGUEUR"],
+      "curriculum_refs": {"APC_KM": "M.5.6.2"},
+      "description": "Convertir entre mg, g, kg, t.",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM2_MES_DUREE",
+      "name": "Calculer une durée",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM1_LECTURE_HEURE"],
+      "curriculum_refs": {"APC_KM": "M.5.6.3"},
+      "description": "Calculer une durée entre deux heures, additionner/soustraire des durées (h, min, s).",
+      "common_errors": [
+        {"code": "base_60_confusion", "description": "Confusion base 60 (60 min = 1h, pas 100)"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_MES_AIRE_RECT",
+      "name": "Aire d'un rectangle",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM2_MULT_2DIGITS", "MATH_CM2_GEO_QUADRI"],
+      "curriculum_refs": {"APC_KM": "M.5.6.4"},
+      "description": "Calculer l'aire d'un rectangle (Longueur × largeur).",
+      "common_errors": [
+        {"code": "perimeter_instead_of_area", "description": "Calcule le périmètre au lieu de l'aire"}
+      ],
+      "example_exercise": "Un rectangle mesure 8 cm sur 5 cm. Quelle est son aire ?"
+    },
+    {
+      "code": "MATH_CM2_MES_PERIMETRE",
+      "name": "Périmètre des figures usuelles",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM2_GEO_QUADRI", "MATH_CM2_ADD_RETENUE"],
+      "curriculum_refs": {"APC_KM": "M.5.6.5"},
+      "description": "Calculer le périmètre d'un carré, rectangle, triangle.",
+      "common_errors": [
+        {"code": "area_instead_of_perimeter", "description": "Calcule l'aire au lieu du périmètre"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_LECTURE_ENONCE",
+      "name": "Lecture et compréhension d'énoncé de problème",
+      "difficulty": 3,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.5.7.1"},
+      "description": "Identifier les données, les questions et les opérations nécessaires dans un problème.",
+      "common_errors": [
+        {"code": "literal_reading", "description": "Lecture littérale sans modélisation"},
+        {"code": "miss_data", "description": "Oubli d'une donnée chiffrée"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_PROBLEMES_FRACTIONS",
+      "name": "Résolution de problèmes avec fractions",
+      "difficulty": 4,
+      "estimated_minutes": 15,
+      "prerequisites": ["MATH_CM2_FRAC_EQUIV", "MATH_CM2_LECTURE_ENONCE"],
+      "curriculum_refs": {"APC_KM": "M.5.7.2"},
+      "description": "Résoudre un problème simple impliquant des fractions de quantité ou de longueur.",
+      "common_errors": [
+        {"code": "wrong_operation", "description": "Choix de l'opération incorrect"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_PROBLEMES_DUREE",
+      "name": "Problèmes de durée et d'horaires",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM2_MES_DUREE", "MATH_CM2_LECTURE_ENONCE"],
+      "curriculum_refs": {"APC_KM": "M.5.7.3"},
+      "description": "Résoudre des problèmes mettant en jeu des durées (horaires de classe, voyage).",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM2_PROPORTIONNALITE",
+      "name": "Proportionnalité (notion et tableau)",
+      "difficulty": 4,
+      "estimated_minutes": 15,
+      "prerequisites": ["MATH_CM2_MULT_2DIGITS", "MATH_CM2_DIV_BASIC"],
+      "curriculum_refs": {"APC_KM": "M.5.4.5"},
+      "description": "Reconnaître et compléter un tableau de proportionnalité (règle de trois simple).",
+      "common_errors": [
+        {"code": "wrong_cross_product", "description": "Erreur dans le produit en croix"}
+      ]
+    },
+    {
+      "code": "MATH_CM2_POURCENTAGE",
+      "name": "Pourcentages simples (10%, 25%, 50%)",
+      "difficulty": 3,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM2_PROPORTIONNALITE", "MATH_CM2_DEC_LECTURE"],
+      "curriculum_refs": {"APC_KM": "M.5.4.6"},
+      "description": "Calculer des pourcentages simples d'une quantité.",
+      "common_errors": [
+        {"code": "miss_div_100", "description": "Oubli de diviser par 100"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "MATH",
+    "grade_level": "CM1",
+    "target_concepts": 80,
+    "validated_by": null,
+    "version": "0.2.0-seed"
+  },
+  "concepts": [
+    {
+      "code": "MATH_CM1_NUM_MILLE",
+      "name": "Lire et écrire les nombres jusqu'à 1 000 000",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.4.1.1"},
+      "description": "Lire et écrire les nombres entiers jusqu'au million.",
+      "common_errors": [
+        {"code": "zero_intercalaire", "description": "Oubli des zéros intercalaires"}
+      ]
+    },
+    {
+      "code": "MATH_CM1_VALEUR_POSITION",
+      "name": "Valeur de position (unités, dizaines, centaines, milliers)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["MATH_CM1_NUM_MILLE"],
+      "curriculum_refs": {"APC_KM": "M.4.1.2"},
+      "description": "Identifier la valeur de chaque chiffre selon sa position.",
+      "common_errors": [
+        {"code": "position_confusion", "description": "Confusion chiffre vs valeur"}
+      ]
+    },
+    {
+      "code": "MATH_CM1_ADD_SIMPLE",
+      "name": "Addition à 3 chiffres sans/avec petite retenue",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": ["MATH_CM1_VALEUR_POSITION"],
+      "curriculum_refs": {"APC_KM": "M.4.2.1"},
+      "description": "Poser et effectuer une addition à 3 chiffres avec retenue simple.",
+      "common_errors": [
+        {"code": "missing_carry", "description": "Oubli de la retenue"}
+      ]
+    },
+    {
+      "code": "MATH_CM1_SUB_SIMPLE",
+      "name": "Soustraction à 3 chiffres",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": ["MATH_CM1_VALEUR_POSITION"],
+      "curriculum_refs": {"APC_KM": "M.4.2.2"},
+      "description": "Poser et effectuer une soustraction à 3 chiffres (avec emprunt simple).",
+      "common_errors": [
+        {"code": "missing_borrow", "description": "Oubli de l'emprunt"}
+      ]
+    },
+    {
+      "code": "MATH_CM1_TABLES_MULT",
+      "name": "Tables de multiplication (1 à 10)",
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.4.2.3"},
+      "description": "Mémoriser et réciter les tables de multiplication de 1 à 10.",
+      "common_errors": [
+        {"code": "table_confusion", "description": "Confusion entre tables proches (7×8 vs 7×9)"}
+      ]
+    },
+    {
+      "code": "MATH_CM1_MULT_1DIGIT",
+      "name": "Multiplication par un chiffre",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["MATH_CM1_TABLES_MULT", "MATH_CM1_ADD_SIMPLE"],
+      "curriculum_refs": {"APC_KM": "M.4.2.4"},
+      "description": "Multiplier un nombre à 3 chiffres par un nombre à 1 chiffre.",
+      "common_errors": [
+        {"code": "missing_carry_mult", "description": "Oubli de la retenue de la multiplication"}
+      ]
+    },
+    {
+      "code": "MATH_CM1_DIV_SIMPLE",
+      "name": "Division par un chiffre (sans reste)",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["MATH_CM1_TABLES_MULT", "MATH_CM1_SUB_SIMPLE"],
+      "curriculum_refs": {"APC_KM": "M.4.2.5"},
+      "description": "Effectuer une division par un nombre à 1 chiffre quand le reste est nul.",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM1_FRAC_NOTION",
+      "name": "Notion de fraction (parts d'un tout)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.4.3.1"},
+      "description": "Comprendre la notion de fraction (parts d'une unité).",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM1_GEO_DROITE_NOTION",
+      "name": "Droite, demi-droite, segment",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.4.4.1"},
+      "description": "Distinguer droite, demi-droite et segment ; les tracer à la règle.",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM1_GEO_TRIANGLE_NOTION",
+      "name": "Notion de triangle",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": ["MATH_CM1_GEO_DROITE_NOTION"],
+      "curriculum_refs": {"APC_KM": "M.4.4.2"},
+      "description": "Reconnaître un triangle, nommer ses sommets et côtés.",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM1_MES_LONGUEUR_BASE",
+      "name": "Mesures de longueur de base (m, cm, mm)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.4.5.1"},
+      "description": "Mesurer en mètres, centimètres et millimètres.",
+      "common_errors": []
+    },
+    {
+      "code": "MATH_CM1_LECTURE_HEURE",
+      "name": "Lecture de l'heure (horloge analogique et numérique)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "M.4.5.2"},
+      "description": "Lire l'heure sur une horloge à aiguilles et numérique.",
+      "common_errors": [
+        {"code": "swap_hour_minute", "description": "Confusion aiguille des heures vs minutes"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "country": "KM",
+    "country_name": "Union des Comores",
+    "curriculum_code": "APC_KM_2010",
+    "curriculum_name": "Approche Par Compétences — Plan Directeur 2010-2015",
+    "subject": "FR",
+    "grade_level": "CM1",
+    "target_concepts": 80,
+    "validated_by": null,
+    "version": "0.2.0-seed"
+  },
+  "concepts": [
+    {
+      "code": "FR_CM1_ALPHABET",
+      "name": "Alphabet et ordre alphabétique",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.4.1.1"},
+      "description": "Connaître l'ordre alphabétique et classer des mots par lettre initiale.",
+      "common_errors": [{"code": "wrong_order", "description": "Ordre confus après la 15e lettre"}]
+    },
+    {
+      "code": "FR_CM1_SYLLABES",
+      "name": "Découpage en syllabes",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.4.1.2"},
+      "description": "Découper un mot en syllabes orales et écrites.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_GRAM_PHRASE",
+      "name": "Phrase simple : majuscule, point",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.4.2.1"},
+      "description": "Reconnaître une phrase, sa majuscule et sa ponctuation finale.",
+      "common_errors": [{"code": "missing_punctuation", "description": "Oubli majuscule ou point"}]
+    },
+    {
+      "code": "FR_CM1_GRAM_NOM",
+      "name": "Le nom commun et le nom propre",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["FR_CM1_GRAM_PHRASE"],
+      "curriculum_refs": {"APC_KM": "F.4.2.2"},
+      "description": "Distinguer noms communs et noms propres ; majuscule des noms propres.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_GRAM_VERBE",
+      "name": "Le verbe — repérage dans la phrase",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_GRAM_NOM"],
+      "curriculum_refs": {"APC_KM": "F.4.2.3"},
+      "description": "Identifier le verbe dans une phrase simple (mot qui exprime l'action).",
+      "common_errors": [{"code": "noun_vs_verb", "description": "Confusion nom-verbe (le travail / il travaille)"}]
+    },
+    {
+      "code": "FR_CM1_GRAM_SUJET",
+      "name": "Le sujet du verbe",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_GRAM_VERBE"],
+      "curriculum_refs": {"APC_KM": "F.4.2.4"},
+      "description": "Identifier le sujet en posant la question « Qui est-ce qui... ? ».",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_GRAM_DETERMINANT",
+      "name": "Les déterminants (le, la, les, un, une, des, mon, ma, mes...)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["FR_CM1_GRAM_NOM"],
+      "curriculum_refs": {"APC_KM": "F.4.2.5"},
+      "description": "Reconnaître les déterminants articles et possessifs.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_GRAM_ADJECTIF",
+      "name": "L'adjectif qualificatif",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_GRAM_NOM"],
+      "curriculum_refs": {"APC_KM": "F.4.2.6"},
+      "description": "Reconnaître l'adjectif qui qualifie un nom.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_CONJ_INFINITIF",
+      "name": "L'infinitif du verbe (-er, -ir, -re)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["FR_CM1_GRAM_VERBE"],
+      "curriculum_refs": {"APC_KM": "F.4.3.1"},
+      "description": "Trouver l'infinitif d'un verbe conjugué.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_CONJ_GROUPES",
+      "name": "Les 3 groupes de verbes",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_CONJ_INFINITIF"],
+      "curriculum_refs": {"APC_KM": "F.4.3.2"},
+      "description": "Classer les verbes en 1er (-er), 2e (-ir / -issons) et 3e groupes.",
+      "common_errors": [{"code": "ir_first_or_third", "description": "Confusion entre verbe -IR du 2e groupe (finir) et du 3e (venir)"}]
+    },
+    {
+      "code": "FR_CM1_CONJ_PRESENT_ETRE_AVOIR",
+      "name": "Présent de l'indicatif — être et avoir",
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_CONJ_INFINITIF"],
+      "curriculum_refs": {"APC_KM": "F.4.3.3"},
+      "description": "Conjuguer être et avoir au présent (auxiliaires essentiels).",
+      "common_errors": [{"code": "swap_aux", "description": "Confusion je suis / j'ai à toutes les personnes"}]
+    },
+    {
+      "code": "FR_CM1_CONJ_PRESENT_1G",
+      "name": "Présent — verbes du 1er groupe (-ER)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_CONJ_GROUPES"],
+      "curriculum_refs": {"APC_KM": "F.4.3.4"},
+      "description": "Conjuguer les verbes du 1er groupe au présent.",
+      "common_errors": [{"code": "wrong_ending", "description": "Confusion -e / -es / -ent"}]
+    },
+    {
+      "code": "FR_CM1_ORTH_MAJUSCULE",
+      "name": "Majuscule en début de phrase et noms propres",
+      "difficulty": 1,
+      "estimated_minutes": 6,
+      "prerequisites": ["FR_CM1_GRAM_NOM"],
+      "curriculum_refs": {"APC_KM": "F.4.4.1"},
+      "description": "Mettre la majuscule au début des phrases et aux noms propres.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_ORTH_PLURIEL_S",
+      "name": "Pluriel des noms en -s",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": ["FR_CM1_GRAM_DETERMINANT"],
+      "curriculum_refs": {"APC_KM": "F.4.4.2"},
+      "description": "Former le pluriel des noms par ajout de -s (cas régulier).",
+      "common_errors": [{"code": "miss_plural_s", "description": "Oubli du -s au pluriel"}]
+    },
+    {
+      "code": "FR_CM1_ORTH_FEMININ_E",
+      "name": "Féminin des noms et adjectifs en -e",
+      "difficulty": 2,
+      "estimated_minutes": 8,
+      "prerequisites": ["FR_CM1_GRAM_ADJECTIF"],
+      "curriculum_refs": {"APC_KM": "F.4.4.3"},
+      "description": "Former le féminin par ajout de -e.",
+      "common_errors": [{"code": "miss_feminine_e", "description": "Oubli du -e final au féminin"}]
+    },
+    {
+      "code": "FR_CM1_ORTH_ACCORD_SV_CM1",
+      "name": "Accord sujet-verbe (cas simples)",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_GRAM_SUJET", "FR_CM1_CONJ_PRESENT_1G"],
+      "curriculum_refs": {"APC_KM": "F.4.4.4"},
+      "description": "Accorder verbe et sujet au singulier et pluriel.",
+      "common_errors": [{"code": "miss_accord_3pp", "description": "Oubli du -nt à la 3e pers du pluriel"}]
+    },
+    {
+      "code": "FR_CM1_VOC_SYNONYMES_CM1",
+      "name": "Synonymes (mots de sens proches)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.4.5.1"},
+      "description": "Trouver des synonymes de mots usuels.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_VOC_CONTRAIRES",
+      "name": "Contraires (antonymes)",
+      "difficulty": 1,
+      "estimated_minutes": 8,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.4.5.2"},
+      "description": "Trouver le contraire d'un mot usuel.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_VOC_DICTIONNAIRE_CM1",
+      "name": "Utilisation du dictionnaire",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_ALPHABET"],
+      "curriculum_refs": {"APC_KM": "F.4.5.3"},
+      "description": "Chercher un mot dans le dictionnaire.",
+      "common_errors": [{"code": "wrong_alphabetic", "description": "Confusion ordre alphabétique sur 2e/3e lettre"}]
+    },
+    {
+      "code": "FR_CM1_LECT_COMPREHENSION_CM1",
+      "name": "Compréhension d'un texte court",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": [],
+      "curriculum_refs": {"APC_KM": "F.4.6.1"},
+      "description": "Répondre à des questions de compréhension sur un texte court.",
+      "common_errors": [{"code": "literal_only", "description": "Réponses littérales sans déduction"}]
+    },
+    {
+      "code": "FR_CM1_PROD_PHRASE_CM1",
+      "name": "Construction de phrases simples",
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "prerequisites": ["FR_CM1_GRAM_PHRASE", "FR_CM1_ORTH_MAJUSCULE"],
+      "curriculum_refs": {"APC_KM": "F.4.7.1"},
+      "description": "Construire des phrases simples grammaticalement correctes.",
+      "common_errors": []
+    },
+    {
+      "code": "FR_CM1_PROD_DICTEE_CM1",
+      "name": "Dictée préparée (texte très court)",
+      "difficulty": 2,
+      "estimated_minutes": 12,
+      "prerequisites": ["FR_CM1_ORTH_ACCORD_SV_CM1", "FR_CM1_ORTH_PLURIEL_S"],
+      "curriculum_refs": {"APC_KM": "F.4.7.2"},
+      "description": "Écrire sous dictée un texte préparé de 3-5 lignes.",
+      "common_errors": []
+    }
+  ]
+}
