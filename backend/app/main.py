@@ -13,6 +13,7 @@ from app import __version__
 from app.api.v1 import router as api_v1_router
 from app.core.config import settings
 from app.core.logging import configure_logging
+from app.workers.ocr_worker import router as ocr_worker_router
 
 logger = structlog.get_logger(__name__)
 
@@ -51,3 +52,4 @@ async def health() -> dict[str, str]:
 
 
 app.include_router(api_v1_router, prefix="/api/v1")
+app.include_router(ocr_worker_router, tags=["workers"])

@@ -27,8 +27,12 @@ dependencies:
   # ─── Stockage local (web-friendly via shared_preferences) ───
   shared_preferences: ^2.3.2
 
-  # ─── Image picker (compatible web) ───
+  # ─── Image picker + compression ───
   image_picker: ^1.1.2
+  flutter_image_compress: ^2.2.0
+
+  # ─── ML Kit OCR on-device (Android) ───
+  google_mlkit_text_recognition: ^0.13.0
 
   # ─── i18n ───
   intl: ^0.20.2

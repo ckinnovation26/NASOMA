@@ -5,7 +5,6 @@ Cf. docs/api.md + docs/strategie_Nasoma.md § 3 quater.
 
 from __future__ import annotations
 
-import uuid
 from datetime import UTC, datetime, timedelta
 
 import structlog
@@ -14,6 +13,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.deps import get_current_user
 from app.core.security import create_access_token, create_refresh_token, hash_otp
 from app.db.session import get_db
 from app.models.otp_challenges import OtpType
@@ -43,6 +43,7 @@ from app.services.otp_service import (
     OtpService,
 )
 from app.services.quota_service import QuotaService
+from app.services.sms_service import SmsService
 
 logger = structlog.get_logger(__name__)
 
@@ -120,10 +121,21 @@ async def signup_sms(
         device_id=payload.device_id,
     )
 
-    # TODO Sprint 2: envoyer réellement via Firebase / Africa's Talking
-    # En dev, le code est dans les logs (visible avec structlog)
-    if settings.app_env == "dev":
-        logger.info("DEV ONLY — SMS OTP", phone=payload.phone, code=code)
+    sms_svc = SmsService()
+    delivery = await sms_svc.send_otp_sms(phone=payload.phone, otp_code=code)
+    if not delivery.is_sent:
+        logger.error(
+            "auth.signup.sms_delivery_failed",
+            phone_suffix=payload.phone[-4:],
+            error=delivery.error_message,
+        )
+        # On ne bloque pas l'inscription si l'envoi échoue en dev/sandbox.
+        # En prod, l'erreur est remontée pour retry côté client.
+        if settings.app_env == "prod":
+            raise HTTPException(
+                status.HTTP_503_SERVICE_UNAVAILABLE,
+                "Envoi du SMS impossible. Réessayez dans quelques secondes.",
+            )
 
     await db.commit()
     return SignupSmsResponse(
@@ -350,11 +362,11 @@ async def login(
     summary="État actuel du compte (calculé en live)",
 )
 async def get_account_state(
-    user_id: uuid.UUID,                                        # TODO Sprint 1.5 : extraire du JWT
     db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ) -> AccountStateResponse:
     svc = AccountStateService(db)
-    info = await svc.get_info(user_id)
+    info = await svc.get_info(current_user.id)
     await db.commit()
     return AccountStateResponse(
         state=info.state,
@@ -375,10 +387,10 @@ async def get_account_state(
     summary="Solde de scans + expiration",
 )
 async def get_credit_status(
-    user_id: uuid.UUID,                                        # TODO Sprint 1.5 : extraire du JWT
+    current_user: User = Depends(get_current_user),
 ) -> CreditStatusResponse:
     quota_svc = QuotaService()
-    status_info = await quota_svc.check(user_id)
+    status_info = await quota_svc.check(current_user.id)
     return CreditStatusResponse(
         remaining_scans=status_info.remaining_scans,
         plan=status_info.plan,
