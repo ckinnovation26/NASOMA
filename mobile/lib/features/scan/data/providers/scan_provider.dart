@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/scan_model.dart';
+import '../../domain/models/scan_model.dart';
 
 enum ScanUploadState {
   idle,

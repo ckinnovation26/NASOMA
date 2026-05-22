@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nasoma/features/scan/data/models/scan_model.dart';
+import 'package:nasoma/features/scan/domain/models/scan_model.dart';
 import 'package:nasoma/features/scan/data/providers/scan_provider.dart';
 
 void main() {

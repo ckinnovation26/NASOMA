@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_theme.dart';
-import '../../scan/data/providers/scan_provider.dart';
-import '../../session/data/models/exercise_model.dart';
+import '../data/providers/scan_provider.dart';
+import '../../session/domain/models/exercise_model.dart';
 import '../../session/data/providers/session_provider.dart';
 
 class SessionScreen extends ConsumerStatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../models/scan_model.dart';
+import '../../domain/models/scan_model.dart';
 
 abstract class ScanRepository {
   Future<Map<String, dynamic>> uploadScan(ScanModel scan);

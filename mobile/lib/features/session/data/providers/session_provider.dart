@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/api/api_client.dart';
-import '../models/exercise_model.dart';
-import '../models/session_model.dart';
+import '../../domain/models/exercise_model.dart';
+import '../../domain/models/session_model.dart';
 import '../repositories/session_repository_impl.dart';
 
 enum SessionState { idle, loading, active, submitting, completed, error }

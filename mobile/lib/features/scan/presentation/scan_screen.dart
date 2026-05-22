@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../core/api/api_client.dart';
 import '../../../core/theme/app_theme.dart';
-import '../data/models/scan_model.dart';
+import '../domain/models/scan_model.dart';
 import '../data/providers/scan_provider.dart';
 import '../data/repositories/scan_repository_impl.dart';
 

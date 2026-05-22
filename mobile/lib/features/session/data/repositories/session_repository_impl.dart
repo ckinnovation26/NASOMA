@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import '../models/session_model.dart';
-import '../models/exercise_model.dart';
+import '../../domain/models/session_model.dart';
+import '../../domain/models/exercise_model.dart';
 
 abstract class SessionRepository {
   Future<SessionModel> createSession(String diagnosticId);
