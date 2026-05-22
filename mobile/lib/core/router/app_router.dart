@@ -1,8 +1,7 @@
-// go_router — configuration globale de navigation.
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/data/providers/auth_provider.dart';
 import '../../features/auth/presentation/otp_screen.dart';
 import '../../features/auth/presentation/phone_screen.dart';
 import '../../features/auth/presentation/signup_form_screen.dart';
@@ -17,10 +16,30 @@ import '../../features/scan/presentation/session_done_screen.dart';
 import '../../features/scan/presentation/session_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 
+// Routes qui nécessitent d'être authentifié
+const _protectedRoutes = {'/home', '/scan', '/scan/diagnostic', '/scan/result', '/scan/session', '/scan/done'};
+
 final appRouterProvider = Provider<GoRouter>((ref) {
-  return GoRouter(
+  final router = GoRouter(
     initialLocation: '/',
     debugLogDiagnostics: true,
+    redirect: (context, state) {
+      final authState = ref.read(authProvider);
+      final isAuthenticated = authState == AuthState.authenticated;
+      final path = state.uri.path;
+
+      final isProtected = _protectedRoutes.any((r) => path == r || path.startsWith('$r/'));
+
+      if (isProtected && !isAuthenticated) {
+        return '/phone';
+      }
+      // Éviter de renvoyer un utilisateur authentifié vers phone/otp
+      if (isAuthenticated && (path == '/phone' || path == '/otp')) {
+        return '/home';
+      }
+      return null;
+    },
+    refreshListenable: _AuthStateNotifier(ref),
     routes: [
       GoRoute(
         path: '/',
@@ -98,4 +117,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
+  return router;
 });
+
+/// Notifier qui écoute authProvider et notifie GoRouter de re-évaluer les redirects.
+class _AuthStateNotifier extends ChangeNotifier {
+  _AuthStateNotifier(Ref ref) {
+    ref.listen<AuthState>(authProvider, (_, __) => notifyListeners());
+  }
+}

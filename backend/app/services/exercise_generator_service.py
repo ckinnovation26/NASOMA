@@ -11,6 +11,8 @@ Garde-fous :
 
 from __future__ import annotations
 
+import asyncio
+import json
 import uuid
 from dataclasses import dataclass
 
@@ -129,15 +131,111 @@ class ExerciseGeneratorService:
         age: int,
         count: int,
     ) -> list[GeneratedExercise]:
-        """Appel Gemini Flash-8B (Sprint 2.5)."""
-        if settings.app_env == "dev" and not settings.gemini_api_key:
-            raise NotImplementedError("Gemini exercises à implémenter Sprint 2.5")
+        """Génère des exercices via Gemini Flash-8B avec responseSchema JSON."""
+        if not settings.gemini_api_key:
+            raise NotImplementedError("GEMINI_API_KEY non configurée")
 
-        # Implémentation réelle (Sprint 2.5)
-        # Use response_schema with array of exercise objects
-        # temperature=0.2, top_p=0.8
+        import google.generativeai as genai  # noqa: PLC0415
+        from google.generativeai.types import HarmBlockThreshold, HarmCategory  # noqa: PLC0415
 
-        raise NotImplementedError("Gemini exercises à implémenter Sprint 2.5")
+        genai.configure(api_key=settings.gemini_api_key)
+
+        model = genai.GenerativeModel(
+            model_name=settings.gemini_model_generate,
+            generation_config=genai.GenerationConfig(
+                temperature=settings.gemini_temperature_generate,
+                top_p=0.8,
+                response_mime_type="application/json",
+            ),
+            safety_settings={
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            },
+        )
+
+        prompt = self._build_prompt(concept_name, concept_code, grade_level, age, count)
+
+        response = await asyncio.to_thread(model.generate_content, prompt)
+
+        raw = response.text.strip()
+        # Retirer éventuels blocs markdown ```json ... ```
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+
+        data = json.loads(raw)
+        if isinstance(data, dict) and "exercises" in data:
+            data = data["exercises"]
+        if not isinstance(data, list):
+            raise ValueError(f"Réponse Gemini inattendue : {type(data)}")
+
+        exercises: list[GeneratedExercise] = []
+        for item in data[:count]:
+            ex_type_str = str(item.get("type", "mcq")).lower()
+            try:
+                ex_type = ExerciseType(ex_type_str)
+            except ValueError:
+                ex_type = ExerciseType.MCQ
+
+            exercises.append(
+                GeneratedExercise(
+                    type=ex_type,
+                    prompt=str(item.get("prompt", "")),
+                    options=item.get("options") if ex_type == ExerciseType.MCQ else None,
+                    correct_answer=str(item.get("correct_answer", "")),
+                    explanation_short=str(item.get("explanation_short", ""))[:120],
+                    tts_text=item.get("tts_text"),
+                    difficulty=min(max(int(item.get("difficulty", 2)), 1), 4),
+                )
+            )
+
+        logger.info(
+            "gemini.exercises_generated",
+            concept_code=concept_code,
+            requested=count,
+            received=len(exercises),
+            model=settings.gemini_model_generate,
+        )
+        return exercises
+
+    def _build_prompt(
+        self,
+        concept_name: str,
+        concept_code: str,
+        grade_level: str,
+        age: int,
+        count: int,
+    ) -> str:
+        return f"""Tu es un professeur comorien expert en pédagogie APC (Approche par Compétences).
+
+Génère exactement {count} micro-exercices de remédiation sur le concept : "{concept_name}" (code: {concept_code}).
+Niveau : {grade_level}, élève de {age} ans.
+
+RÈGLES ABSOLUES :
+1. Prénoms autorisés : Ali, Fatima, Said, Mariama, Omar, Nassima, Khalid, Aïcha
+2. Monnaie : KMF uniquement (jamais €, $, F CFA)
+3. Contexte : vie quotidienne comorienne (marché, pêche, école, famille, île)
+4. Phrases : ≤ 15 mots par phrase
+5. Vocabulaire : adapté à {age} ans, simple et direct
+6. Varier les types : priorité "mcq", puis "fill_blank", puis "short_text"
+7. Difficulté croissante : exercice 1 = facile, exercice {count} = difficile
+
+Retourne UNIQUEMENT un tableau JSON valide avec {count} objets :
+[
+  {{
+    "type": "mcq",
+    "prompt": "string — question ou consigne (≤ 15 mots)",
+    "options": ["A) ...", "B) ...", "C) ...", "D) ..."],
+    "correct_answer": "A) ...",
+    "explanation_short": "string (≤ 10 mots)",
+    "tts_text": "string — phrase complète pour lecture TTS",
+    "difficulty": 1
+  }}
+]
+Pour fill_blank et short_text, mets options à null."""
 
     # ──────────────────────────────────────────────
     #  Fallback "Always Give Value"

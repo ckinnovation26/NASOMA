@@ -4,16 +4,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/api/token_storage.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -22,7 +22,17 @@ void main() async {
     ),
   );
 
-  runApp(const ProviderScope(child: NasomaApp()));
+  final prefs = await SharedPreferences.getInstance();
+  final tokenStorage = TokenStorage(prefs);
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        tokenStorageProvider.overrideWithValue(tokenStorage),
+      ],
+      child: const NasomaApp(),
+    ),
+  );
 }
 
 class NasomaApp extends ConsumerWidget {

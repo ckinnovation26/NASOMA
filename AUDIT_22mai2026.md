@@ -10,10 +10,10 @@
 
 | Composant | Avancement | Statut |
 |---|---|---|
-| Backend (FastAPI) | ~85 % | Workers + auth OTP complets — Gemini exercises + Hollo Money restants |
-| Mobile (Flutter) | ~90 % | Scan réel ML Kit complet — auth flow + session screen UI manquants |
+| Mobile (Flutter) | ~98 % | Flow complet auth + scan + session — APK build + test device restant |
 | Infrastructure (Terraform) | ~95 % | Tous modules complets (Cloud Tasks + Firebase Auth) — tfstate prod manquant |
 | Tests | ~15 % | Providers testés, tests widgets et backend en backlog |
+| Backend (FastAPI) | ~98 % | Gemini exercises + Hollo Money — tests intégration restants |
 | Curriculum pédagogique | ~20 % | 2 fichiers JSON seulement |
 
 ---
@@ -54,8 +54,8 @@
 | ~~B10~~ | ~~Fusionner `communication_service.py` + `communications_service.py`~~ | ~~Répétitive~~ | ✅ **Deux services distincts** — `communication_service` = routing OTP/canal, `communications_service` = SAV/marketing | — |
 | ~~B11~~ | ~~`app/workers/ocr_worker.py` — handler Cloud Tasks complet (retry, dead-letter, logging)~~ | ~~Complexe~~ | ✅ **Fait le 22 mai 2026** | ~$2 |
 | ~~B12~~ | ~~`app/api/v1/auth.py` — vérifier/compléter les 4 endpoints OTP + intégration Africa's Talking~~ | ~~Complexe~~ | ✅ **Fait le 22 mai 2026** | ~$1.50 |
-| B13 | `exercise_generator_service.py` — intégration Gemini Flash pour génération exercices | **Complexe** | 🔴 Bloquant | ~$1.50 |
-| B14 | `payments/hollo.py` — implémenter API Hollo Money Comores + webhook confirmation | **Complexe** | 🟠 Critique | ~$1 |
+| ~~B13~~ | ~~`exercise_generator_service.py` — intégration Gemini Flash pour génération exercices~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$1.50 |
+| ~~B14~~ | ~~`payments/hollo.py` — implémenter API Hollo Money Comores + webhook confirmation~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$1 |
 
 ---
 
@@ -85,8 +85,8 @@
 | ~~M7~~ | ~~`session_repository_impl.dart` — appels `/api/v1/sessions`~~ | ~~Répétitive~~ | ✅ **Fait le 22 mai 2026** | ~$0.02 |
 | ~~M8~~ | ~~Compléter les fichiers i18n (toutes les clés)~~ | ~~Répétitive~~ | ✅ **Fait le 22 mai 2026** | ~$0.02 |
 | ~~M9~~ | ~~`scan_screen.dart` réel — ML Kit + caméra + upload + polling REST + états UI~~ | ~~Complexe~~ | ✅ **Fait le 22 mai 2026** | ~$2 |
-| M10 | Flow auth complet — `phone_screen` → `otp_screen` câblé Riverpod + JWT secure storage + guard router | **Complexe** | 🔴 Bloquant | ~$1.50 |
-| M11 | `session_screen.dart` — UI exercices interactifs (QCM, saisie, vrai/faux) + progression BKT | **Complexe** | 🔴 Bloquant | ~$2 |
+| ~~M10~~ | ~~Flow auth complet — `phone_screen` → `otp_screen` câblé Riverpod + JWT secure storage + guard router~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$1.50 |
+| ~~M11~~ | ~~`session_screen.dart` — UI exercices interactifs (QCM, saisie, vrai/faux) + progression BKT~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$2 |
 | M12 | Build APK Android de debug + vérification device réel | **Complexe** | 🔴 Bloquant | ~$0.50 |
 | ~~M13~~ | ~~Tests widgets (auth flow + scan flow)~~ | ~~Répétitive~~ | ✅ **Fait le 22 mai 2026** | ~$0.05 |
 
@@ -230,6 +230,10 @@ P1, P2 → Curriculum + import SQL
 | 22 mai 2026 | B12 — auth.py : SmsService (Africa's Talking), deps.py (JWT Bearer), endpoints /me/* sécurisés | — | Claude Code (Sonnet 4.6) |
 | 22 mai 2026 | B11 — ocr_worker.py : handler Cloud Tasks complet (retry 503, dead-letter 400, Firestore publish) | — | Claude Code (Sonnet 4.6) |
 | 22 mai 2026 | M9 — scan_screen.dart : ML Kit OCR + image_picker + compression + upload + polling REST (états UI) | — | Claude Code (Sonnet 4.6) |
+| 23 mai 2026 | M10 — auth flow complet : PhoneScreen, OtpScreen câblés Riverpod, TokenStorage JWT, guard GoRouter | — | Claude Code (Sonnet 4.6) |
+| 23 mai 2026 | B13 — _call_gemini() implémenté : response_schema JSON, garde-fous culturels comoriens, safety settings | — | Claude Code (Sonnet 4.6) |
+| 23 mai 2026 | B14 — hollo.py : STK push httpx, HMAC webhook, sandbox/prod bascule automatique | — | Claude Code (Sonnet 4.6) |
+| 23 mai 2026 | M11 — session_screen.dart : MCQ + fill_blank + short_text, Riverpod câblé, BKT via submitAnswer | — | Claude Code (Sonnet 4.6) |
 
 ---
 
