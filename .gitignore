@@ -6,7 +6,8 @@
 .env.*.local
 *.pem
 *.key
-backend/secrets/
+backend/secrets/*
+!backend/secrets/.gitkeep
 service-account*.json
 firebase-adminsdk*.json
 gcloud-key*.json
