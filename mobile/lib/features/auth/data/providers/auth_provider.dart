@@ -62,7 +62,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> verifyOtp(String otp) async {
+  Future<void> verifyOtp(String otp, {String? phone}) async {
+    if (phone != null) _phoneNumber = phone;
     if (_phoneNumber == null) {
       _errorMessage = 'Numéro de téléphone manquant.';
       state = AuthState.error;

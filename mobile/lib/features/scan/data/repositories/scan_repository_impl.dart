@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+
+import '../../../../core/env/env.dart';
 import '../../domain/models/scan_model.dart';
 
 abstract class ScanRepository {
@@ -14,6 +16,14 @@ class ScanRepositoryImpl implements ScanRepository {
 
   @override
   Future<Map<String, dynamic>> uploadScan(ScanModel scan) async {
+    if (Env.useMockApi) {
+      await Future<void>.delayed(const Duration(milliseconds: 800));
+      return {
+        'scan_id': 'mock-scan-${DateTime.now().millisecondsSinceEpoch}',
+        'session_id': scan.sessionId,
+        'status': 'processing',
+      };
+    }
     try {
       final response = await _dio.post(
         '$_baseUrl/upload',
@@ -30,6 +40,19 @@ class ScanRepositoryImpl implements ScanRepository {
 
   @override
   Future<Map<String, dynamic>> pollScanResult(String scanId) async {
+    if (Env.useMockApi) {
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      return {
+        'scan_id': scanId,
+        'status': 'done',
+        'detection_type': 'success',
+        'diagnostic_id': 'mock-diagnostic-001',
+        'session_id': 'mock-session-001',
+        'ocr_confidence': 0.92,
+        'quota_remaining_after': 2,
+        'summary_text': 'Difficulté détectée : addition avec retenue.',
+      };
+    }
     try {
       final response = await _dio.get('$_baseUrl/$scanId/result');
       return response.data as Map<String, dynamic>;

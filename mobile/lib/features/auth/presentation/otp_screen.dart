@@ -31,7 +31,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
 
   Future<void> _submit() async {
     if (_code.length < 6) return;
-    await ref.read(authProvider.notifier).verifyOtp(_code);
+    await ref.read(authProvider.notifier).verifyOtp(_code, phone: widget.phone);
   }
 
   @override

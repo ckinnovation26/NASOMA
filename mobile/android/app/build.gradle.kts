@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.ckinnovation.nasoma"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "com.ckinnovation.nasoma"
         // ML Kit Text Recognition requiert minSdk 21
-        minSdk = 21
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
