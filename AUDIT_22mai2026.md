@@ -10,10 +10,10 @@
 
 | Composant | Avancement | Statut |
 |---|---|---|
-| Mobile (Flutter) | ~98 % | Flow complet auth + scan + session — APK build + test device restant |
+| Mobile (Flutter) | ~98 % | APK build sur PC restant + 2 petits détails UI (WhatsApp launcher, splash redirect) |
 | Infrastructure (Terraform) | ~95 % | Tous modules complets (Cloud Tasks + Firebase Auth) — tfstate prod manquant |
 | Tests | ~15 % | Providers testés, tests widgets et backend en backlog |
-| Backend (FastAPI) | ~98 % | Gemini exercises + Hollo Money — tests intégration restants |
+| Backend (FastAPI) | ~90 % | OCR Cloud Vision + Gemini Vision + Cloud Storage upload non implémentés (stubs) |
 | Curriculum pédagogique | ~20 % | 2 fichiers JSON seulement |
 
 ---
@@ -56,6 +56,10 @@
 | ~~B12~~ | ~~`app/api/v1/auth.py` — vérifier/compléter les 4 endpoints OTP + intégration Africa's Talking~~ | ~~Complexe~~ | ✅ **Fait le 22 mai 2026** | ~$1.50 |
 | ~~B13~~ | ~~`exercise_generator_service.py` — intégration Gemini Flash pour génération exercices~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$1.50 |
 | ~~B14~~ | ~~`payments/hollo.py` — implémenter API Hollo Money Comores + webhook confirmation~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$1 |
+| B15 | `ocr_service.py` — `_call_cloud_vision()` réelle avec `google-cloud-vision` SDK | **Complexe** | 🔴 Bloquant prod | ~$1 |
+| B16 | `ocr_service.py` — `_call_gemini_vision()` réelle avec `google-generativeai` SDK | **Complexe** | 🔴 Bloquant prod | ~$1 |
+| B17 | `scans.py` l.81 — upload réel image dans Google Cloud Storage (actuellement commenté) | **Complexe** | 🔴 Bloquant prod | ~$0.50 |
+| B18 | `billing.py` l.118 — extraire `student_id` depuis JWT au lieu du paramètre URL | Répétitive | 🟠 Sécurité | ~$0.20 |
 
 ---
 
@@ -87,8 +91,11 @@
 | ~~M9~~ | ~~`scan_screen.dart` réel — ML Kit + caméra + upload + polling REST + états UI~~ | ~~Complexe~~ | ✅ **Fait le 22 mai 2026** | ~$2 |
 | ~~M10~~ | ~~Flow auth complet — `phone_screen` → `otp_screen` câblé Riverpod + JWT secure storage + guard router~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$1.50 |
 | ~~M11~~ | ~~`session_screen.dart` — UI exercices interactifs (QCM, saisie, vrai/faux) + progression BKT~~ | ~~Complexe~~ | ✅ **Fait le 23 mai 2026** | ~$2 |
-| M12 | Build APK Android de debug + vérification device réel | **Complexe** | 🔴 Bloquant | ~$0.50 |
+| M12 | Build APK Android de debug + vérification device réel | **Complexe** | 🔴 Bloquant (sur PC Kader) | ~$0.50 |
 | ~~M13~~ | ~~Tests widgets (auth flow + scan flow)~~ | ~~Répétitive~~ | ✅ **Fait le 22 mai 2026** | ~$0.05 |
+| ~~M-refactor~~ | ~~Supprimer `json_serializable` — `fromJson`/`toJson` écrits directement dans les 4 modèles~~ | ~~Répétitive~~ | ✅ **Fait le 26 mai 2026** | — |
+| M14 | `whatsapp_guidance_screen.dart` — ajouter `url_launcher` pour ouvrir WhatsApp réellement | Répétitive | 🟡 Mineur | ~$0.10 |
+| M15 | `splash_screen.dart` — vérifier token JWT existant au démarrage et rediriger vers `/home` si connecté | Répétitive | 🟠 UX | ~$0.10 |
 
 ---
 
@@ -200,14 +207,20 @@ P1, P2 → Curriculum + import SQL
 
 | Catégorie | Nb tâches | Modèle | Coût estimé |
 |---|---|---|---|
-| Répétitives backend | 10 | Haiku 4.5 | ~$0.12 |
-| Répétitives mobile | 8 | Haiku 4.5 | ~$0.18 |
-| Répétitives infra + curriculum + docs | 9 | Haiku 4.5 | ~$0.10 |
-| Pipeline OCR bout-en-bout | 2 | Sonnet 4.6 | ~$4 |
-| Auth OTP complet | 2 | Sonnet 4.6 | ~$3 |
-| Session exercices | 2 | Sonnet 4.6 | ~$3.50 |
-| Paiement MoMo + APK | 2 | Sonnet 4.6 | ~$1.50 |
-| **TOTAL** | **35 tâches** | | **~$12–15** |
+| Répétitives backend | 10 | Haiku 4.5 | ~$0.12 ✅ |
+| Répétitives mobile | 8 | Haiku 4.5 | ~$0.18 ✅ |
+| Répétitives infra + curriculum + docs | 9 | Haiku 4.5 | ~$0.10 ✅ |
+| Pipeline OCR bout-en-bout | 2 | Sonnet 4.6 | ~$4 ✅ |
+| Auth OTP complet | 2 | Sonnet 4.6 | ~$3 ✅ |
+| Session exercices | 2 | Sonnet 4.6 | ~$3.50 ✅ |
+| Paiement MoMo + APK | 2 | Sonnet 4.6 | ~$1.50 ✅ |
+| **OCR réel Cloud Vision + Gemini** (B15+B16) | 2 | Sonnet 4.6 | ~$2 🔴 |
+| **Cloud Storage upload réel** (B17) | 1 | Sonnet 4.6 | ~$0.50 🔴 |
+| **Sécurité billing JWT** (B18) | 1 | Sonnet 4.6 | ~$0.20 🟠 |
+| **Détails mobile** (M14+M15) | 2 | Sonnet 4.6 | ~$0.20 🟡 |
+| **TOTAL initial** | **35 tâches** | | **~$12–15** |
+| **TOTAL ajouts Sprint 2** | **6 tâches** | | **~$3** |
+| **TOTAL cumulé** | **41 tâches** | | **~$15–18** |
 
 ---
 
@@ -234,6 +247,8 @@ P1, P2 → Curriculum + import SQL
 | 23 mai 2026 | B13 — _call_gemini() implémenté : response_schema JSON, garde-fous culturels comoriens, safety settings | — | Claude Code (Sonnet 4.6) |
 | 23 mai 2026 | B14 — hollo.py : STK push httpx, HMAC webhook, sandbox/prod bascule automatique | — | Claude Code (Sonnet 4.6) |
 | 23 mai 2026 | M11 — session_screen.dart : MCQ + fill_blank + short_text, Riverpod câblé, BKT via submitAnswer | — | Claude Code (Sonnet 4.6) |
+| 26 mai 2026 | M-refactor — json_serializable supprimé, fromJson/toJson inline dans 4 modèles, build_runner retiré du pubspec | — | Claude Code (Sonnet 4.6) |
+| 26 mai 2026 | Audit mis à jour : 6 nouvelles tâches identifiées (B15-B18, M14-M15) — OCR réel, Cloud Storage, sécurité billing, détails mobile | B15, B16, B17, B18, M14, M15 ajoutés | Claude Code (Sonnet 4.6) |
 
 ---
 
