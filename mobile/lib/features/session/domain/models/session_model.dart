@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'session_model.g.dart';
-
-@JsonSerializable()
 class SessionModel {
   final String id;
   final String userId;
@@ -30,10 +25,37 @@ class SessionModel {
     this.score,
   });
 
-  factory SessionModel.fromJson(Map<String, dynamic> json) =>
-      _$SessionModelFromJson(json);
+  factory SessionModel.fromJson(Map<String, dynamic> json) => SessionModel(
+        id: json['id'] as String,
+        userId: json['userId'] as String,
+        studentId: json['studentId'] as String,
+        diagnosticId: json['diagnosticId'] as String,
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        startedAt: json['startedAt'] == null
+            ? null
+            : DateTime.parse(json['startedAt'] as String),
+        completedAt: json['completedAt'] == null
+            ? null
+            : DateTime.parse(json['completedAt'] as String),
+        status: json['status'] as String,
+        exercisesCount: (json['exercisesCount'] as num).toInt(),
+        exercisesCompleted: (json['exercisesCompleted'] as num).toInt(),
+        score: (json['score'] as num?)?.toDouble(),
+      );
 
-  Map<String, dynamic> toJson() => _$SessionModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'userId': userId,
+        'studentId': studentId,
+        'diagnosticId': diagnosticId,
+        'createdAt': createdAt.toIso8601String(),
+        'startedAt': startedAt?.toIso8601String(),
+        'completedAt': completedAt?.toIso8601String(),
+        'status': status,
+        'exercisesCount': exercisesCount,
+        'exercisesCompleted': exercisesCompleted,
+        'score': score,
+      };
 
   SessionModel copyWith({
     String? id,

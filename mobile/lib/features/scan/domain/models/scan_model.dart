@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'scan_model.g.dart';
-
-@JsonSerializable()
 class ScanModel {
   final String id;
   final String sessionId;
@@ -24,10 +19,27 @@ class ScanModel {
     this.errorMessage,
   });
 
-  factory ScanModel.fromJson(Map<String, dynamic> json) =>
-      _$ScanModelFromJson(json);
+  factory ScanModel.fromJson(Map<String, dynamic> json) => ScanModel(
+        id: json['id'] as String,
+        sessionId: json['sessionId'] as String,
+        base64Image: json['base64Image'] as String,
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        extractedText: json['extractedText'] as String?,
+        ocrConfidence: json['ocrConfidence'] as String?,
+        uploadStatus: json['uploadStatus'] as String?,
+        errorMessage: json['errorMessage'] as String?,
+      );
 
-  Map<String, dynamic> toJson() => _$ScanModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'sessionId': sessionId,
+        'base64Image': base64Image,
+        'createdAt': createdAt.toIso8601String(),
+        'extractedText': extractedText,
+        'ocrConfidence': ocrConfidence,
+        'uploadStatus': uploadStatus,
+        'errorMessage': errorMessage,
+      };
 
   ScanModel copyWith({
     String? id,

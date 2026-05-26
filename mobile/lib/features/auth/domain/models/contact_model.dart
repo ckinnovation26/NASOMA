@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'contact_model.g.dart';
-
-@JsonSerializable()
 class ContactModel {
   final String id;
   final String? firstName;
@@ -32,10 +27,37 @@ class ContactModel {
     this.rawText,
   });
 
-  factory ContactModel.fromJson(Map<String, dynamic> json) =>
-      _$ContactModelFromJson(json);
+  factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
+        id: json['id'] as String,
+        firstName: json['firstName'] as String?,
+        lastName: json['lastName'] as String?,
+        email: json['email'] as String?,
+        phoneNumber: json['phoneNumber'] as String?,
+        schoolOrCompany: json['schoolOrCompany'] as String?,
+        role: json['role'] as String?,
+        locale: json['locale'] as String?,
+        notes: json['notes'] as String?,
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        updatedAt: json['updatedAt'] == null
+            ? null
+            : DateTime.parse(json['updatedAt'] as String),
+        rawText: json['rawText'] as String?,
+      );
 
-  Map<String, dynamic> toJson() => _$ContactModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'schoolOrCompany': schoolOrCompany,
+        'role': role,
+        'locale': locale,
+        'notes': notes,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt?.toIso8601String(),
+        'rawText': rawText,
+      };
 
   String? get fullName {
     if (firstName != null && lastName != null) {

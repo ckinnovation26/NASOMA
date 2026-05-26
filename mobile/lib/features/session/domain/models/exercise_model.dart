@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'exercise_model.g.dart';
-
-@JsonSerializable()
 class ExerciseModel {
   final String id;
   final String sessionId;
@@ -32,10 +27,39 @@ class ExerciseModel {
     this.submittedAt,
   });
 
-  factory ExerciseModel.fromJson(Map<String, dynamic> json) =>
-      _$ExerciseModelFromJson(json);
+  factory ExerciseModel.fromJson(Map<String, dynamic> json) => ExerciseModel(
+        id: json['id'] as String,
+        sessionId: json['sessionId'] as String,
+        conceptCode: json['conceptCode'] as String,
+        type: json['type'] as String,
+        question: json['question'] as String,
+        options: (json['options'] as List<dynamic>?)
+            ?.map((e) => e as String)
+            .toList(),
+        correctAnswer: json['correctAnswer'] as String,
+        userAnswer: json['userAnswer'] as String?,
+        isCorrect: json['isCorrect'] as bool?,
+        timeSpentSeconds: (json['timeSpentSeconds'] as num?)?.toInt(),
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        submittedAt: json['submittedAt'] == null
+            ? null
+            : DateTime.parse(json['submittedAt'] as String),
+      );
 
-  Map<String, dynamic> toJson() => _$ExerciseModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'sessionId': sessionId,
+        'conceptCode': conceptCode,
+        'type': type,
+        'question': question,
+        'options': options,
+        'correctAnswer': correctAnswer,
+        'userAnswer': userAnswer,
+        'isCorrect': isCorrect,
+        'timeSpentSeconds': timeSpentSeconds,
+        'createdAt': createdAt.toIso8601String(),
+        'submittedAt': submittedAt?.toIso8601String(),
+      };
 
   ExerciseModel copyWith({
     String? id,
