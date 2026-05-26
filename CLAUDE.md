@@ -266,7 +266,7 @@ Une tâche est **Done** UNIQUEMENT si TOUTES ces cases sont cochées :
 - [ ] TypeScript / mypy / ruff passent sans erreur
 - [ ] `flutter analyze` passe sans warning
 - [ ] Si feature backend → au moins 1 test unitaire ajouté
-- [ ] `AUDIT_22mai2026.md` mis à jour (tâche cochée ✅, changelog mis à jour)
+- [ ] `historiqueNasoma.md` mis à jour (tâche cochée ✅, changelog mis à jour)
 
 ---
 
@@ -289,7 +289,7 @@ Une tâche est **Done** UNIQUEMENT si TOUTES ces cases sont cochées :
 
 ### À chaque session
 1. Lire ce CLAUDE.md en entier
-2. Lire `AUDIT_22mai2026.md` pour connaître l'état exact des tâches
+2. Lire `historiqueNasoma.md` pour connaître l'état exact des tâches
 3. Vérifier que la tâche demandée entre dans le scope V1.0 (section 4)
 4. Si hors scope → NE PAS implémenter, signaler à Kader et ajouter au backlog
 
@@ -299,7 +299,7 @@ Une tâche est **Done** UNIQUEMENT si TOUTES ces cases sont cochées :
 3. Vérifier les design tokens (section 5) pour tout composant Flutter
 
 ### Après chaque tâche complétée
-1. Mettre à jour `AUDIT_22mai2026.md` : cocher la tâche ✅, ajouter une ligne dans le changelog
+1. Mettre à jour `historiqueNasoma.md` : cocher la tâche ✅, ajouter une ligne dans le changelog
 2. Vérifier chaque case de la définition du Done (section 7)
 3. Signaler explicitement à Kader ce qui n'a pas pu être coché
 
@@ -317,7 +317,7 @@ Une tâche est **Done** UNIQUEMENT si TOUTES ces cases sont cochées :
 - **Firebase Console** : console.firebase.google.com (projet `nasoma-dev` / `nasoma-prod`)
 - **Google Play Console** : play.google.com/console (compte 3333636km@gmail.com)
 - **Africa's Talking** : africastalking.com/dashboard
-- **Audit vivant** : `AUDIT_22mai2026.md` (ce dossier)
+- **Audit vivant** : `historiqueNasoma.md` (ce dossier)
 - **Business Plan complet** : `NASOMA_Business_Plan_et_Cahiers_des_Charges.md`
 
 ---
